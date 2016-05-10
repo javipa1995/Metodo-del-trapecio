@@ -202,6 +202,110 @@
 %-----------------------------------------------------------------------------------------------------
 
 \section{Motivación: resolución de ecuaciones diferenciales ordinarias}
+\begin{definition} Dada una función $f:\Omega \subseteq \mathbb R^2  \to \mathbb{R}$ un problema de valores iniciales de primer orden consiste en encontrar aquellas funciones $y$ tal que $y'(t) = f(t,y(t))$ y se verifique la condición inicial $y(a) = y_0$.  
+\end{definition}
+
+	Uno de los objetivos de la teoría del Análisis numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada computacionalmente problemas de valores iniciales. De forma simplificada estos problemas pueden expresarse así:
+
+\begin{center}
+$\begin{cases}
+y'(t) = f(t,y(t)) \\
+y(a) = y_0 \\
+t \in [a,b] \\
+\end{cases}$
+\end{center}
+
+La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=4cm]{./Images/interpret-pvi.png}
+\caption{Representación del campo vectorial asociado a la ecuación logística.} 
+\label{fig:interpret-pvi}
+\end{figure}
+
+De este modo nace el método de Euler cuya expresión resumida es la siguiente:
+
+\begin{center}
+$\begin{cases}
+w_0=y_0 \\
+w_{i+1} = w_i + h f(t_i,w_i)
+\end{cases}$
+\end{center}
+
+Veremos a continuación un ejemplo de por qué no es suficiente con el método de Euler. Previamente, necesitamos conocer algunos resultados básicos sobre la existencia, unicidad y condicionamiento de las soluciones:
+
+\begin{theorem}
+\begin{itemize}
+\item Si f es Lipschitz en $[a,b]\times[\alpha,\beta]$ y $\alpha < y_a < \beta$ entonces existe $c \in [a,b]$ tal que el problema de valores iniciales:
+\begin{center}
+$\begin{cases}
+y'(t) = f(t,y(t)) \\
+y(a) = y_0 \\
+t \in [a,c] \\
+\end{cases}$
+\end{center}
+tiene exactamente una solución. 
+\item Si f es Lipschitz en $[a,b]\times]-\infty,\infty[$ entonces existe exactamente una solución en $[a,b]$
+\item (Condicionamiento) Si f es Lipschitz en $[a,b]\times[\alpha,\beta]$ e Y(t), Z(t) son soluciones en $[a,b]\times[\alpha,\beta]$ del problema de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $Y(a)$ y $Z(a)$ entonces $|Y(t)-Z(t)| \leq e^{L(t-a)}|Y(a)-Z(a)|$ donde L es la constante de Lipschitz de f.
+\end{itemize}
+\end{theorem}
+
+Necesitamos también medir de algún modo cómo de bueno es el procedimiento utilizado para aproximar la solución del problema para ello se introduce la siguiente:
+
+\begin{definition} Sean $w_i$ los valores estimados en los puntos $t_i$ por cierto método de aproximación de las soluciones del problema de valores iniciales:
+\begin{center}
+$\begin{cases}
+y'(t) = f(t,y(t)) \\
+y(a) = y_a \\
+t \in [a,b] \\
+\end{cases}$
+\end{center}
+e $y_i$ los valores exactos de la solución en los puntos $t_i$. Sea también $z(t_i)$ el valor de la solución exacta al problema de valores iniciales:
+\begin{center}
+$\begin{cases}
+y'(t) = f(t,y(t)) \\
+y(t_i) = w_i \\
+t \in [t_i,t_{i+1}] \\
+\end{cases}$
+\end{center}
+Definimos:
+\begin{itemize}
+\item Error global de truncatura o error acumulado en el nodo i-ésimo: $g_i=|w_i-y_i|$
+\item Error local de truncatura o error en un paso: $e_{i+1} = |w_i-z(t_{i+1})|$
+\end{itemize} 
+\end{definition}
+
+El error global cometido en cualquier paso puede verse entonces como la suma del error local y el error global acumulado o amplificado. Para el método de Euler los errores global y local pueden visualizarse fácilmente:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{./Images/error-euler.png}
+\caption{Error local y global cometido por el método de Euler} 
+\label{fig:error-euler}
+\end{figure}
+
+La relación entre errores locales y errores globales viene dada por el siguiente:
+
+\begin{theorem}
+Si f es Lipschitz con constante L, $y_i$ son los valores de la solución a un problema de valores iniciales en puntos $t_i$ en $[a,b]$ y son aproximados por valores $w_i$ mediante cierto método de aproximación con errores locales $e_i \leq c h^{k+1}$ entonces $g_i \le \frac{c h^k}{L} (e^{L(t_i-a)}-1)$ (1).
+\end{theorem}
+
+\begin{definition} Si un método verifica (1) cuando $h \to 0$ entonces se dice que tiene orden k.
+\end{definition}
+
+Veamos ya por qué se requieren métodos más precisos para conseguir una precisión razonable mediante una cantidad razonable de cómputos.
+
+\begin{example} Sea el problema de valores iniciales
+\begin{center}
+$\begin{cases}
+y'(t) = -4 t^3 y^2 \\
+y(-10) = 1/10001 \\
+t \in [-10,0] \\
+\end{cases}$
+\end{center}
+se verifica que la solución exacta es $y(t)=\frac{1}{1+t^4}$ y tomando distintos valores de $h$ en el método de Euler se ve que la aproximación del valor de $y(0)=1$ deja mucho que desear siendo el resultado muy impreciso incluso con un millón de pasos. 
+\end{example}
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 2: MÉTODO DEL TRAPECIO
