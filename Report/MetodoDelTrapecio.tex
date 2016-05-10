@@ -16,7 +16,6 @@
 
 \documentclass{article}
 
-\usepackage{lipsum}                     % Texto dummy. Quitar en el documento final.
 
 %-----------------------------------------------------------------------------------------------------
 %	SELECCIÓN DEL LENGUAJE
@@ -199,35 +198,36 @@
 \newpage
 
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN 1
+%	SECCIÓN 1: MOTIVACIÓN
 %-----------------------------------------------------------------------------------------------------
 
-\section{Primera Sección}
-
-	Bienvenido a mi plantilla de \LaTeX. Esta es la versión básica que dispone de la siguiente capacidad de configuración:
-	
-	\begin{itemize}
-		\item En la sección TÍTULO, AUTOR Y OTROS DATOS DEL DOCUMENTO puedes introducir estos datos de manera sencilla para que se utilicen en a lo largo del documento.
-		\item En la sección ÍNDICE puedes seleccionar su profundidad.
-		\item Puedes elegir diversos formatos para la portada. Estos se encuentran implementados en los archivos \texttt{title*.sty} que se encuentran junto a esta plantilla en el repositorio. No olvides situar el archivo que desees utilizar junto con el \texttt{.tex} del documento. Por último, selecciónalo mediante \texttt{usepackage} dentro de la sección PORTADA.
-		\item En la sección RESUMEN puedes escribir un resumen del documento. En tal caso, este aparecerá en la portada. Si dejas vacío el resumen, entonces la portada cambiará levemente y no lo incluirá.
-	\end{itemize}
-
-	He intentado mantener esta plantilla lo más sencilla posible para facilitar su uso. Si necesitas mayor funcionalidad puedes encontrarla en el repositorio de GitHub (https://github.com/andreshp/LatexTemplates). 
+\section{Motivación: resolución de ecuaciones diferenciales ordinarias}
 
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN 2
+%	SECCIÓN 2: MÉTODO DEL TRAPECIO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Segunda Sección}
+\section{Método del trapecio}
 
-	\subsection{Primera subsección}
+Considérese una ecuación diferencial $y'(t) = f(t,y(t))$ sobre $[x_n,x_{n+1}]$. Utilizando la Proposición X, las soluciones de esta ecuación son exactamente las soluciones de la siguiente ecuación:
 
-		\lipsum[1]
+$$ y(t)  = y(x_n) + \int_{x_n}^{t} f(s,y(s))) \ ds $$
 
-	\subsection{Segunda subsección}
+En particular, se obtiene la siguiente expresión:
 
-		\lipsum[2]
+$$ y(x_{n+1})  = y(x_n) + \int_{x_n}^{x_{n+1}} f(s,y(s))) \ ds $$
+
+En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Si se utiliza el método del trapecio se obtiene la siguiente aproximación de $y(x_{n+1})$ a partir de $y(x_n)$:
+
+$$ y(x_{n+1}) \approx y(x_n) + \frac{h}{2} \left[(x_n,y(x_n)) + f(x_{n+1}, y(x_{n+1}))\right] $$
+
+
+%-----------------------------------------------------------------------------------------------------
+%	SECCIÓN X: CONCLUSIÓN
+%-----------------------------------------------------------------------------------------------------
+
+\section{Conclusión}
+
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: REFERENCIAS
