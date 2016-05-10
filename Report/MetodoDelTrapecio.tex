@@ -65,7 +65,7 @@
 % Texto de la cabecera:
 \lhead{\subject}                          % Parte izquierda.
 \chead{}                                    % Centro.
-\rhead{\doctitle}              % Parte derecha.
+\rhead{\doctitle \ - \docsubtitle}              % Parte derecha.
 
 % Pie de página del documento. Se ajusta la línea del pie de página.
 \renewcommand\footrule{                                 
@@ -161,9 +161,9 @@
 %-----------------------------------------------------------------------------------------------------
 
 % Título del documento.
-\newcommand{\doctitle}{Método del trapecio}
+\newcommand{\doctitle}{Ecuaciones diferenciales ordinarias}
 % Subtítulo.
-\newcommand{\docsubtitle}{}
+\newcommand{\docsubtitle}{Método del trapecio}
 % Fecha.
 \newcommand{\docdate}{1 \ de \ Enero \ de \ 2015}
 % Asignatura.
@@ -207,20 +207,79 @@
 %	SECCIÓN 2: MÉTODO DEL TRAPECIO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Método del trapecio}
+\section{Descripción del método del trapecio}
 
-Considérese una ecuación diferencial $y'(t) = f(t,y(t))$ sobre $[x_n,x_{n+1}]$. Utilizando la Proposición X, las soluciones de esta ecuación son exactamente las soluciones de la siguiente ecuación:
+	Considérese el problema de valores iniciales dado por la ecuación diferencial $y'(t) = f(t,y(t))$ sobre $[a,b]$ y la condición $y(a) = y_0$. Supóngase que se ha averiguado que el problema admite solución única. Se pretende obtener un método numérico para aproximar la imagen de $y$ en los puntos $t1, t2, \ldots, t_m \in [a,b]$. Si $t_0 = a$, utilizando la Proposición X, la solución de este PVI es la única solución de la siguiente ecuación
+	
+	\begin{equation}
+		y(t)  = y(t_0) + \int_{t_0}^{t} f(s,y(s))) \ ds
+	\end{equation}
+	
+	En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Para ello supóngase que $f$ es diferenciable. En tal caso una obvia inducción concluye que $y$ es de clase infinito. Por tanto, se puede utilizar la fórmula del trapecio para integración numérica, obteniendo la siguiente igualdad
+	
+	\begin{equation}
+		y(t_{n+1}) = y(t_n) + \frac{h}{2} \left[f(t_n,y(t_n)) + f(t_{n+1}, y(t_{n+1}))\right] - \frac{h^3}{12}y^{3)}(\xi_n)
+	\end{equation}
 
-$$ y(t)  = y(x_n) + \int_{x_n}^{t} f(s,y(s))) \ ds $$
 
-En particular, se obtiene la siguiente expresión:
+	donde $h = t_{n+1}-t_n$. Esto proporciona la siguiente aproximación, que tiene error $- \frac{h^3}{12}y^{3)}(\xi_n)$,
 
-$$ y(x_{n+1})  = y(x_n) + \int_{x_n}^{x_{n+1}} f(s,y(s))) \ ds $$
+	\begin{equation} \label{eq:app}
+		y(t_{n+1}) \approx y(t_n) + \frac{h}{2} \left[f(t_n,y(t_n)) + f(t_{n+1}, y(t_{n+1}))\right]
+	\end{equation}
 
-En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Si se utiliza el método del trapecio se obtiene la siguiente aproximación de $y(x_{n+1})$ a partir de $y(x_n)$:
+	El problema reside en que para aproximar el valor de $y$ en $t_{n+1}$ se debe conocer previamente dicho valor. En este contexto se plantean dos soluciones diferentes obteniendo dos métodos, denominados método del trapecio explícito e implícito respectivamente. Para facilitar la redacción de estos métodos se denotará $w_n$ a la aproximación obtenida para $y(t_n)$.
+	
+	\subsection{Método del trapecio explícito}
+		
+		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias. Este método consiste en aproximar $y(t_{n+1})$ a partir de $y(t_n)$ de la siguiente forma
+		
+		\begin{equation}
+			y(t_{n+1}) \approx w_{n+1} = w_n + h f(t_n,w_n))
+		\end{equation}
 
-$$ y(x_{n+1}) \approx y(x_n) + \frac{h}{2} \left[(x_n,y(x_n)) + f(x_{n+1}, y(x_{n+1}))\right] $$
+		Esto es, se predice $y(t_{n+1})$ como el valor que toma en $t_{n+1}$ la recta tangente a $y$ en $t_n$. Este es un método sencillo con error.....
 
+		Se puede combinar el método de Euler con (\ref{eq:app}) para obtener la siguiente aproximación
+
+		\begin{equation} \label{eq:app-exp}
+			y(t_{n+1}) \approx w_{n+1} = w_n + \frac{h}{2} \left[f(t_n,w_n) + f(t_{n+1}, w_n + h f(t_n,w_n))\right]
+		\end{equation}
+
+		Si 
+		
+		obteniendo el denominado método del trapecio explícito. 
+  
+  Esto es, si se conoce un valor de alguna solución al problema, la expresión previa proporciona un mecanismo para aproximar 
+
+	En particular, se puede tomar $t_{n+1} > t_n$ y obtener la siguiente expresión:
+	
+	$$ y(t_{n+1})  = y(t_n) + \int_{t_n}^{t_{n+1}} f(s,y(s))) \ ds $$
+	
+	si se conoce  se puede aproximar un número finito de valores de la función 
+que se pretende resolver para el problema de valores iniciales $y(a) = y_0$
+Supóngase que el problema tiene solución única.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/trapecio-vs-euler.png}
+		\caption{Esquema visual del método del trapecio.} 
+		\label{fig:trapecio-vs-euler}
+	\end{figure}
+
+%-----------------------------------------------------------------------------------------------------
+%	SECCIÓN X: ERROR
+%-----------------------------------------------------------------------------------------------------
+
+
+\section{Estudio del error. Convergencia}
+
+
+%-----------------------------------------------------------------------------------------------------
+%	SECCIÓN X: ESTABILIDAD
+%-----------------------------------------------------------------------------------------------------
+
+\section{Estabilidad}
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
