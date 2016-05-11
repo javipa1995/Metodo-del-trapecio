@@ -313,7 +313,7 @@ se verifica que la solución exacta es $y(t)=\frac{1}{1+t^4}$ y tomando distinto
 
 \section{Descripción del método del trapecio}
 
-	Considérese el problema de valores iniciales dado por la ecuación diferencial $y'(t) = f(t,y(t))$ sobre $[a,b]$ y la condición $y(a) = y_0$. Supóngase que se ha averiguado que el problema admite solución única. Dado $n \in \mathbb{N}$ y sea $h = \frac{b-a}{2}$, se pretende obtener un método numérico para aproximar la imagen de $y$ en los puntos $t_i = a + ih$ con $i = 0 \ldots n$. Denotaremos $w_i$ a la aproximación obtenida para el punto $t_i$, comenzando con $w_0 = y_0$. El objetivo es encontrar una fórmula que permita aproximar $w_k$ a partir de $w_{k-1}$ e iterar este proceso para obtener las $n$ aproximaciones.
+	Considérese el problema de valores iniciales dado por la ecuación diferencial $y'(t) = f(t,y(t))$ sobre $[a,b]$ y la condición $y(a) = y_0$. Supóngase que se ha averiguado que el problema admite solución única. Dados $n \in \mathbb{N}$ y $h = \frac{b-a}{n}$, se pretende obtener un método numérico para aproximar la imagen de $y$ en los puntos $t_i = a + ih$ con $i = 0 \ldots n$. Denotaremos $w_i$ a la aproximación obtenida para el punto $t_i$, comenzando con $w_0 = y_0$. El objetivo es encontrar una fórmula que permita aproximar $w_k$ a partir de $w_{k-1}$ e iterar este proceso para obtener las $n$ aproximaciones.
 	
 	Utilizando la Proposición X, la solución de este PVI es la única solución de la siguiente ecuación
 	
@@ -328,13 +328,13 @@ se verifica que la solución exacta es $y(t)=\frac{1}{1+t^4}$ y tomando distinto
 	\end{equation}
 
 
-	donde $\xi \in [t_0, t_1]$. Ignorando el último sumando se obtiene la siguiente aproximación dada en (\ref{eq:app}), que tiene error $- \frac{h^3}{12}y^{3)}(\xi)$.
+	donde $\xi \in [t_0, t_1]$. Ignorando el último sumando se obtiene la aproximación dada en (\ref{eq:app}), que tiene error $- \frac{h^3}{12}y^{3)}(\xi)$.
 
 	\begin{equation} \label{eq:app}
 		y(t_1) \approx w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, y(t_1))\right]
 	\end{equation}
 
-	El problema reside en que para aproximar el valor de $y$ en $t_1$ se debe conocer previamente dicho valor. En este contexto se plantean dos soluciones diferentes obteniendo dos métodos, denominados método del trapecio explícito e implícito respectivamente.
+	El problema reside en que para aproximar el valor de $y$ en $t_1$ se debe conocer previamente dicho valor. En este contexto se plantean dos soluciones diferentes obteniendo dos métodos, denominados método del trapecio explícito e implícito respectivamente. En el resto del texto se desarrollan sendos métodos, proporcionando el error teórico cometido y resultados de convergencia y estabilidad.
 	
 	\subsection{Método del trapecio explícito}
 		
