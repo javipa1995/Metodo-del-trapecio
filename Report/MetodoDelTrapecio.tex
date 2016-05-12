@@ -393,30 +393,22 @@
 
 	\subsection{Método del trapecio iterativo}
 	
-		Supóngase que se ha calculado una aproximación inicial para cada $t_i$. Estas aproximaciones se denotan $w_i^{(0)}$. Si estas aproximaciones son buenas, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha con las aproximaciones $w_i^{(0)}$ para obtener una nueva aproximación. De esta forma se define
+		Supóngase que se han calculado los primeros $i$ valores de $y$ y se ha obtenido una aproximación inicial para cada $t_i$. Esta aproximación se denota $w_i^{(0)}$. Si la aproximación es buena, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha con $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
 		
 		\begin{equation} \label{eq:ti-def}
-			w_{i+1} ^{(j+1)} = y_i + \frac{h}{2} \left[f(t_i, y_i) + f(t_{i+1}, w_{i+1}^{j})\right]
+			w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 		\end{equation}
 
-		Las aproximaciones iniciales se obtienen habitualmente mediante un método explícito como el anterior. La idea consiste en aproximar mediante una secuencia de iteraciones el valor $y_i$ y utilizar esta nueva aproximación para aproximar mediante otra nueva secuencia de iteraciones $y_{i+1}$. Un primer resultado básico es el siguiente:
+		La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:error:iterativo}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Se probará que el error cometido utilizando esta aproximación es $O(h^3)$.
 		
-		\begin{proposition}
-			Si la función $f$ es Lipschitziana con constante de Lipschitz $L$ verificando $\frac{hL}{2} < 1$, entonces la sucesión $\{w_i^{(j)}\}$ converge a $y_i$ cuando $j \rightarrow +\infty$. 
-		\end{proposition}
+		La segunda cuestión a tratar es cómo aplicar el método para obtener la imagen de más de un punto. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
 
-		\begin{proof}
-			Se pretende acotar $y_{i+1} - w_{i+1}^{(j+1)}$. Para ello, se resta a la igualdad (\ref{eq:trapecio-igualdad}) sobre $y_i$ la expresión \ref{eq:ti-def}, obteniendo
-			
-			\begin{equation}
-				y_{i+1} - w_{i+1}^{(j+1)} = \frac{h}{2} \left[f(t_{i+1},y_{i+1}) - f(t_{i+1}, w_{i+1}^{(j)})\right] - \frac{h^3}{12}y^{3)}(\xi)
-			\end{equation}
-			
-			Tomando valores absolutos y haciendo mucha magia
-		\end{proof}
+		\begin{equation} \label{eq:ti-def-2}
+			w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+		\end{equation}
 
 
-
+		En tal caso se está cometiendo un nuevo error de aproximación.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: ERROR
@@ -427,7 +419,48 @@
 
 	\subsection{Método del trapecio explícito}
 	
-	\subsection{Método del trapecio iterativo}
+	\subsection{Método del trapecio iterativo} \label{sec:error:iterativo}
+
+		El resultado del estudio de esta cuestión viene dado en la siguiente proposición.
+		
+		\begin{proposition}
+			Si la función $f$ es Lipschitziana en la segunda variable con constante de Lipschitz $L$ y se verifica $\frac{hL}{2} < 1$, entonces la sucesión $\{w_i^{(j)}\}$ converge cuando $j \rightarrow +\infty$. Denotando $w_i = \lim w_i^{(j)}$, se tiene además $\left|y_{i} - w_{i}\right| = O(h^3)$.
+		\end{proposition}
+		
+		\begin{proof}
+			La prueba se centra en comprobar que $\{w_i^{(j)}\}$ es una sucesión de Cauchy. En primer lugar, se estudia $\{w_{i}^{(j+1)} - w_{i}^{(j)}\}$. Utilizando la condición de Lipschitz
+			
+			\begin{equation*}
+			\left|w_{i}^{(j+1)} - w_{i}^{(j)}\right| \le \frac{h}{2} \left| f(t_i, w_i^{(j)}) - f(t_i, w_i^{(j-1)}) \right| \le \frac{hL}{2} \left| w_i^{(j)} - w_i^{(j-1)} \right| \le \ldots \le \left(\frac{hL}{2}\right)^j \left|w_i^{(1)} - w_i^{(0)}\right|
+			\end{equation*}
+			
+			Posteriormente se utiliza la desigualdad obtenida para conseguir acotar $\left|w_{i}^{(j+q)} - w_{i}^{(j)}\right|$. 
+			
+			\begin{equation*}
+			\left|w_{i}^{(j+q)} - w_{i}^{(j)}\right| \le \sum_{k = j} ^ {j+q} \left|w_i^{(k)} - w_i^{(k-1)}\right| \le \sum_{k = j} ^ {j+q} \left(\frac{hL}{2}\right)^{k-1} \left|w_i^{(1)} - w_i^{(0)}\right| = \left|w_i^{(1)} - w_i^{(0)}\right| \sum_{k = j} ^ {j+q} \left(\frac{hL}{2}\right)^{k-1}
+			\end{equation*}
+			
+			Como $\frac{hL}{2} < 1$, se tiene que la serie $\sum_{j \ge 0} \left(\frac{hL}{2}\right) ^j$ converge. Por consiguiente, es de Cauchy. Aplicando este hecho en la expresión previa se obtiene que $\{w_i^{(j)}\}$ es una sucesión de Cauchy. 
+			
+			Nótese que tomando límites en (\ref{eq:ti-def}) se obtiene la siguiente igualdad
+			
+			\begin{equation} \label{eq:prop2.2}
+			w_{i} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i})\right]
+			\end{equation}
+			
+			
+			Por último, se estudia $\left|y_{i} - w_{i}\right|$. Restando las expresiones (\ref{eq:trapecio-igualdad}) y (\ref{eq:prop2.2}) se obtiene
+			
+			$$ \left|y_{i} - w_{i}\right| = \left|\frac{h}{2} \left[f(t_{i},y_{i}) - f(t_{i}, w_{i})\right] - \frac{h^3}{12}y^{3)}(\xi)\right| \le \frac{h}{2} \left|f(t_{i},y_{i}) - f(t_{i}, w_{i})\right| + \frac{h^3}{12}\left|y^{3)}(\xi)\right| \le$$
+			$$ \frac{hL}{2} \left|y_{i} - w_{i}\right| + \frac{h^3}{12}\left|y^{3)}(\xi)\right| $$
+			
+			Por tanto, agrupando los $\left|y_{i} - w_{i}\right|$ se tiene la siguiente desigualdad
+			
+			\begin{equation*}
+			\left|y_{i} - w_{i}\right| \le \frac{2}{2 - HL}\frac{h^3}{12}\left|y^{3)}(\xi)\right| = O(h^3)		
+			\end{equation*}
+			
+		\end{proof}
 
 
 %-----------------------------------------------------------------------------------------------------
