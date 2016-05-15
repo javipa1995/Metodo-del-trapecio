@@ -237,7 +237,7 @@
 		\label{fig:interpret-pvi}
 	\end{figure}
 
-	Si conocemos la imagen de la solución $y$ en un punto $t_{i-1}$, entonces sabemos que en ese punto la función variará en la dirección dada por el campo vectorial comentado previamente. Esta es pues la dirección de la recta tangente a $y$ en $t_{i-1}$. Podemos utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene de este modo el método de Euler cuya expresión resumida es la siguiente:
+	Si conocemos la imagen de la solución $y$ en un punto $t_{i-1}$, entonces sabemos que en ese punto la función variará en la dirección dada por el campo vectorial comentado previamente. Nótese que esta es la dirección de la recta tangente a $y$ en $t_{i-1}$. Podemos utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene el método de Euler cuya expresión resumida es la siguiente:
 
 	\begin{center}
 		$\begin{cases}
@@ -247,7 +247,7 @@
 		\end{cases}$
 	\end{center}
 	
-	Habitualmente se aproximan puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. El estudio del método de Euler concluye que el error de aproximación local es:
+	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error de aproximación local es:
 	
 	\begin{equation}
 	\label{0.0}
