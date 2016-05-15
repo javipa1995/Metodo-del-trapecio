@@ -247,8 +247,20 @@
 		\end{cases}$
 	\end{center}
 	
-	Habitualmente se aproximan puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. El estudio del método de Euler concluye que el error de aproximación es.............
+	Habitualmente se aproximan puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. El estudio del método de Euler concluye que el error de aproximación local es:
 	
+	\begin{equation}
+	\label{0.0}
+	|y(t_n)-y_n| \le \frac{Mh^2}{2}, \quad   \forall [t_0,t_n].
+	\end{equation}	
+	
+	En cambio, el error global del método de Euler es:
+	
+				\begin{equation}
+				\label{0.2}
+				|\tau_{n-1}| \le\dfrac{Mh}{2}.
+				\end{equation}
+				
 	Aunque a priori puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo. a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. Previamente, necesitamos conocer algunos resultados básicos sobre la existencia, unicidad y condicionamiento de las soluciones:
 	
 	\begin{theorem}
