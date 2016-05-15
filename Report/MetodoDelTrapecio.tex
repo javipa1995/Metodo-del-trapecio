@@ -261,7 +261,9 @@
 				|\tau_{n-1}| \le\dfrac{Mh}{2}.
 				\end{equation}
 				
-	Aunque a priori puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo. a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. Previamente, necesitamos conocer algunos resultados básicos sobre la existencia, unicidad y condicionamiento de las soluciones:
+	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. Previamente, necesitamos conocer algunos resultados básicos sobre la existencia, unicidad y condicionamiento de las soluciones.
+	
+\section{Definiciones y resultados previos.}
 	
 	\begin{theorem}
 		Sea $f: [a,b]\times[\alpha,\beta] \rightarrow \mathbb{R}$ e $y_0 \in (\alpha,\beta)$. Entonces:
@@ -275,29 +277,32 @@
 				\end{cases}$
 			\end{center}
 			tiene exactamente una solución. 
-			\item Si f es Lipschitz en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$
-			\item (Condicionamiento) Si f es Lipschitz en $[a,b]\times[\alpha,\beta]$ e y(t), z(t) son soluciones en $[a,b]\times[\alpha,\beta]$ de los problema de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente, entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
+			\item Si f es Lipschitz en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$	
 		\end{enumerate}
 	\end{theorem}
 	
-	Necesitamos también medir de algún modo cómo de bueno es el procedimiento utilizado para aproximar la solución del problema para ello se introduce la siguiente:
+	\begin{theorem}
+		(Condicionamiento) Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supongamos que f es de Lispchtiz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
+	\end{theorem}
+	
+	Necesitamos también medir de algún modo cómo de bueno es el procedimiento utilizado para aproximar la solución del problema para ello se introduce la siguiente: \\
 	
 	\begin{definition} Sean $w_i$ los valores estimados en los puntos $t_i$ por cierto método de aproximación de las soluciones del problema de valores iniciales:
-	\begin{center}
-	$\begin{cases}
-	y'(t) = f(t,y(t)) \\
-	y(a) = y_a \\
-	t \in [a,b] \\
-	\end{cases}$
-	\end{center}
+		\begin{center}
+		$\begin{cases}
+		y'(t) = f(t,y(t)) \\
+		y(a) = y_a \\
+		t \in [a,b] \\
+		\end{cases}$
+		\end{center}
 	e $y_i$ los valores exactos de la solución en los puntos $t_i$. Sea también $z(t_i)$ el valor de la solución exacta al problema de valores iniciales:
-	\begin{center}
-	$\begin{cases}
-	y'(t) = f(t,y(t)) \\
-	y(t_i) = w_i \\
-	t \in [t_i,t_{i+1}] \\
-	\end{cases}$
-	\end{center}
+		\begin{center}
+		$\begin{cases}
+		y'(t) = f(t,y(t)) \\
+		y(t_i) = w_i \\
+		t \in [t_i,t_{i+1}] \\
+		\end{cases}$
+		\end{center}
 	Definimos:
 	\begin{itemize}
 	\item Error global de truncatura o error acumulado en el nodo i-ésimo: $g_i=|w_i-y_i|$
@@ -314,16 +319,16 @@
 	\label{fig:error-euler}
 	\end{figure}
 	
-	La relación entre errores locales y errores globales viene dada por el siguiente:
+	La relación entre errores locales y errores globales viene dada por el siguiente teorema: \\
 	
 	\begin{theorem}
-	Si f es Lipschitz con constante L, $y_i$ son los valores de la solución a un problema de valores iniciales en puntos $t_i$ en $[a,b]$ y son aproximados por valores $w_i$ mediante cierto método de aproximación con errores locales $e_i \leq c h^{k+1}$ entonces $g_i \le \frac{c h^k}{L} (e^{L(t_i-a)}-1)$ (1).
-	\end{theorem}
+	Si f es Lipschitz con constante L, $y_i$ son los valores de la solución a un problema de valores iniciales en puntos $t_i$ en $[a,b]$ y son aproximados por valores $w_i$ mediante cierto método de aproximación con errores locales $e_i \leq c h^{k+1}$ entonces $g_i \le \frac{c h^k}{L} (e^{L(t_i-a)}-1)$ (1).\\
+	\end{theorem} 
 	
 	\begin{definition} Si un método verifica (1) cuando $h \to 0$ entonces se dice que tiene orden k.
 	\end{definition}
 	
-	Veamos ya por qué se requieren métodos más precisos para conseguir una precisión razonable mediante una cantidad razonable de cómputos.
+	Veamos ya por qué se requieren métodos más precisos para conseguir una precisión razonable mediante una cantidad razonable de cómputos. \\
 	
 	\begin{example} Considérese el siguiente problema de valores iniciales
 		\begin{center}
