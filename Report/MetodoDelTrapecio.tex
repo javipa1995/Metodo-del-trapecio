@@ -290,6 +290,64 @@
 		(Condicionamiento) Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supongamos que f es de Lispchtiz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
 	\end{theorem}
 	
+	\begin{theorem}
+		Supongamos que $f$ es continua y que satisface la condición de Lipschitz con la constante $L$ en $D=\{(t,y)|a \le t \le b, -\infty < y < \infty \}$ y que existe una constante $M$ tal que $|y''(t)| \le M$, para todo $t \in [a,b]$.
+		\\
+		
+		Denotemos con $y(t)$ la solución única del problema de valores iniciales 
+		$$y'=f(t,y), \: a \le t \le b, \: y(a)=\alpha$$
+		y sean $y_0, y_1,...,y_n$ las aproximaciones generadas con el método de Euler para algún entero positivo n. Entonces para cada $i=0,1,2,...,n$,
+		\begin{equation}
+		\label{5.10}
+		|y(t_i)-y_i| \le \frac{hM}{2L}[e^{L(t_i-a)}-1] 
+		\end{equation}
+	\end{theorem}
+	
+	\begin{proof}
+		Cuando $i=0$, dicha desigualdad se cumple ya que $y(x_0)=y_0=\alpha$.\\
+		
+		Sabemos que, para cada i=1,...,n
+		$$y(t_i)=y(t_{i-1})+hf(t_{i-1},y(t_{i-1}))+\frac{h^2}{2}y''(\xi_{i-1})$$
+		e $$y_{i+1}=y_i+hf(t_i,y_i).$$
+		En consecuencia, tenemos
+		$$y(t_i)-y_i=y(t_{i-1})-y_{i-1}+h[f(t_{i-1},y(t_{i-1}))-f(t_{i-1},y_{i-1})]+\frac{h^2}{2}y''(\xi_{i-1})$$
+		y
+		$$|y(t_i)-y_i| \le |y(t_{i-1})-y_{i-1}|+h|f(t_i,y(t_{i-1}))-f(t_{i-1},y_{i-1})|+\frac{h^2}{2}y''(\xi_{i-1}).$$
+		Puesto que f satisface la condición de Lipschitz e $|y''(t)| \le M$, tenemos 
+		$$|y(t_i)-y_i| \le (1+hL)|y(t_{i-1})-y_{i-1}|+\frac{h^2M}{2}.$$
+		Aplicamos el lema anterior para $a_j=|y(t_{i+1})-y_{i+1}|$ para cada $j=0,1,...,n$, $s=hL$ y $t=\frac{h^2M}{2}$, obteniendo
+		\begin{equation}
+		\label{0.3}
+		|y(t_i)-y_i| \le e^{ihL}(|y(t_0)-y_0|+\frac{h^2M}{2hL})-\frac{h^2M}{2hL}
+		\end{equation}
+		
+		Debido a que $|y(t_0)-y_0|=0$ e $ih=t_i-t_0=t_i-a$, tenemos
+		$$|y(t_i)-y_i| \le \frac{hM}{2L}(e^{(t_i-a)L}-1), $$
+		para cada $i=1,...,n$
+	\end{proof}
+	
+	Para la demostración del método de Euler probaremos la consistencia y la estabilidad para concluir que es convergente.
+	
+	\begin{theorem}
+		El método de Euler converge para cualquier PVI donde $f$ satisface la condición de Lipschitz y la solución $y$ es $C^2$.
+	\end{theorem}
+	
+	\begin{proof}
+			Por (\ref{0.3}), probado en la demostración del error de truncamiento global, tenemos que:
+			$$|y(t_i)-y_i| \le e^{ihL}|y(t_0)-y_0|+\frac{e^{ihL}-1}{hL}\frac{h^2M}{2} = e^{ihL}|y(t_0)-y_0|+\frac{e^{ihL}-1}{L}\tau_{i-1} \le $$ $$ \le^{TL}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\max_{1 \le i \le n} |\tau_{i-1}|$$
+			para $0 \le t_i=ih+0 \le T$, con $\tau_i$ el residuo y asumiendo que $y$ es $C^2$ e $|y''| \le M$. Esto muestra la \textit{estabilidad}, es decir, errores en la solución numérica están acotadas independientemente del tamaño de paso.\\
+			
+			Por (\ref{0.2}), $\tau_i$ satisface
+			$$|\tau_i|\le \frac{hM}{2}$$
+			Esta condición se denomina \textit{consistencia} (Control del residuo).\\
+			
+			La consistencia da una cota local y la estabilidad nos permite concluir la \textit{convergencia}:
+			
+			$$|y(t_n)-y_n| \le e^{LT}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\frac{hM}{2}$$ 
+	\end{proof}
+
+	
+
 	Necesitamos también medir de algún modo cómo de bueno es el procedimiento utilizado para aproximar la solución del problema para ello se introduce la siguiente: \\
 	
 	\begin{definition} Sean $w_i$ los valores estimados en los puntos $t_i$ por cierto método de aproximación de las soluciones del problema de valores iniciales:
