@@ -210,25 +210,25 @@
 \section{Motivación: ecuaciones diferenciales ordinarias de primer orden} \label{sec:motivacion}
 
 	\begin{definition} 
-		Dada una función $f:\Omega \subseteq \mathbb R^2  \to \mathbb{R}$ continua, una un problema de valores iniciales de primer orden consiste en encontrar aquellas funciones $y: [a,b] \rightarrow \mathbb{R}$ de clase 1 que verifiquen $G(y) \subset \Omega$, $y'(t) = f(t,y(t)) \ \forall t \in [a,b]$ y la condición inicial $y(a) = y_0$.  
+		Dada una función $f:\Omega \subseteq \mathbb R^2  \to \mathbb{R}$ continua, una un problema de valores iniciales de primer orden consiste en encontrar aquellas funciones $y: [a,b] \rightarrow \mathbb{R}$ de clase 1 que verifiquen $G(y) \subset \Omega$, $y'(t) = f(t,y(t)) \ \forall t \in [a,b]$ y la condición inicial $y(t_0) = y_0$, donde $t_0 \in [a,b]$.  
 	\end{definition}
 
 	De forma simplificada, un problema de valores iniciales se representa de la siguiente forma: 
 	\begin{equation*}
 		\begin{cases}
 			y'(t) = f(t,y(t)) \\
-			y(a) = y_0 \\
+			y(t_0) = y_0 \\
 			t \in [a,b]
 		\end{cases}
 	\end{equation*}
 
-	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, sí se conocen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial.
+	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, existen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial incluso cuando no se puedan obtener soluciones explícitamente.
 
 
-	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización \textbf{Desarrollar qué es un método de discretización}  se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$ y al error de aproximación cometido $e_i = y(t_i) - w_i$.
+	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización \textbf{Desarrollar qué es un método de discretización}.  se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$ y al error de aproximación cometido $e_i = y(t_i) - w_i$. \textbf{Nomenclatura para error local y global.}
 
 
-	La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
+	\textbf{Repasar estos dos párrafos, no sé si queda claro.}La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
 
 	\begin{figure}[h]
 		\centering
@@ -266,9 +266,11 @@
 	\textbf{EJEMPLO DEL MÉTODO DE EULER}
 	
 	
-	El objetivo de este trabajo es desarrollar un método de discretización para aproximar soluciones de problemas de valores iniciales que tenga un mayor orden de precisión que el método de Euler. Previamente, necesitamos conocer algunos resultados básicos sobre la existencia, unicidad y condicionamiento de las soluciones.
+	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que tenga un mayor orden de precisión que el método de Euler. Este método se denomina método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
 	
-\section{Definiciones y resultados previos.}
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y condicionamiento de las soluciones que serán necesarios posteriormente.  En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales no es un tema cerrado en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
+	
+\section{Definiciones y resultados previos.} \label{sec:previo}
 	
 	\begin{theorem}
 		Sea $f: [a,b]\times[\alpha,\beta] \rightarrow \mathbb{R}$ e $y_0 \in (\alpha,\beta)$. Entonces:
@@ -421,7 +423,7 @@
 %	SECCIÓN 2: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Introducción al método del trapecio}
+\section{Introducción al método del trapecio} \label{sec:intro-trapecio}
 
 	El método del trapecio se basa en la siguiente proposición:
 
@@ -463,7 +465,7 @@
 %	SECCIÓN 3: MÉTODO DEL TRAPECIO EXPLÍCITO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Método del trapecio explícito}	
+\section{Método del trapecio explícito}	 \label{sec:trapecio-explicito}
 		
 		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias que se comentó en la Sección \ref{sec:motivacion}. Denotemos $w'_i$ a las aproximaciones obtenidas por este método. El valor de la solución en cada punto se aproxima a partir del anterior mediante la siguiente expresión:
 		
@@ -490,7 +492,7 @@
 %	SECCIÓN 3: MÉTODO DEL TRAPECIO ITERATIVO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Método del trapecio iterativo}
+\section{Método del trapecio iterativo} \label{sec:trapecio-iterativo}
 	
 	Supóngase que se han calculado las $i$ primeras aproximaciones de la función $y$ y que, además, se ha obtenido una aproximación inicial para $y_i$. Esta aproximación se denota $w_i^{(0)}$. Si la aproximación es buena, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha utilizando $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
 	
@@ -509,7 +511,7 @@
 	
 	En tal caso se está cometiendo un nuevo error de aproximación.
 	
-	\subsection{Estudio del error} \label{sec:error:iterativo}
+	\subsection{Estudio del error} \label{sec:trapecio-iterativo:error}
 
 		El resultado del estudio de esta cuestión viene dado en la siguiente proposición.
 		
@@ -554,10 +556,16 @@
 
 
 %-----------------------------------------------------------------------------------------------------
+%	SECCIÓN X: ARTÍCULO
+%-----------------------------------------------------------------------------------------------------
+
+\section{Artículo de investigación} \label{sec:paper}
+
+%-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
 
-\section{Conclusión}
+\section{Conclusión} \label{sec:conclusion}
 
 
 %-----------------------------------------------------------------------------------------------------
