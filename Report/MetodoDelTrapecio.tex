@@ -407,10 +407,10 @@
 		Se comentó previamente que el problema de la aproximación (\ref{eq:app}) reside en que el valor a aproximar aparece en el segundo miembro de la expresión. Para solventar este hecho se puede utilizar la aproximación dada por el método de Euler en su lugar. De esta forma se obtiene la siguiente aproximación:
 
 		\begin{equation} \label{eq:app-exp}
-			y(t_{k+1}) \approx w_{i+1} = w_i + \frac{h_i}{2} \left[f(t_i,w_i) + f(t_{i+1}, w_i + h_if(t_i,w_i))\right]
+			y(t_{k+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i}+h, w_i + h f(t_i,w_i))\right]
 		\end{equation}
 
-		Sean $S_L = h_i(1, f(t_i,w_i)) $ y $S_R = h_i(1, f(t_{i+1}, w'_{i+1}) )$. El método de Euler  obtiene $(t_{i+1}, w'_{i+1})$ sumándole $S_L$ a $(t_{i}, w_{i})$ . Por su parte, el método del trapecio explícito obtiene $(t_{i+1}, w_{i+1})$ como $(t_{i}, w_{i})$ más la media de $S_L$ y $S_R$. La Figura \ref{fig:trapecio-vs-euler} muestra este hecho de forma visual.
+		Sean $S_L = h f(t_i,w_i) $ y $S_R = h f(t_{i+1}, w'_{i+1})$. El método de Euler  obtiene $(t_{i+1}, w'_{i+1})$ sumándole $S_L$ a $(t_{i}, w_{i})$ . Por su parte, el método del trapecio explícito obtiene $(t_{i+1}, w_{i+1})$ como $(t_{i}, w_{i})$ más la media de $S_L$ y $S_R$. La Figura \ref{fig:trapecio-vs-euler} muestra este hecho de forma visual.
 			
 		\begin{figure}[H]
 			\centering
