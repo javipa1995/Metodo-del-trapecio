@@ -360,10 +360,10 @@
 	\end{table}
 
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN 2: MÉTODO DEL TRAPECIO
+%	SECCIÓN 2: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Descripción del método del trapecio}
+\section{Introducción al método del trapecio}
 
 	El método del trapecio se basa en la siguiente proposición:
 
@@ -401,7 +401,11 @@
 
 	El problema reside en que para aproximar el valor de $y$ en $t_1$ se debe conocer previamente dicho valor. En este contexto se plantean dos soluciones diferentes obteniendo dos métodos, denominados método del trapecio explícito e iterativo respectivamente. En el resto del texto se desarrollan sendos métodos, proporcionando el error teórico cometido y resultados de convergencia y estabilidad.
 	
-	\subsection{Método del trapecio explícito}
+%-----------------------------------------------------------------------------------------------------
+%	SECCIÓN 3: MÉTODO DEL TRAPECIO EXPLÍCITO
+%-----------------------------------------------------------------------------------------------------
+
+\section{Método del trapecio explícito}	
 		
 		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias que se comentó en la Sección \ref{sec:motivacion}. Denotemos $w'_i$ a las aproximaciones obtenidas por este método. El valor de la solución en cada punto se aproxima a partir del anterior mediante la siguiente expresión:
 		
@@ -424,35 +428,30 @@
 			\label{fig:trapecio-vs-euler}
 		\end{figure}
 
-	\subsection{Método del trapecio iterativo}
-	
-		Supóngase que se han calculado los primeros $i$ valores de $y$ y se ha obtenido una aproximación inicial para cada $t_i$. Esta aproximación se denota $w_i^{(0)}$. Si la aproximación es buena, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha con $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
-		
-		\begin{equation} \label{eq:ti-def}
-			w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
-		\end{equation}
-
-		La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:error:iterativo}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Se probará que el error cometido utilizando esta aproximación es $O(h^3)$.
-		
-		La segunda cuestión a tratar es cómo aplicar el método para obtener la imagen de más de un punto. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
-
-		\begin{equation} \label{eq:ti-def-2}
-			w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
-		\end{equation}
-
-
-		En tal caso se está cometiendo un nuevo error de aproximación.
-
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN X: ERROR
+%	SECCIÓN 3: MÉTODO DEL TRAPECIO ITERATIVO
 %-----------------------------------------------------------------------------------------------------
 
-
-\section{Estudio del error}
-
-	\subsection{Método del trapecio explícito}
+\section{Método del trapecio iterativo}
 	
-	\subsection{Método del trapecio iterativo} \label{sec:error:iterativo}
+	Supóngase que se han calculado las $i$ primeras aproximaciones de la función $y$ y que, además, se ha obtenido una aproximación inicial para $y_i$. Esta aproximación se denota $w_i^{(0)}$. Si la aproximación es buena, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha utilizando $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
+	
+	\begin{equation} \label{eq:ti-def}
+	w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+	\end{equation}
+	
+	La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:error:iterativo}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Además, se probará que el error cometido utilizando esta aproximación es $O(h^3)$.
+	
+	La segunda cuestión a tratar es cómo aplicar este nuevo método para obtener aproximaciones para todos los $t_i$. Nótese que en la definición previa se suponía haber calculado $y_{i-1}$ previamente. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
+	
+	\begin{equation} \label{eq:ti-def-2}
+	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+	\end{equation}
+	
+	
+	En tal caso se está cometiendo un nuevo error de aproximación.
+	
+	\subsection{Estudio del error} \label{sec:error:iterativo}
 
 		El resultado del estudio de esta cuestión viene dado en la siguiente proposición.
 		
@@ -495,12 +494,6 @@
 			
 		\end{proof}
 
-
-%-----------------------------------------------------------------------------------------------------
-%	SECCIÓN X: ESTABILIDAD
-%-----------------------------------------------------------------------------------------------------
-
-\section{Convergencia y Estabilidad}
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
