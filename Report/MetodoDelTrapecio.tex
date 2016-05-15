@@ -224,10 +224,8 @@
 
 	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, existen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial incluso cuando no se puedan obtener soluciones explícitamente.
 
-
-	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización \textbf{Desarrollar qué es un método de discretización}.  se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$ y al error de aproximación cometido $e_i = y(t_i) - w_i$. \textbf{Nomenclatura para error local y global.}
-
-
+	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización \textbf{Desarrollar qué es un método de discretización}.  se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$. En lo que sigue, se trabajará siempre con condiciones iniciales sobre $y(a)$ para simplificar la definición de los métodos de discretización.
+	
 	\textbf{Repasar estos dos párrafos, no sé si queda claro.}La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
 
 	\begin{figure}[h]
@@ -247,33 +245,27 @@
 		\end{cases}$
 	\end{center}
 	
-	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error de aproximación local es:
-	
-	\begin{equation}
-	\label{0.0}
-	|y(t_n)-y_n| \le \frac{Mh^2}{2}, \quad   \forall [t_0,t_n].
-	\end{equation}	
-	
-	En cambio, el error global del método de Euler es:
-	
-				\begin{equation}
-				\label{0.2}
-				|\tau_{n-1}| \le\dfrac{Mh}{2}.
-				\end{equation}
+	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le\dfrac{Mh}{2}$ para todo $i=0 \ldots n$.
 				
 	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
 	
 	\textbf{EJEMPLO DEL MÉTODO DE EULER}
 	
 	
-	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que tenga un mayor orden de precisión que el método de Euler. Este método se denomina método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
+	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error que el método de Euler. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
 	
-	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y condicionamiento de las soluciones que serán necesarios posteriormente.  En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales no es un tema cerrado en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y estabilidad de las soluciones que serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
 	
 \section{Definiciones y resultados previos.} \label{sec:previo}
 	
+	En esta sección se proporcionan las definiciones y resultados que se necesitan para el estudio del método del trapecio. En primer lugar, una de las hipótesis con las que se suele trabajar para problemas de valores iniciales es que la función $f$ sea lipschitziana en la segunda variable.
+	
+	\textbf{Definción de función lipschitziana en la segunda variable.}
+	
+	No tiene sentido aplicar un método numérico para resolver un problema de valores iniciales que no tenga solución. Por tanto, los resultados que garanticen la existencia de soluciones al problema son fundamentales en este contexto. Además, si el problema admitiese varias soluciones distintas, entonces el método puede no comportarse correctamente pues no se sabe cuál debe calcular. Por tanto, la unicidad de soluciones también es un concepto que se debe estudiar en profundidad. El resultado de este estudio se resume en el teorema de existencia y unicidad de soluciones, que utiliza como hipótesis fundamental el concepto de función lipschitziana en la segunda variable.
+	
 	\begin{theorem}
-		Sea $f: [a,b]\times[\alpha,\beta] \rightarrow \mathbb{R}$ e $y_0 \in (\alpha,\beta)$. Entonces:
+		(Existencia y unicidad de soluciones) Sea $f: [a,b]\times[\alpha,\beta] \rightarrow \mathbb{R}$ e $y_0 \in (\alpha,\beta)$. Entonces:
 		\begin{enumerate}
 			\item Si f es Lipschitz en $[a,b]\times[\alpha,\beta]$, entonces existe $c \in [a,b]$ tal que el problema de valores iniciales:
 			\begin{center}
@@ -288,10 +280,16 @@
 		\end{enumerate}
 	\end{theorem}
 	
+	\textbf{Demostración en caso de tener tiempo.}
+ 
+	El estudio de los métodos numéricos para problemas de valores iniciales se centra en la acotación de los errores cometidos y en el estudio de la estabilidad de los métodos. Las demostraciones de resultados asociados a estos conceptos suelen requerir el uso de múltiples desigualdades. El siguiente resultado, basado en la desigualdad de Gronwall, proporciona una de las desigualdades con más aplicaciones en esta área.
+	
 	\begin{theorem}
-		(Condicionamiento) Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supongamos que f es de Lispchtiz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
+		Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supongamos que f es de Lispchtiz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
 	\end{theorem}
 	
+	\textbf{Discutir si introducir los resultados del método de euler y cómo.}
+
 	\begin{theorem}
 		Supongamos que $f$ es continua y que satisface la condición de Lipschitz con la constante $L$ en $D=\{(t,y)|a \le t \le b, -\infty < y < \infty \}$ y que existe una constante $M$ tal que $|y''(t)| \le M$, para todo $t \in [a,b]$.
 		\\
@@ -354,25 +352,29 @@
 	
 	\begin{definition} Sean $w_i$ los valores estimados en los puntos $t_i$ por cierto método de aproximación de las soluciones del problema de valores iniciales:
 		\begin{center}
-		$\begin{cases}
-		y'(t) = f(t,y(t)) \\
-		y(a) = y_a \\
-		t \in [a,b] \\
-		\end{cases}$
+			$\begin{cases}
+			y'(t) = f(t,y(t)) \\
+			y(a) = y_a \\
+			t \in [a,b] \\
+			\end{cases}$
 		\end{center}
-	e $y_i$ los valores exactos de la solución en los puntos $t_i$. Sea también $z(t_i)$ el valor de la solución exacta al problema de valores iniciales:
+		
+		e $y_i$ los valores exactos de la solución en los puntos $t_i$. Sea también $z(t_i)$ el valor de la solución exacta al problema de valores iniciales:
+		
 		\begin{center}
-		$\begin{cases}
-		y'(t) = f(t,y(t)) \\
-		y(t_i) = w_i \\
-		t \in [t_i,t_{i+1}] \\
-		\end{cases}$
+			$\begin{cases}
+			y'(t) = f(t,y(t)) \\
+			y(t_i) = w_i \\
+			t \in [t_i,t_{i+1}] \\
+			\end{cases}$
 		\end{center}
-	Definimos:
-	\begin{itemize}
-	\item Error global de truncatura o error acumulado en el nodo i-ésimo: $g_i=|w_i-y_i|$
-	\item Error local de truncatura o error en un paso: $e_{i+1} = |w_i-z(t_{i+1})|$
-	\end{itemize} 
+
+		Definimos:
+	
+		\begin{itemize}
+			\item Error global de truncatura o error acumulado en el nodo i-ésimo: $g_i=|w_i-y_i|$
+			\item Error local de truncatura o error en un paso: $e_{i+1} = |w_i-z(t_{i+1})|$
+		\end{itemize} 
 	\end{definition}
 	
 	El error global cometido en cualquier paso puede verse entonces como la suma del error local y el error global acumulado o amplificado. Para el método de Euler los errores global y local pueden visualizarse fácilmente:
