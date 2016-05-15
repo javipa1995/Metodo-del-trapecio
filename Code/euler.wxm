@@ -1,9 +1,13 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
-/* [ Created with wxMaxima version 15.08.1+git ] */
+/* [ Created with wxMaxima version 15.04.0 ] */
 
 /* [wxMaxima: title   start ]
 MÉTODO DE EULER
    [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+numer:true;
+/* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: section start ]
 Resolución de PVI con el método de Euler
@@ -14,33 +18,25 @@ Método con criterio de parada: número de iteraciones
    [wxMaxima: comment end   ] */
 
 /* [wxMaxima: input   start ] */
-numer:true;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-MetodoEuler(a,b,N,y0,f):=block(
-    define(f(t,y), f),
-    h:(b-a)/N,
-    t:a,
-    w:y0,
-    lista:makelist(0,N+1),
+MetodoEuler(a, b, N, y0, g) := block(
+    h: (b-a)/N,
+    t: a,
+    approx: makelist(0,N+1),
+    approx[1]: y0,
     for i:1 thru N do(
-       w:w+h*f(t,w), /*calcule wi*/
-       lista[i]:w,
-       t:a+ i*h /*calcule ti*/
+       approx[i+1]: approx[i] + h*g(t,approx[i]),
+       t: t+h
     ),
-    return(lista)
-)$
+    return(approx)
+);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-/*define(f(t,y),-4*t^3*y^2);*/
-kill(y,t)$
-q:-4*t^3*y^2;
+f(t,y):=-4*t^3*y^2;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-l1:MetodoEuler(-10,0,100,1/10001,q)$
+l1: MetodoEuler(-10,0,100,1/10001,f)$
 l1[101];
 /* [wxMaxima: input   end   ] */
 
@@ -65,14 +61,10 @@ l5[1000001];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-/* define(f(t,y),t^2+y^2); */
-kill(y,t)$
-q:t^2+y^2;
+f(t,y) := t^2+y^2;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-kill(y,t)$
-q:t^2+y^2;
 aprox:MetodoEulerH(0,1,0.1,1,q)$
 /* [wxMaxima: input   end   ] */
 
