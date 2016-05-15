@@ -45,6 +45,10 @@ l1[101];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
+plot2d(sol(t,y),t,[lmin(l1),lmax(l1)]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
 l2:MetodoEuler(-10,0,1000,1/10001,f)$
 l2[1001];
 /* [wxMaxima: input   end   ] */
@@ -69,7 +73,7 @@ float(10/7500);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-f(t,y) := t^2+y^2;
+sol(t,y):=1/(1+t^4);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
