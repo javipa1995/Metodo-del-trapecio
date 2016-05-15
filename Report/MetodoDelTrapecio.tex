@@ -222,10 +222,10 @@
 		\end{cases}
 	\end{equation*}
 
-	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como (poner un ejemplo) de las cuales no se conoce una solución exacta. Sin embargo, sí se conocen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial.
+	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, sí se conocen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial.
 
 
-	Uno de los objetivos de la teoría del Análisis numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$ y al error de aproximación cometido $e_i = y(t_i) - w_i$.
+	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$ y al error de aproximación cometido $e_i = y(t_i) - w_i$.
 
 
 	La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
@@ -237,7 +237,7 @@
 		\label{fig:interpret-pvi}
 	\end{figure}
 
-	Si conocemos la imagen de la solución $y$ en un punto $t_{i-1}$, entonces sabemos que en ese punto la función variará en la dirección dada por el campo vectorial comentado previamente. Esta es pues la dirección de la recta tangente a $y$ en $t_{i-1}$. Podemos utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Si repetimos el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$ De este modo nace el método de Euler cuya expresión resumida es la siguiente:
+	Si conocemos la imagen de la solución $y$ en un punto $t_{i-1}$, entonces sabemos que en ese punto la función variará en la dirección dada por el campo vectorial comentado previamente. Esta es pues la dirección de la recta tangente a $y$ en $t_{i-1}$. Podemos utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene de este modo el método de Euler cuya expresión resumida es la siguiente:
 
 	\begin{center}
 		$\begin{cases}
