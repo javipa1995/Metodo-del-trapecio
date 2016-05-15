@@ -338,64 +338,60 @@
 		\end{itemize} 
 	\end{definition}
 	
-	El error global cometido en cualquier paso puede acotarse entonces por la suma del error local y el error global del paso previo. \textbf{WAT}
-	
-	Para el método de Euler los errores global y local pueden visualizarse fácilmente:
-	
+	El error global cometido en cualquier paso puede entenderse por la suma del error local y el error global del paso previo amplificado. Este hecho se puede visualizar en la Figura \ref{fig:error}, que ejemplifica los conceptos de errores locales y globales.
+		
 	\begin{figure}[h]
-	\centering
-	\includegraphics[width=10cm]{./Images/error-euler.png}
-	\caption{Error local y global cometido por el método de Euler} 
-	\label{fig:error-euler}
+		\centering
+		\includegraphics[width=10cm]{./Images/error-euler.png}
+		\caption{Representación gráfica de los errores locales y globales.} 
+		\label{fig:error}
 	\end{figure}
 	
 	La relación entre errores locales y errores globales viene dada por el siguiente teorema: \\
 	
-	\begin{theorem}
-	Si f es Lipschitz con constante L, $y_i$ son los valores de la solución a un problema de valores iniciales en puntos $t_i$ en $[a,b]$ y son aproximados por valores $w_i$ mediante cierto método de aproximación con errores locales $e_i \leq c h^{k+1}$ entonces $g_i \le \frac{c h^k}{L} (e^{L(t_i-a)}-1)$ (1).\\
+	\begin{theorem} \label{theorem:local-global-error}
+		Supóngase que la función $f$ es lipschitziana en la segunda variable con constante de Lipschitz $L$. Además, supóngase que existen $C \ge 0$ y $k \in \mathbb{N}$ tales que los errores locales verifican $e_i \le C h^{k+1}$ para todo $i = 0 \ldots n$. Entonces, se verifica la siguiente desigualdad para los errores globales
+		\begin{equation}
+			g_i \le \frac{C h^k}{L} (e^{L(t_i-a)}-1)
+		\end{equation}
 	\end{theorem} 
+	\begin{proof}
+		En breve.
+	\end{proof}
 	
-	\begin{definition} Si un método verifica (1) cuando $h \to 0$ entonces se dice que tiene orden k.
+	La siguiente definición pone nombre a las acotaciones del Teorema \ref{theorem:local-global-error}.
+	
+	\begin{definition} 
+		Considérese un método de discretización para problemas de valores iniciales. Entonces:
+		\begin{enumerate}
+			\item El método es localmente de orden $k$ si existe una constante $C \ge 0$ tal que $e_i \le C h^k$ para todo $i = 0 \ldots n$.
+			\item El método es de orden $k$ si existe una constante $C \ge 0$ tal que $g_i \le C h^k$ para todo $i = 0 \ldots n$.
+		\end{enumerate}
 	\end{definition}
 	
-	\textbf{Discutir si introducir los resultados del método de euler y cómo.}
+	Las constantes de la definición previa dependerán del problema de valores iniciales en cuestión. Nótese que el Teorema \ref{theorem:local-global-error} está diciendo si un método es localmente de orden $k+1$, entonces es de orden $k$. Como aplicación directa de este teorema se obtiene fácilmente el orden del método de Euler.
 	
 	\begin{theorem}
-		Supongamos que $f$ es continua y que satisface la condición de Lipschitz con la constante $L$ en $D=\{(t,y)|a \le t \le b, -\infty < y < \infty \}$ y que existe una constante $M$ tal que $|y''(t)| \le M$, para todo $t \in [a,b]$.
-		\\
-		
-		Denotemos con $y(t)$ la solución única del problema de valores iniciales 
-		$$y'=f(t,y), \: a \le t \le b, \: y(a)=\alpha$$
-		y sean $y_0, y_1,...,y_n$ las aproximaciones generadas con el método de Euler para algún entero positivo n. Entonces para cada $i=0,1,2,...,n$,
-		\begin{equation}
-		\label{5.10}
-		|y(t_i)-y_i| \le \frac{hM}{2L}[e^{L(t_i-a)}-1] 
-		\end{equation}
+		Supóngase que $f: [a,b] \times ]-\infty, +\infty[ \rightarrow \mathbb{R}$ es derivable y lipschitziana en la segunda variable. Entonces, el método de Euler es localmente de orden $2$. Consecuentemente, el método de Euler es de orden $1$.
 	\end{theorem}
 	
 	\begin{proof}
-		Cuando $i=0$, dicha desigualdad se cumple ya que $y(x_0)=y_0=\alpha$.\\
-		
-		Sabemos que, para cada i=1,...,n
-		$$y(t_i)=y(t_{i-1})+hf(t_{i-1},y(t_{i-1}))+\frac{h^2}{2}y''(\xi_{i-1})$$
-		e $$y_{i+1}=y_i+hf(t_i,y_i).$$
-		En consecuencia, tenemos
-		$$y(t_i)-y_i=y(t_{i-1})-y_{i-1}+h[f(t_{i-1},y(t_{i-1}))-f(t_{i-1},y_{i-1})]+\frac{h^2}{2}y''(\xi_{i-1})$$
-		y
-		$$|y(t_i)-y_i| \le |y(t_{i-1})-y_{i-1}|+h|f(t_i,y(t_{i-1}))-f(t_{i-1},y_{i-1})|+\frac{h^2}{2}y''(\xi_{i-1}).$$
-		Puesto que f satisface la condición de Lipschitz e $|y''(t)| \le M$, tenemos 
-		$$|y(t_i)-y_i| \le (1+hL)|y(t_{i-1})-y_{i-1}|+\frac{h^2M}{2}.$$
-		Aplicamos el lema anterior para $a_j=|y(t_{i+1})-y_{i+1}|$ para cada $j=0,1,...,n$, $s=hL$ y $t=\frac{h^2M}{2}$, obteniendo
+		Sea $y$ la solución del problema de valores iniciales para $y(a) = y_0$. Fijemos $i = 1 \ldots n$ y sea $z$ la solución del problema de valores iniciales para $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito. El teorema de Taylor para orden 2 proporciona la siguiente igualdad para cualquier 
 		\begin{equation}
-		\label{0.3}
-		|y(t_i)-y_i| \le e^{ihL}(|y(t_0)-y_0|+\frac{h^2M}{2hL})-\frac{h^2M}{2hL}
+			z_i= w_{i-1} + h f(t_{i-1}, w_{i-1}) + \frac{h^2}{2} z''(\xi_i) = w_i + \frac{h^2}{2} z''(\xi_i)
 		\end{equation}
-		
-		Debido a que $|y(t_0)-y_0|=0$ e $ih=t_i-t_0=t_i-a$, tenemos
-		$$|y(t_i)-y_i| \le \frac{hM}{2L}(e^{(t_i-a)L}-1), $$
-		para cada $i=1,...,n$
+
+		donde $\xi_i \in [t_{i-1}, t_i]$. Por tanto, si se utiliza esta igualdad en la expresión del error local se tiene
+		\begin{equation}
+			e_i = |z_i - w_i| = \left|\frac{h^2}{2} z''(\xi_i)\right| \le \frac{M_i}{2} h^2
+		\end{equation}
+
+		donde $M_i = \max\{z''(t) : t \in [t_{i-1}, t_i]\}$. Tomando $M = \max_{i = 1 \ldots n} M_i$, se tiene que el método de Euler es localmente de orden 2 como se quería. La prueba la cierra la aplicación del Teorema \ref{theorem:local-global-error}.
 	\end{proof}
 	
+	
+	\textbf{FORMATEAR EL SIGUIENTE RESULTADO CUANDO SE INTRODUZCA ESTABILIDAD.}
+
 	Para la demostración del método de Euler probaremos la consistencia y la estabilidad para concluir que es convergente.
 	
 	\begin{theorem}
@@ -415,8 +411,6 @@
 		
 		$$|y(t_n)-y_n| \le e^{LT}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\frac{hM}{2}$$ 
 	\end{proof}
-	
-	Veamos ya por qué se requieren métodos más precisos para conseguir una precisión razonable mediante una cantidad razonable de cómputos.
 	
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 2: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
