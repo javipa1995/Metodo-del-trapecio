@@ -1,5 +1,5 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
-/* [ Created with wxMaxima version 15.04.0 ] */
+/* [ Created with wxMaxima version 15.08.1+git ] */
 
 /* [wxMaxima: title   start ]
 MÉTODO DE EULER
@@ -28,11 +28,15 @@ MetodoEuler(a, b, N, y0, g) := block(
        t: t+h
     ),
     return(approx)
-);
+)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-f(t,y):=-4*t^3*y^2;
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(t,y):=float(-4*t^3*y^2);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -41,27 +45,35 @@ l1[101];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-l2:MetodoEuler(-10,0,1000,1/10001,q)$
+l2:MetodoEuler(-10,0,1000,1/10001,f)$
 l2[1001];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-l3:MetodoEuler(-10,0,10000,1/10001,q)$
+l3:MetodoEuler(-10,0,10000,1/10001,f)$
 l3[10001];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-l4:MetodoEuler(-10,0,100000,1/10001,q)$
-l4[100001];
+l4:MetodoEuler(-10,0,5000,1/10001,f)$
+l4[5001];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-l5:MetodoEuler(-10,0,1000000,1/10001,q)$
-l5[1000001];
+l5:MetodoEuler(-10,0,7500,1/10001,f)$
+l5[7501];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(10/7500);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
 f(t,y) := t^2+y^2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d();
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
