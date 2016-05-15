@@ -28,34 +28,13 @@ MetodoEuler(a,b,N,y0,f):=block(
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-/*define(f(t,y),y-t^2+1);*/
+/*define(f(t,y),-4*t^3*y^2);*/
 kill(y,t)$
-q:y-t^2+1;
+q:-4*t^3*y^2;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-MetodoEuler(0,2,10,0.5,q);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-MetodoEulerH(a,b,h,y0,f):=block(
-    define(f(t,y), f),
-    N:(b-a)/h,
-    aproximaciones:makelist(0,N+1),
-    aproximaciones[1]:y0,
-    t:a,
-    w:y0,    
-    print("t y con h=", h),
-    for i:1 thru N do(
-        w:w+h*f(t,w), /*calcule wi+1*/
-        t:a+i*h, /*calcule ti+1*/
-        aproximaciones[i+1]:w,
-        print(t, " |  ", float(w))
-        
-    ),
-
-    return(aproximaciones)
-)$
+MetodoEuler(-10,0,1,1/10001,q);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
