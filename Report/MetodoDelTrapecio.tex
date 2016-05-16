@@ -339,7 +339,9 @@
 		\end{itemize} 
 	\end{definition}
 	
-	El error global cometido en cualquier paso puede entenderse por la suma del error local y el error global del paso previo amplificado. Este hecho se puede visualizar en la Figura \ref{fig:error}, que ejemplifica los conceptos de errores locales y globales.
+	Dicho de otro modo, el error local es el error cometido al avanzar la solución desde $t_{j-1}$ hasta $t_j$ suponiendo que $y_{j-1}$ que $y_{j-1}$ es exacto. Se trata del error que se comete al aproximar $\int_{t_{j-1}}^{t_{j}} f(t,y(t)) dt$. 
+	Por otro lado, el error global tiene en cuenta que los errores cometidos en los $j-1$ pasos anteriores pueden haberse acumulado en $y_{j-1}$. Si a este error le añadimos el error local cometido en el paso $j$ obtenemos el error global de $y_j$.
+	Por tanto, el error global cometido en cualquier paso puede entenderse por la suma del error local y el error global del paso previo amplificado. Este hecho se puede visualizar en la Figura \ref{fig:error}, que ejemplifica los conceptos de errores locales y globales.
 		
 	\begin{figure}[h]
 		\centering
@@ -502,8 +504,10 @@ Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{
 Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es 
 $y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$. 
 
-De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error globar es $O(h^{2})$.
+De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
 \end{proof}
+
+Respecto al error de redondeo se tiene que la situación es náloga a la encontrada con las fórmulas de derivación...(continuará)
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
