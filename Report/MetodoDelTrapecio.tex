@@ -133,7 +133,7 @@
  \newtheorem{proposition}[theorem]{Proposición}
  
  % Definiciones, notas, conjeturas
- \theoremstyle{definition}
+ \theoremstyle{definition-style}
  \newtheorem{definition}{Definición}[section]
  \newtheorem{conjecture}{Conjetura}[section]
  \newtheorem*{note}{Nota} % * indica que no tiene contador
@@ -278,6 +278,13 @@
 		\label{table:euler}
 	\end{table}
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{./Images/eulermaxima.png}
+		\label{fig:euler}
+		\caption{Aproximaciones de $y(t)$ obtenidas con el método de Euler para diferentes valores de $n$.}
+	\end{figure}
+	
 	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error que el método de Euler. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
 	
 	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y estabilidad de las soluciones que serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
@@ -390,6 +397,34 @@
 		donde $M_i = \max\{z''(t) : t \in [t_{i-1}, t_i]\}$. Tomando $M = \max_{i = 1 \ldots n} M_i$, se tiene que el método de Euler es localmente de orden 2 como se quería. La prueba la cierra la aplicación del Teorema \ref{theorem:local-global-error}.
 	\end{proof}
 	
+	En general, un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $f, t_i, y_i$ y $h$. 
+	
+	\begin{definition}
+		\textbf{Creo que está mal.} Diremos que el método de un paso anterior es convergente si:
+		\begin{enumerate}
+			\item $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
+			\item $y_0 \to y(0)$ con $h=t/n$
+		\end{enumerate}
+		para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
+	\end{definition}
+	
+	Por tanto, si el orden del método es $O(h^r)$ con $r > 0$, se tiene que el método es convergente.
+	
+	\begin{definition}
+		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
+	\end{definition}
+	
+	\begin{theorem}
+		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
+		\begin{enumerate}
+			\item el método es estable. 
+			\item el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
+		\end{enumerate}		
+	\end{theorem}
+	
+	\begin{proof}
+		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
+	\end{proof}
 	
 	\textbf{FORMATEAR EL SIGUIENTE RESULTADO CUANDO SE INTRODUZCA ESTABILIDAD.}
 
@@ -506,30 +541,6 @@ De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que 
 \end{proof}
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
-
-
-	En general un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{n+1}=y_n + h \phi(t_n,y_n,h)$ donde $\phi$ es una función de $f,t_n,y_n y h$. 
-	
-	\begin{definition}
-		Diremos que el método de un paso anterior es convergente si:
-		i) $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
-		ii) $y_0 \to y(0)$ con $h=t/n$
-		para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
-	\end{definition}
-	
-	\begin{definition}
-		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
-	\end{definition}
-	
-	\begin{theorem}
-		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
-		i) el método es estable. 
-		ii) el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
-	\end{theorem}
-
-	\begin{proof}
-		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
-	\end{proof}
 
 	Aplicamos este teorema al método del trapecio. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo las condiciones que nos dan existencia y unicidad, si f es Lipschitziana en 
 	$\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ 
