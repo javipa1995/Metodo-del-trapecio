@@ -581,7 +581,7 @@ De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que 
 	La segunda cuestión a tratar es cómo aplicar este nuevo método para obtener aproximaciones para todos los $t_i$. Nótese que en la definición previa se suponía haber calculado $y_{i-1}$ previamente. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
 	
 	\begin{equation} \label{eq:ti-def-2}
-	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 	\end{equation}
 	
 	
