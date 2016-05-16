@@ -12,7 +12,7 @@ TrapecioExplicito(a, b, N, y0, g):=block(
     approx: makelist(0,N+1),
     approx[1]: [ti,y0],
     for i:1 thru N do(
-       approx[i+1]: [ti+h, approx[i][2] + (h/2)*(g(ti,approx[i][2]) + g(ti+h,approx[i][2] + h*g(ti,approx[i][2])))],
+       approx[i+1]: [ti+h, approx[i][2] + (h{/2)*(g(ti,approx[i][2]) + g(ti+h,approx[i][2] + h*g(ti,approx[i][2])))],
        ti: ti+h
     ),
     return(approx)
@@ -24,17 +24,28 @@ Método del trapecio implícito.
    [wxMaxima: title   end   ] */
 
 /* [wxMaxima: input   start ] */
-TrapecioImplicito(a, b, N, y0, g):=block(
-    h:(b-a)/N,
-    ti: a,
-    approx: makelist(0,N+1),
-    approx[1]: [ti,y0],
+CalculaValor(yanterior,tanterior,t,winicial,tolerancia,h,numiter,g):=block([wi],
+    for i:1 thru numiter do(
+        wi:yanterior + (h/2)*(g(tanterior,yanterior)+g(t,winicial)),
+        if abs(wi-winicial)<tolerancia
+        then return(wi)
+        else wi:winicial
+    ),
+    return (wi)
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+TrapecioImplicito(a, b, N,w0,wanterior,tanterior,t,g):=block([wi],
+    h:(b-a)/N,   
     for i:1 thru N do(
-        
-    
+        wi:wanterior + (h/2)*(g(tanterior,wanterior)+g(t,w0)),
+        if abs(wi-w0)<tolerancia
+        then return(wi)
+        else wi:w0
     ),
     
-    return (approx)
+    return (wi)
 );
 /* [wxMaxima: input   end   ] */
 
