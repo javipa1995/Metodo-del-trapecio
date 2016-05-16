@@ -482,42 +482,76 @@
 			\label{fig:trapecio-vs-euler}
 		\end{figure}
 
-	\subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
+\subsection{Error} \label{sec:trapecio-explicito:error}
 
-		En general un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{n+1}=y_n + h \phi(t_n,y_n,h)$ donde $\phi$ es una función de $f,t_n,y_n y h$. 
-		
-		\begin{definition}
-			Diremos que el método de un paso anterior es convergente si:
-			i) $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
-			ii) $y_0 \to y(0)$ con $h=t/n$
-			para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
-		\end{definition}
-		
-		\begin{definition}
-			Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
-		\end{definition}
-		
-		\begin{theorem}
-			Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
-			i) el método es estable. 
-			ii) el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
-		\end{theorem}
-		
-		\begin{proof}
-			i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
-		\end{proof}
-		
-		Aplicamos este teorema al método del trapecio. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo las condiciones que nos dan existencia y unicidad, si f es Lipschitziana en ${(t,y):a \leq t \leq b, y \in \mathbb{R}}$ con constante de Lipschitz L entonces:
-		
-		$\phi(t,y,h)-\phi(t,y',h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y')) \leq \frac{1}{2}L|y-y'|+\frac{1}{2}L|y+hf(t,y)-y'-hf(t,y')| \leq L |y-y'|+\frac{1}{2}L|hf(t,y)-hf(t,y')|=(L+\frac{1}{2}hL^{2})|y-y'|$ 
-		
-		Por tanto, $\phi$ satisface una condición de Lipschitz sobre el conjunto ${(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]}$ con constante de Lipschizt $L'=L+\frac{1}{2} h_0 L^{2}$ para cualquier $h_0 > 0$. 
-		
-		Finalmente, si f es continua en ${(t,y):a \leq t \leq b, y \in \mathbb{R}}$ entonces $\phi$ es continua en ${(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]}$ directamente por la propia definición de $\phi$. 
-		
-		De este modo podemos aplicar el teorema anterior y tenemos demostrado que el método del trapecio es estable. 
-		
-		Considerando ahora $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ tenemos la condición de consistencia expresada anteriormente lo que nos dice que el método es convergente.
+\begin{theorem}
+El error local del método del trapecio es de orden tres. En consecuencia, el error global del método es de orden dos. 
+\end{theorem}
+\begin{proof}
+Podemos particularizar la expresión del método para $j-1 = 0$ y $j=1$ como 
+$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$ siendo $K_0=f(t_0,y_0)$. 
+
+Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
+
+$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$ 
+
+ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$
+
+Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$
+
+Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es 
+$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$. 
+
+De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error globar es $O(h^{2})$.
+\end{proof}
+
+\subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
+
+
+	En general un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{n+1}=y_n + h \phi(t_n,y_n,h)$ donde $\phi$ es una función de $f,t_n,y_n y h$. 
+	
+	\begin{definition}
+		Diremos que el método de un paso anterior es convergente si:
+		i) $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
+		ii) $y_0 \to y(0)$ con $h=t/n$
+		para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
+	\end{definition}
+	
+	\begin{definition}
+		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
+	\end{definition}
+	
+	\begin{theorem}
+		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
+		i) el método es estable. 
+		ii) el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
+	\end{theorem}
+
+	\begin{proof}
+		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
+	\end{proof}
+
+	Aplicamos este teorema al método del trapecio. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo las condiciones que nos dan existencia y unicidad, si f es Lipschitziana en 
+	$\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ 
+	con constante de Lipschitz L entonces:
+	
+	$|\phi(t,y,h)-\phi(t,y',h)|=|\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y'))| \leq \frac{1}{2}L|y-y'|+\frac{1}{2}L|y+hf(t,y)-y'-hf(t,y')| \leq L |y-y'|+\frac{1}{2}L|hf(t,y)-hf(t,y')|=(L+\frac{1}{2}hL^{2})|y-y'|$ 
+	
+	Por tanto, $\phi$ satisface una condición de Lipschitz sobre el conjunto 
+	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$ 
+	con constante de Lipschizt 
+	$L'=L+\frac{1}{2} h_0 L^{2}$ 
+	para cualquier $h_0 > 0$. 
+	
+	Finalmente, si f es continua en 
+	$\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ 
+	entonces $\phi$ es continua en 
+	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$ 
+	directamente por la propia definición de $\phi$. 
+	
+	De este modo podemos aplicar el teorema anterior y tenemos demostrado que el método del trapecio es estable. 
+	
+	Considerando ahora $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ tenemos la condición de consistencia expresada anteriormente lo que nos dice que el método es convergente.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 3: MÉTODO DEL TRAPECIO ITERATIVO
@@ -592,9 +626,51 @@
 
 \section{Artículo de investigación} \label{sec:paper}
 
+\section{Ejercicios teórico-practicos}
+
+Ejercicio 2: dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C apartir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
+
+Solución:
+
+    \begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 1.00 & 2.000000 & 1.10 & 2.617500 \\
+			\hline 2 & 1.10 & 2.617500 & 1.20 & 3.657368 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.1$}
+		\label{table:trapecio-ej2}
+	\end{table}
+	
+	 \begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 1.00 & 2.000000 & 1.05 & 2.277813 \\
+			\hline 2 & 1.05 & 2.277813 & 1.10 & 2.628941 \\
+			\hline 3 & 1.10 & 2.628941 & 1.15 & 3.087423 \\
+			\hline 4 & 1.15 & 3.087423 & 1.20 & 3.712364 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.05$}
+		\label{table:trapecio-ej2.1}
+	\end{table}
+	
+	Gracias a estos cálculos y como en el enunciado se nos dice que el error global es de la forma $Ch^2$ (lo que es coherente con el error global del método explícito) podemos escribir:
+	
+	$y(1.2) - 3.657368 = C(0.1)^2$
+	$y(1.2) - 3.712364 = C(0.05)^2$
+si restamos ambas ecuaciones y despejamos se obtiene:
+	$C=7.33$
+	Asumiendo entonces que el error global puede representarse mediante $7.33 h^2$ para que sea de orden $10^{-4}$ debe ser $h=3.7$ $10^{-3}$
+
+
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
+
 
 \section{Conclusión} \label{sec:conclusion}
 

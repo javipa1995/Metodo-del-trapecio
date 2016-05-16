@@ -45,10 +45,6 @@ l1[101];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-plot2d(sol(t,y),t,[lmin(l1),lmax(l1)]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
 l2:MetodoEuler(-10,0,1000,1/10001,f)$
 l2[1001];
 /* [wxMaxima: input   end   ] */
@@ -69,19 +65,12 @@ l5[7501];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-float(10/7500);
+plot2d([[discrete,l1], [discrete,l2], f(t,y)], [y,-10,0],
+        [style, [points,5,2,6], [lines,1,1]])$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-sol(t,y):=1/(1+t^4);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-wxplot2d();
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-aprox:MetodoEulerH(0,1,0.1,1,q)$
+	
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: comment start ]
