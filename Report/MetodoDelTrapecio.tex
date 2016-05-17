@@ -241,8 +241,6 @@
 
 	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. En este contexto, es estándar en la literatura especializada considerar siempre condiciones iniciales del tipo $y(a) = y_0$ \cite{sauer}. Este será el tipo de problemas de valores iniciales que se abordarán en este trabajo.
 
-	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$.
-
 	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$ \cite{gasca}.
 
 	La primera idea intuitiva para resolver este problema consiste en interpretar la ecuación $y'(t) = f(t,y(t))$ como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
@@ -312,8 +310,6 @@
 		\end{figure}
 	\end{example}
 
-
-
 	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error de aproximación que el método de Euler y consiga resolver el Ejemplo \ref{ej:motivacion}. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e implícita.
 
 	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación ``Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
@@ -343,8 +339,6 @@
 			\item Si $I = ]-\infty,\infty[$ y $f$ es lipschitziana respecto de la segunda variable en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$
 		\end{enumerate}
 	\end{theorem}
-
-	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad se pueden definir $y_i$ como los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
 
 	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad, denotaremos por $y_i$ a los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
 
@@ -426,17 +420,21 @@
 		donde $M_i = \max\{z''(t) : t \in [t_{i-1}, t_i]\}$. Tomando $M = \max_{i = 1 \ldots n} M_i$, se tiene que el método de Euler es localmente de orden 2 como se quería. La prueba la cierra la aplicación del Teorema \ref{theorem:local-global-error}.
 	\end{proof}
 
-	El orden de un método permite tener información teórica sobre el error que se va a cometer. Otra propiedad que debe interesar al estudiar un método de discretización es que este sea convergente.
+	El orden de un método permite tener información teórica sobre el error que se va a cometer.
+
+    Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso \cite{gear}. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler. De aquí en adelante se hablará únicamente de este tipo de métodos, pues son los más extendidos y utilizados.
+
+    Una propiedad que debe interesar al estudiar un método de un paso es que este sea convergente.
 
 	\begin{definition}
-		Un método de discretización se dice convergente si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que $\lim_{n \rightarrow +\infty} y_n = y(b)$.
+		Un método de un paso se dice convergente si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que $\lim_{n \rightarrow +\infty} y_n = y(b)$.
 	\end{definition}
 
 	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
 
     Otro concepto importante es la consistencia:
     \begin{definition}
-    	Un método de discretización se dice consistene si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que
+    	Un método de un paso se dice consistene si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que
     	$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} e_i = 0 $$
     	Esto es, los errores locales convergen uniformemente a 0 cuando $n \rightarrow +\infty$.
     \end{definition}
@@ -446,12 +444,10 @@
     Cuando se considera un problema de valores iniciales $y' = f(t, y)$  con condición inicial $y(a) = y_0$ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por $y' = f(t, y)$ e $y(a) = y_0 + \epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
 
 	\begin{definition}
-		Un método de discretización se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
+		Un método de un paso se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
 	\end{definition}
 
-	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$ para cualquier $h$ lo suficientemente pequeño.
-
-	Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso \cite{gear}. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler. Uno de estos resultados es el siguiente teorema.
+	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$ para cualquier $h$ lo suficientemente pequeño. El siguiente resultado permite asegurar la estabilidad de un método de un paso bajo determinadas condiciones.
 
 	\begin{theorem} \label{theorem:stability}
 		Si un método de un paso verifica que para cualquier PVI con $f$ lipschitziana respecto de la segunda variable se tiene que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el dominio $\Omega \times [0, h_0]$, donde $\Omega$ es el dominio de $f$, entonces:
@@ -463,7 +459,7 @@
 
 	\begin{proof} Se referencian los libros en los que se encuentra la prueba:
         \begin{enumerate}
-            \item Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden-Faires \cite{burden}. 
+            \item Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden-Faires \cite{burden}.
             \item Puede encontrarse en la sección 4.3 del libro de Gear \cite{gear}.
         \end{enumerate}
 	\end{proof}
