@@ -166,6 +166,32 @@
 	pdfnewwindow=true, 	     % links in new window
 }
 
+%----------------------------------------------------------------------------------------
+%   MATEMÁTICAS
+%----------------------------------------------------------------------------------------
+
+% Paquetes para matemáticas:                     
+\usepackage{amsmath, amsthm, amssymb, amsfonts, amscd} % Teoremas, fuentes y símbolos.
+
+\colorlet{shadecolor}{ChetwodeBlue!30}
+
+\newenvironment<>{proposition}[1][\undefined]{
+	\begin{actionenv}#2
+		\ifx#1\undefined
+		\def\insertblocktitle{Proposición}%
+		\else
+		\def\insertblocktitle{Proposición ({\em#1})}%
+		\fi
+		\par
+		\mode<presentation>{%
+			\setbeamercolor{block title}{fg=white,bg=Jaguar!70}
+			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!20}
+		}%
+		\usebeamertemplate{block begin}\em}
+	{\par\usebeamertemplate{block end}\end{actionenv}}
+
+
+
 %-----------------------------------------------------------------------------------------------------
 %	TITLE PAGE
 %-----------------------------------------------------------------------------------------------------
