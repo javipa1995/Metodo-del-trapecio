@@ -401,24 +401,30 @@
 
 		donde $M_i = \max\{z''(t) : t \in [t_{i-1}, t_i]\}$. Tomando $M = \max_{i = 1 \ldots n} M_i$, se tiene que el método de Euler es localmente de orden 2 como se quería. La prueba la cierra la aplicación del Teorema \ref{theorem:local-global-error}.
 	\end{proof}
-	
-	En general, un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $f, t_i, y_i$ y $h$. 
-	
+
+	El orden de un método permite tener información teórica sobre el error que se va a cometer. Otra propiedad que debe interesar al estudiar un método de discretización es que este sea convergente.
+
 	\begin{definition}
 		Un método de discretización se dice convergente si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que $\lim_{n \rightarrow +\infty} y_n = y(b)$.
 	\end{definition}
 	
-	Por tanto, si el orden del método es $O(h^r)$ con $r > 0$, es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}
+	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
 	
+	En la práctica, cuando se considera un problema de valores iniciales $y' = f(t, y)$  con condición inicial $y(a) = y_0$ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por $y' = f(t, y)$ e $y(a) = y_0 + \epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración e incluso diverger cuando $h$ tiende a $0$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, la diferencia entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
+
 	\begin{definition}
-		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschitz existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
+		Un método de discretización se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
 	\end{definition}
 	
+	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$.
+	
+	Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler.
+	
 	\begin{theorem}
-		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
+		Si un método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el correspondiente dominio para $h \in [0, h_0]$, entonces:
 		\begin{enumerate}
 			\item el método es estable. 
-			\item el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
+			\item el método es convergente o, equivalentemente, $\phi(b,y,0) = f(b,y)$.
 		\end{enumerate}		
 	\end{theorem}
 	
@@ -426,27 +432,6 @@
 		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
 	\end{proof}
 	
-	\textbf{FORMATEAR EL SIGUIENTE RESULTADO CUANDO SE INTRODUZCA ESTABILIDAD.}
-
-	Para la demostración del método de Euler probaremos la consistencia y la estabilidad para concluir que es convergente.
-	
-	\begin{theorem}
-		El método de Euler converge para cualquier PVI donde $f$ satisface la condición de Lipschitz y la solución $y$ es $C^2$.
-	\end{theorem}
-	
-	\begin{proof}
-		Por (\ref{0.3}), probado en la demostración del error de truncamiento global, tenemos que:
-		$$|y(t_i)-y_i| \le e^{ihL}|y(t_0)-y_0|+\frac{e^{ihL}-1}{hL}\frac{h^2M}{2} = e^{ihL}|y(t_0)-y_0|+\frac{e^{ihL}-1}{L}\tau_{i-1} \le $$ $$ \le^{TL}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\max_{1 \le i \le n} |\tau_{i-1}|$$
-		para $0 \le t_i=ih+0 \le T$, con $\tau_i$ el residuo y asumiendo que $y$ es $C^2$ e $|y''| \le M$. Esto muestra la \textit{estabilidad}, es decir, errores en la solución numérica están acotadas independientemente del tamaño de paso.\\
-		
-		Por (\ref{0.2}), $\tau_i$ satisface
-		$$|\tau_i|\le \frac{hM}{2}$$
-		Esta condición se denomina \textit{consistencia} (Control del residuo).\\
-		
-		La consistencia da una cota local y la estabilidad nos permite concluir la \textit{convergencia}:
-		
-		$$|y(t_n)-y_n| \le e^{LT}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\frac{hM}{2}$$ 
-	\end{proof}
 	
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 2: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
