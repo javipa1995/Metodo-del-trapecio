@@ -656,6 +656,87 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 
 \section{Ejemplos}
 
+\subsection{Ejemplo 1}
+
+Considérese el ejemplo de problema de valores iniciales dado en la motivación. 
+
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -4 t^3 y^2 \\
+			y(-10) = 1/10001 \\
+			t \in [-10,0] \\
+			\end{cases}
+		\end{equation*}
+	
+cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$ se obtienen las siguientes gráficas. 
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-1.png}
+			\caption{Método de Euler aplicado al problema anterior con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$} 
+			\label{fig:ej1-1}
+		\end{figure}
+		
+		Aplicando la regla del trapecio explícito con paso $10^{-3}$ se obtiene la siguiente gráfica:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-2.png}
+			\caption{Método del trapecio explícto aplicado al problema anterior con paso $10^{-3}$} 
+			\label{fig:ej1-2}
+		\end{figure}
+		
+		de modo que queda patente que converge el doble de rápido que el método de Euler. 
+		
+\subsection{Ejemplo 2}
+
+Considérese el problema de valores iniciales
+
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -1 + \frac{y}{t} \\
+			y(1) = 0 
+			\end{cases}
+		\end{equation*}
+		
+calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 1.00 & 0.000000 & 1.25 & -0.275000 \\
+			\hline 2 & 1.05 & -0.275000 & 1.50 & -0.600833 \\
+			\hline 3 & 1.10 & -0.600833 & 1.75 & -0.968829 \\
+			\hline 4 & 1.15 & -0.968829 & 2.00 & -1.372859 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.25$}
+		\label{table:trapecio-ejemplo2.1}
+	\end{table}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 0.00 & 0.000000 & 0.10 & -0.104545 \\
+			\hline 2 & 0.10 & -0.104545 & 0.20 & -0.218216 \\
+			\hline 3 & 0.20 & -0.218216 & 0.20 & -0.340247 \\
+			\hline 4 & 0.30 & -0.340247 & 0.40 & -0.469991 \\
+			\hline 5 & 0.40 & -0.469991 & 0.50 & -0.606896 \\
+			\hline 6 & 0.50 & -0.606896 & 0.60 & -0.750480 \\
+			\hline 7 & 0.60 & -0.750480 & 0.70 & -0.900326 \\
+			\hline 8 & 0.70 & -0.900326 & 0.80 & -1.056065 \\
+			\hline 9 & 0.80 & -1.056065 & 0.90 & -1.217366 \\
+			\hline 10 & 0.90 & -1.217366 & 1.00 & -1.383938 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.1$}
+		\label{table:trapecio-ejemplo2.2}
+	\end{table}
+	
+	Teniendo en cuenta que $y(2)=-1.386294$, los errores relativos son $9.69 10^{-3}$ para el caso $h=0.25$ y $1.70 10^{-3}$ para el caso $h=0.10$. Como el método del trapecio es de orden 2 el error relativo es $O(h^2)$ y por tanto el cociente de los errores debería ser $\frac{C(0.25)^2}{C(0.10)^2}=6.25$ mientras que el valor real es 5.7. La razón de esta diferencia es que el orden es $O(h^2)$ asintóticamente, esto es, cuando $h \to 0$ y los valores de considerados para h no son suficientemente pequeños.
+
 \section{Ejercicios teórico-practicos}
 
 \subsection{Ejercicio 1}
