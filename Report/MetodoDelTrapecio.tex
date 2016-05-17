@@ -1032,7 +1032,35 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 
 \subsection{Ejercicio 4} \label{ejtp4}
 
-En este último ejercicio se propone un algoritmo como la suma de Kahan. En el análisis númerico, la suma de Kahan reduce significativamente el error numérico del total. Para ello, esto lo termina rodrigo....
+En este caso ilustraremos con un ejemplo el algoritmo de la suma compensada de Kahan cuyo objetivo primordial es reducir el error de redondeo cuando se suma una sucesión de números en coma flotante con suma finita. Este enfoque ha sido aplicado en distintos escenarios, en particular, en el ámbito de las ecuaciones diferenciales puede consultarse "The numerical statibility in solution of differential equations" de Vitasek. 
+
+Entre las ventajas más importantes del método es que al sumar una sucesión numérica de n números se tiene un error en el caso peor que crece de manera proporcional a n con una cota que es independiente de n y sólo depende de la precisión en coma flotante. 
+
+Nuestro objetivo es presentar el algoritmo y mostrar un ejemplo de su uso.
+
+    \begin{algorithm}
+    	\caption{Exponenciación de matrices. Calcula $A^n$ en $\theta(\log n)$.}
+    	\label{algo:exp-matrix}
+    	\begin{algorithmic}
+    		\Function{Potencia}{A, n}
+    		\If{$n = 1$}
+    		\Return $A$
+    		\ElsIf {$n\mod{2} = 0$}
+    		\State $B \gets Potencia(A,n/2)$
+    		\State \Return $B^2$
+    		\Else
+    		\State $B \gets Potencia(A,n/2)$
+    		\State \Return $A B^2$
+    		\EndIf
+    		\EndFunction
+    	\end{algorithmic}
+    \end{algorithm}
+
+funcion suma_compensada(vector_entrada)
+ suma=0.0
+ c=0.0
+ desde i=1 a longitud(vector_entrada) hacer(
+  y=vector_entrada[i]
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------

@@ -224,9 +224,11 @@
 
 	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, existen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial incluso cuando no se puedan obtener soluciones explícitamente.
 
-	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización que son cualquier método numérico que trata obtener valores aproximados de una sucesión $y_n$ de la solución $y(x)$ en los diferentes nodos $x_n$ que se obtienen al realizar la partición del intervalo en el que se trabaja. Se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$. En lo que sigue, se trabajará siempre con condiciones iniciales sobre $y(a)$ para simplificar la definición de los métodos de discretización. 	
+	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. En este contexto, es estándar en la literatura especializada considerar siempre condiciones iniciales del tipo $y(a) = y_0$ \cite{sauer}. Este será el tipo de problemas de valores iniciales que se abordarán en este trabajo.
 	
-	\textbf{Repasar estos dos párrafos, no sé si queda claro.}La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
+	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$.
+
+	La primera idea intuitiva para resolver este problema consiste en interpretar la ecuación $y'(t) = f(t,y(t))$ como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
 
 	\begin{figure}[h]
 		\centering
@@ -235,7 +237,7 @@
 		\label{fig:interpret-pvi}
 	\end{figure}
 
-	Si conocemos la imagen de la solución $y$ en un punto $t_{i-1}$, entonces sabemos que en ese punto la función variará en la dirección dada por el campo vectorial comentado previamente. Nótese que esta es la dirección de la recta tangente a $y$ en $t_{i-1}$. Podemos utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene el método de Euler cuya expresión resumida es la siguiente:
+	Si se conoce la imagen de la solución $y$ en un punto $t_{i}$, entonces la dirección de la recta tangente a $y$ en $t_{i}$ vendrá dada por $f(t_i,y(t_i))$. Por tanto, se puede utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Esto es, se ha aproximado $y(t_{i+1})$ moviéndose en la dirección que indica el campo vectorial comentado previamente. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene el método de Euler cuya expresión resumida es la siguiente:
 
 	\begin{center}
 		$\begin{cases}
@@ -245,13 +247,12 @@
 		\end{cases}$
 	\end{center}
 	
-	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le\dfrac{Mh}{2}$ para todo $i=0 \ldots n$.
+	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le Mh$ para todo $i=0 \ldots n$.
 				
-	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
+	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación se presenta un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
 	
-	\textbf{EJEMPLO DEL MÉTODO DE EULER. MEJORAR}
-	
-	\begin{example} Considérese el siguiente problema de valores iniciales
+	\begin{example} \label{ej:motivacion}
+		Considérese el siguiente problema de valores iniciales
 		\begin{equation*}
 			\begin{cases}
 			y'(t) = -4 t^3 y^2 \\
@@ -260,49 +261,55 @@
 			\end{cases}
 		\end{equation*}
 
-		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0)$ para distintos valores de $h$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un millón de puntos. 
+		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0) = 1$ para distintos valores de $n$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un 10000 de puntos. 
+	
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{|| c | c | c ||}
+				\hline
+				\hline $N$ &  $h$ & $w_n$ \\
+				\hline 100 & 0.1 & 0.00390138 \\
+				\hline 1000 & 0.01 & 0.03085162 \\
+				\hline 5000 & 0.002 & 0.13282140 \\
+				\hline 7500 & 0.0013 & 0.18614311 \\
+				\hline 10000 & 0.001 & 0.23325153 \\		
+				\hline
+				\hline	
+			\end{tabular}
+			\caption{Ejemplo de un mal comportamiento del método de Euler.}
+			\label{table:euler}
+		\end{table}
+		
+		La Figura 2 muestra las soluciones de la Tabla \ref{table:euler} de forma gráfica. Puede verse que para $n=100$ la aproximación obtenida es prácticamente nula. Aunque para valores más altos de $n$ las aproximaciones imiten el comportamiento de $y$, distan mucho del valor real de la función.
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\textwidth]{./Images/eulermaxima.png}
+			\label{fig:euler}
+			\caption{Aproximaciones de $y(t)$ obtenidas con el método de Euler para diferentes valores de $n$.}
+		\end{figure}
 	\end{example}
 	
-	\begin{table}[H]
-		\centering
-		\begin{tabular}{|| c | c | c ||}
-			\hline
-			\hline $N$ &  $h$ & $w_n$ \\
-			\hline 100 & 0.1 & 0.00390138 \\
-			\hline 1000 & 0.01 & 0.03085162 \\
-			\hline 5000 & 0.002 & 0.13282140 \\
-			\hline 7500 & 0.0013 & 0.18614311 \\
-			\hline 10000 & 0.001 & 0.23325153 \\			
-		\end{tabular}
-		\caption{Ejemplo práctico del método de Euler.}
-		\label{table:euler}
-	\end{table}
 	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.7\textwidth]{./Images/eulermaxima.png}
-		\label{fig:euler}
-		\caption{Aproximaciones de $y(t)$ obtenidas con el método de Euler para diferentes valores de $n$.}
-	\end{figure}
+		
+	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error de aproximación que el método de Euler y consiga resolver el Ejemplo \ref{ej:motivacion}. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e implícita. 
 	
-	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error que el método de Euler. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación ``Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
 	
-	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y estabilidad de las soluciones que serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
-	
-\section{Definiciones y resultados previos.} \label{sec:previo}
+\section{Definiciones y resultados previos} \label{sec:previo}
 	
 	En esta sección se proporcionan las definiciones y resultados que se necesitan para el estudio del método del trapecio. En primer lugar, una de las hipótesis con las que se suele trabajar para problemas de valores iniciales es que la función $f$ sea lipschitziana en la segunda variable.
 	
 	\begin{definition}
-		Sea $S = [a,b] \times [\alpha, \beta] \subseteq \mathbb R^2.$ Se dice que una función $f(t,y)$ es de Lipschitz respecto a la segunda variable, $y$, si existe una constante $L$, llamada constante de Lipschitz de forma que $|f(t,y_1) - f(t, y_2)| \le L * |y_1 - y_2|,  \forall (t,y_1), (t,y_2) \in S $.  
+		Sea $\Omega \subset \mathbb{R}^2$ y sea $f : \Omega \rightarrow \mathbb{R}$. Se dice que $f$ es lipschitziana respecto de la segunda variable, $y$, si existe una constante $L$, llamada constante de Lipschitz, de forma que $|f(t,y_1) - f(t, y_2)| \le L|y_1 - y_2|$ para cualquier $(t,y_1), (t,y_2) \in \Omega$.  
 	\end{definition}
 	
 	No tiene sentido aplicar un método numérico para resolver un problema de valores iniciales que no tenga solución. Por tanto, los resultados que garanticen la existencia de soluciones al problema son fundamentales en este contexto. Además, si el problema admitiese varias soluciones distintas, entonces el método puede no comportarse correctamente pues no se sabe cuál debe calcular. Por tanto, la unicidad de soluciones también es un concepto que se debe estudiar en profundidad. El resultado de este estudio se resume en el teorema de existencia y unicidad de soluciones, que utiliza como hipótesis fundamental el concepto de función lipschitziana en la segunda variable.
 	
 	\begin{theorem} \label{theorem:existence-uniqueness}
-		(Existencia y unicidad de soluciones) Sea $f: [a,b]\times[\alpha,\beta] \rightarrow \mathbb{R}$ e $y_0 \in (\alpha,\beta)$. Entonces:
+		(Existencia y unicidad de soluciones) Sea $f: [a,b] \times I \rightarrow \mathbb{R}$, donde I es un intervalo de $\mathbb{R}$, y sea $y_0 \in I$. Entonces:
 		\begin{enumerate}
-			\item Si f es Lipschitz en $[a,b]\times[\alpha,\beta]$, entonces existe $c \in [a,b]$ tal que el problema de valores iniciales:
+			\item Si $I = [\alpha,\beta]$ y $f$ es lipschitziana respecto de la segunda variable en $[a,b]\times[\alpha,\beta]$, entonces existe $c \in [a,b]$ tal que el problema de valores iniciales:
 			\begin{center}
 				$\begin{cases}
 				y'(t) = f(t,y(t)) \\
@@ -311,24 +318,22 @@
 				\end{cases}$
 			\end{center}
 			tiene exactamente una solución. 
-			\item Si f es Lipschitz en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$	
+			\item Si $I = ]-\infty,\infty[$ y $f$ es lipschitziana respecto de la segunda variable en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$	
 		\end{enumerate}
 	\end{theorem}
-	
-	\textbf{Demostración en caso de tener tiempo.}
  
 	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad se pueden definir $y_i$ como los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
  
 	El estudio de los métodos numéricos para problemas de valores iniciales se centra en la acotación de los errores cometidos y en el análisis de la estabilidad de los métodos. Las demostraciones de resultados asociados a estos conceptos suelen requerir el uso de múltiples desigualdades. El siguiente resultado, basado en la desigualdad de Gronwall, proporciona una de las desigualdades con más aplicaciones en esta área.
 	
-	\begin{theorem}
-		Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supóngase que f es de Lispchtiz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
+	\begin{theorem} \label{theorem:desigualdad-sols}
+		Sean dos soluciones $y(t), z(t)$ de la ecuación diferencial $y'(t) = f(t,y(t))$ para las condiciones iniciales $y(a)$ y $z(a)$ respectivamente. Supóngase que $f$ es lipschitziana respecto de la segunda variable. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de $f$.
 	\end{theorem}
 
 	Un método será mejor que otro cuanto menor error presenten las aproximaciones obtenidas. Sin embargo, el concepto de error se puede ampliar introduciendo los errores locales y globales.
 	
 	\begin{definition} 
-		Sean $w_i$ los valores estimados en los puntos $t_i$ por cierto método de aproximación. Sea también $z_i$ el valor de la solución exacta en $t_i$ para el problema de valores iniciales
+		Sean $w_i$ los valores estimados en los puntos $t_i$ por cierto método de discretización. Sea también $z_i$ el valor de la solución exacta en $t_i$ para el problema de valores iniciales
 		
 		\begin{center}
 			$\begin{cases}
@@ -346,9 +351,7 @@
 		\end{itemize} 
 	\end{definition}
 	
-	Dicho de otro modo, el error local es el error cometido al avanzar la solución desde $t_{j-1}$ hasta $t_j$ suponiendo que $y_{j-1}$ que $y_{j-1}$ es exacto. Se trata del error que se comete al aproximar $\int_{t_{j-1}}^{t_{j}} f(t,y(t)) dt$. 
-	Por otro lado, el error global tiene en cuenta que los errores cometidos en los $j-1$ pasos anteriores pueden haberse acumulado en $y_{j-1}$. Si a este error le añadimos el error local cometido en el paso $j$ obtenemos el error global de $y_j$.
-	Por tanto, el error global cometido en cualquier paso puede entenderse por la suma del error local y el error global del paso previo amplificado. Este hecho se puede visualizar en la Figura \ref{fig:error}, que ejemplifica los conceptos de errores locales y globales.
+	Dicho de otro modo, el error local es el error cometido al calcular $w_{i+1}$ suponiendo que $w_i$ es el valor exacto de la solución en $t_i$. Esto es, el error que introduce el método en cada paso. Por su parte, el error global $g_i$ es el error que presenta la aproximación $w_i$ frente a la solución buscada. El error global depende de los errores locales pero no tiene por qué ser suma de éstos. Sin embargo, el error global $g_{i+1}$ sí puede entenderse por la suma del error local, $e_{i+1}$, y el error global del paso previo amplificado. Este hecho se puede visualizar en la Figura \ref{fig:error}, que ejemplifica los conceptos de errores locales y globales.
 		
 	\begin{figure}[h]
 		\centering
@@ -381,12 +384,12 @@
 	
 	Las constantes de la definición previa dependerán del problema de valores iniciales en cuestión. Nótese que el Teorema \ref{theorem:local-global-error} está diciendo si un método es localmente de orden $k+1$, entonces es de orden $k$. Como aplicación directa de este teorema se obtiene fácilmente el orden del método de Euler.
 	
-	\begin{theorem}
-		Supóngase que $f: [a,b] \times ]-\infty, +\infty[ \rightarrow \mathbb{R}$ es derivable y lipschitziana en la segunda variable. Entonces, el método de Euler es localmente de orden $2$. Consecuentemente, el método de Euler es de orden $1$.
+	\begin{theorem} \label{theorem:euler:error}
+		Supóngase que $f: [a,b] \times [\alpha, \beta] \rightarrow \mathbb{R}$ es derivable y lipschitziana en la segunda variable. Entonces, el método de Euler es localmente de orden $2$. Consecuentemente, el método de Euler es de orden $1$.
 	\end{theorem}
 	
 	\begin{proof}
-		Sea $y$ la solución del problema de valores iniciales para $y(a) = y_0$. Fijemos $i = 1 \ldots n$ y sea $z$ la solución del problema de valores iniciales para $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito. El teorema de Taylor para orden 2 proporciona la siguiente igualdad para cualquier 
+		Sea $y$ la solución del problema de valores iniciales para $y(a) = y_0$. Se fija $i = 1 \ldots n$ y sea $z$ la solución del problema de valores iniciales para $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito. El teorema de Taylor para orden 2 proporciona la siguiente igualdad para cualquier 
 		\begin{equation}
 			z_i= w_{i-1} + h f(t_{i-1}, w_{i-1}) + \frac{h^2}{2} z''(\xi_i) = w_i + \frac{h^2}{2} z''(\xi_i)
 		\end{equation}
@@ -398,29 +401,30 @@
 
 		donde $M_i = \max\{z''(t) : t \in [t_{i-1}, t_i]\}$. Tomando $M = \max_{i = 1 \ldots n} M_i$, se tiene que el método de Euler es localmente de orden 2 como se quería. La prueba la cierra la aplicación del Teorema \ref{theorem:local-global-error}.
 	\end{proof}
-	
-	En general, un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $f, t_i, y_i$ y $h$. 
-	
+
+	El orden de un método permite tener información teórica sobre el error que se va a cometer. Otra propiedad que debe interesar al estudiar un método de discretización es que este sea convergente.
+
 	\begin{definition}
-		\textbf{Creo que está mal.} Diremos que el método de un paso anterior es convergente si:
-		\begin{enumerate}
-			\item $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
-			\item $y_0 \to y(0)$ con $h=t/n$
-		\end{enumerate}
-		para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
+		Un método de discretización se dice convergente si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que $\lim_{n \rightarrow +\infty} y_n = y(b)$.
 	\end{definition}
 	
-	Por tanto, si el orden del método es $O(h^r)$ con $r > 0$, se tiene que el método es convergente.
+	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
 	
+	En la práctica, cuando se considera un problema de valores iniciales $y' = f(t, y)$  con condición inicial $y(a) = y_0$ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por $y' = f(t, y)$ e $y(a) = y_0 + \epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración e incluso diverger cuando $h$ tiende a $0$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, la diferencia entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
+
 	\begin{definition}
-		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
+		Un método de discretización se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
 	\end{definition}
+	
+	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$.
+	
+	Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler.
 	
 	\begin{theorem}
-		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
+		Si un método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el correspondiente dominio para $h \in [0, h_0]$, entonces:
 		\begin{enumerate}
 			\item el método es estable. 
-			\item el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
+			\item el método es convergente o, equivalentemente, $\phi(b,y,0) = f(b,y)$.
 		\end{enumerate}		
 	\end{theorem}
 	
@@ -428,27 +432,6 @@
 		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
 	\end{proof}
 	
-	\textbf{FORMATEAR EL SIGUIENTE RESULTADO CUANDO SE INTRODUZCA ESTABILIDAD.}
-
-	Para la demostración del método de Euler probaremos la consistencia y la estabilidad para concluir que es convergente.
-	
-	\begin{theorem}
-		El método de Euler converge para cualquier PVI donde $f$ satisface la condición de Lipschitz y la solución $y$ es $C^2$.
-	\end{theorem}
-	
-	\begin{proof}
-		Por (\ref{0.3}), probado en la demostración del error de truncamiento global, tenemos que:
-		$$|y(t_i)-y_i| \le e^{ihL}|y(t_0)-y_0|+\frac{e^{ihL}-1}{hL}\frac{h^2M}{2} = e^{ihL}|y(t_0)-y_0|+\frac{e^{ihL}-1}{L}\tau_{i-1} \le $$ $$ \le^{TL}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\max_{1 \le i \le n} |\tau_{i-1}|$$
-		para $0 \le t_i=ih+0 \le T$, con $\tau_i$ el residuo y asumiendo que $y$ es $C^2$ e $|y''| \le M$. Esto muestra la \textit{estabilidad}, es decir, errores en la solución numérica están acotadas independientemente del tamaño de paso.\\
-		
-		Por (\ref{0.2}), $\tau_i$ satisface
-		$$|\tau_i|\le \frac{hM}{2}$$
-		Esta condición se denomina \textit{consistencia} (Control del residuo).\\
-		
-		La consistencia da una cota local y la estabilidad nos permite concluir la \textit{convergencia}:
-		
-		$$|y(t_n)-y_n| \le e^{LT}|y(t_0)-y_0|+\frac{e^{TL}-1}{L}\frac{hM}{2}$$ 
-	\end{proof}
 	
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 2: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
@@ -477,7 +460,7 @@
 		y(t)  = y_0 + \int_{t_0}^{t} f(s,y(s))) \ ds
 	\end{equation}
 	
-	En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Para ello supóngase que $f$ es diferenciable. En tal caso una obvia inducción concluye que $y$ es de clase infinito. Por tanto, se puede utilizar la fórmula del trapecio para integración numérica, obteniendo la siguiente igualdad
+	En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Para ello supóngase de aquí en adelante que $f$ es diferenciable. En tal caso una obvia inducción concluye que $y$ es de clase infinito. Por tanto, se puede utilizar la fórmula del trapecio para integración numérica, obteniendo la siguiente igualdad
 	
 	\begin{equation} \label{eq:trapecio-igualdad}
 		y(t_{1}) = y_0 + \frac{h}{2} \left[f(t_0,y_0) + f(t_1, y(t_1))\right] - \frac{h^3}{12}y^{3)}(\xi)
@@ -498,7 +481,7 @@
 
 \section{Método del trapecio explícito}	 \label{sec:trapecio-explicito}
 		
-		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias que se comentó en la Sección \ref{sec:motivacion}. Denotemos $w'_i$ a las aproximaciones obtenidas por este método. El valor de la solución en cada punto se aproxima a partir del anterior mediante la siguiente expresión:
+		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias que se comentó en la Sección \ref{sec:motivacion}. Llámese $w'_i$ a las aproximaciones obtenidas por este método. El valor de la solución $y$ en cada punto se aproxima mediante la siguiente expresión, donde $w_0' = y_0$:
 		
 		\begin{equation*} \label{eq:euler}
 			y(t_{i+1}) \approx w'_{i+1} = w'_i + h f(t_i,w'_i))
@@ -515,47 +498,73 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=10cm]{./Images/trapecio-vs-euler.png}
-			\caption{Esquema visual del método del trapecio explícito.} 
+			\caption{Esquema visual del método del trapecio explícito en contraposición con el método de Euler.} 
 			\label{fig:trapecio-vs-euler}
 		\end{figure}
 
-\subsection{Error} \label{sec:trapecio-explicito:error}
+		Puesto que la nueva aproximación $w_i$ se consigue "mejorando" la aproximación del método de Euler mediante una media, cabe esperar que el método del trapecio explícito presente un mejor comportamiento. En efecto, este hecho se estudiará en la Sección \ref{sec:trapecio-explicito:error}. Posteriormente en la Sección \ref{sec:trapecio-explicito:estabilidad} se estudiará la estabilidad del método del trapecio explícito. 
 
-\begin{theorem}
-El error local del método del trapecio es de orden tres. En consecuencia, el error global del método es de orden dos. 
-\end{theorem}
-\begin{proof}
-Podemos particularizar la expresión del método para $j-1 = 0$ y $j=1$ como 
-$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$ siendo $K_0=f(t_0,y_0)$. 
+	\subsection{Error local y global} \label{sec:trapecio-explicito:error}
+	
+		El estudio del error del método del trapecio explícito se resume en el siguiente teorema.
+	
+		\begin{theorem}
+			El error local del método del trapecio es de orden tres. En consecuencia, el error global del método es de orden dos. 
+		\end{theorem}
 
-Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
+		\begin{proof}
+			La prueba es similar a la realizada en el Teorema \ref{theorem:euler:error}. Sean $w_0, w_1, \ldots, w_n$ las aproximaciones obtenidas por el método del trapecio explícito, se fija $i = 1, 2, \ldots, m$. Sea $z$ la solución del problema de valores iniciales para la condición $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito.
 
-$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$ 
+			Por tanto, aplicando la igualdad (\ref{eq:trapecio-igualdad}) a $z$, se obtiene la siguiente expresión:
+			$$ z_i = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, z_i)\right] + 0(h^3) $$
+			Denótese $w'_i =  w_{i-1} + hf(t_{i-1}, w_{i-1})$. Utilizando la definición de $w_i$ y la expresión previa en la definición de error local se obtiene			
+			$$ e_i = \left|z_i - w_i\right| =  \left|\frac{h}{2} \left[f(t_i, z_i) - f(t_i, w'_i)\right] + 0(h^3) \right| \le \frac{h}{2} \left|f(t_i, z_i) - f(t_i, w'_i)\right| + 0(h^3) $$ 
 
-ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$
+			Considérese el desarrollo de Taylor de orden 1 con respecto de la variable $y$ para $f(t_i, w'_i)$ en el punto $(t_i,z_i)$:
+			$$ f(t_i, w'_i) = f(t_i, z_i) + \frac{\partial f}{\partial y}(t_i, z_i) (w'_i - z_i) = f(t_i, z_i) + O(h^2) $$
+			donde se ha usado que $z_i - w'_i$ es el error local del método de Euler y, por tanto, es de orden 2. Basta juntar las dos expresiones obtenidas para conseguir
+			$$ e_i \le \frac{h}{2} \left|f(t_i, z_i) - f(t_i, w_{i-1} + hf(t_{i-1}, w_{i-1})\right| + 0(h^3) =  \frac{h}{2} O(h^2) + 0(h^3) = O(h^3) $$ 
+			
+			Por último, el Teorema \ref{theorem:local-global-error} implica que el error global es de orden 2.
 
-Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$
+		\end{proof}
 
-Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es 
-$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$. 
+		\begin{proof} \textit{Prueba alternativa.}
+			
+			Podemos particularizar la expresión del método para $j-1 = 0$ y $j=1$ como 
+			$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$ siendo $K_0=f(t_0,y_0)$. 
+			
+			Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
 
-De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
-\end{proof}
+			
+			$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$ 
+			
+			ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$
+			
+			Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$
+			
+			Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es 
+			$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$. 
+			
+			De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
+		\end{proof}
+		
+	\subsection{Error de redondeo} \label{sec:trapecio-explicito:redondeo}
 
-Respecto al error de redondeo se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima. Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. 
-
+		El error de redondeo debe tenerse en cuenta a la hora de evaluar un método numérico. En el caso de las ecuaciones diferenciales se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima (véase la Figura \ref{fig:redondeo}). Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. Este hecho explica la importancia de utilizar métodos con el mayor orden posible pues son capaces de obtener aproximaciones de calidad sin necesidad de utilizar valores de $h$ muy pequeños.
+		
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=8cm]{./Images/redondeo.png}
 			\caption{Combinación de los errores de truncatura y redondeo} 
 			\label{fig:redondeo}
 		\end{figure}
-
-
-Así en el caso del método del trapecio, si tomamos $h=\frac{b-a}{N}$ entonces en cada uno de los $N$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto 
-$N(\epsilon+Ch{3})=\frac{\epsilon'}{h}+C'h^{2}$. En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
-
-Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio, un modelo más pesimista se pondría en el peor de los casos y un modelo probabilista que se puede encontrar en el libro de Henrici "Discrete Variable Methods in Ordinary Differential Equations". Otros autores como Butcher en su libro "Numerical Methods for Ordinary Differential Equations" en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamdo algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
+		
+		En el caso del método del trapecio, si se toma $h=\frac{b-a}{n}$, entonces en cada uno de los $n$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto, se obtiene el siguiente error 
+		$$ n(\epsilon+Ch{3})=\frac{\epsilon}{h}+Ch^{2} $$
+		En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
+		
+		Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio. El primero es un modelo más pesimista que se pondría en el peor de los casos. El segundo es un modelo probabilista que se puede encontrar en el libro de Henrici ``Discrete Variable Methods in Ordinary Differential Equations''. Otros autores como Butcher en su libro ``Numerical Methods for Ordinary Differential Equations'' en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamado algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
@@ -567,7 +576,7 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 	
 	Por tanto, $\phi$ satisface una condición de Lipschitz sobre el conjunto 
 	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$ 
-	con constante de Lipschizt 
+	con constante de Lipschitz 
 	$L'=L+\frac{1}{2} h_0 L^{2}$ 
 	para cualquier $h_0 > 0$. 
 	
@@ -582,71 +591,104 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 	Considerando ahora $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ tenemos la condición de consistencia expresada anteriormente lo que nos dice que el método es convergente.
 
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN 3: MÉTODO DEL TRAPECIO ITERATIVO
+%	SECCIÓN 3: MÉTODO DEL TRAPECIO IMPLÍCITO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Método del trapecio iterativo} \label{sec:trapecio-iterativo}
+\section{Método del trapecio implícito} \label{sec:trapecio-iterativo}
 	
-	Supóngase que se han calculado las $i$ primeras aproximaciones de la función $y$ y que, además, se ha obtenido una aproximación inicial para $y_i$. Esta aproximación se denota $w_i^{(0)}$. Si la aproximación es buena, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha utilizando $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
 	
+	Recuérdese en este punto la aproximación (\ref{eq:app}), que se mostraba en la Sección \ref{sec:intro-trapecio}, dada por
+
+	\begin{equation*}
+		y_1 \approx w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, y_1)\right]
+	\end{equation*}
+
+	En caso de ser una igualdad ($w_1 = y_1$), se tendría la siguiente ecuación implícita
+
+	\begin{equation*}
+		w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, w_1)\right]
+	\end{equation*}
+
+	En esta sección se resolverá dicha ecuación implícita mediante métodos numéricos. La solución obtenida será tomada como $w_1$. Posteriormente, se puede repetir el proceso para obtener $w_2$. En general, para cada $i = 1 \ldots n$ se está resolviendo la siguiente ecuación implícita
+
+	\begin{equation} \label{eq:ecuacion-implicita}
+		w_i = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w_i)\right]
+	\end{equation}
+
+	Si se define $g_i(w) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w)\right]$, en definitiva se está buscando un punto fijo de $g_i$. En este contexto se puede aplicar un método de iteración funcional para calcular dicho punto fijo. En caso de obtenerse, el siguiente resultado proporciona el error local cometido.
+	
+	\begin{proposition} \label{prop:implicito:error}
+		Sea $w_i$ una solución de la ecuación implícita (\ref{eq:ecuacion-implicita}). Supóngase que $f$ es lipschitziana en la segunda variable con constante de Lipschitz $L$. En tal caso, si se toma $w_i$ como aproximación y $hL+r < 2$ para cierto $r >0$, entonces el error local cometido es $O(h^3)$.
+	\end{proposition}
+	
+	\begin{proof}
+		Basta aplicar la igualdad (\ref{eq:trapecio-igualdad}), tomando como condición inicial $z(t_{i-1}) = w_{i-1}$, junto con la ecuación implícita (\ref{eq:ecuacion-implicita}):
+
+		$$ e_i = \left|z_i - w_i \right| = \left|\frac{h}{2} \left[ f(t_i, z_i) - f(t_i, w_i) \right] - \frac{h^3}{12}z^{3)}(\xi) \right| \le \frac{hL}{2} e_i + \left|\frac{h^3}{12}z^{3)}(\xi) \right| $$
+		
+		Por tanto, juntando los $e_i$ y usando que $2 \ne hL$, se obtiene la siguiente desigualdad:
+		
+		$$ e_i \le \frac{2}{2-hL} \left|\frac{h^3}{12}z^{3)}(\xi) \right| $$
+		
+		Se ha tomado $h$ lo suficientemente pequeño de manera que $\frac{2}{2-hL} < \frac{2}{r}$. Por tanto, $e_i = O(h^3)$. 
+	\end{proof}
+
+	Normalmente se trabaja con funciones $f$ que sean lipschitzianas respecto de la segunda variable. Por tanto, tomando $h$ lo suficientemente pequeño, siempre se pueden verificar las hipótesis de la proposición previa.
+	
+	La pregunta que queda por resolver es qué método de iteración funcional se debe utilizar para conseguir aproximar un punto fijo de $g_i$. Una primera respuesta puede ser el método de Newton en caso de conocer la derivada parcial de $f$ con respecto de la segunda variable. Este método asegura la convergencia en un entorno del punto fijo. Por tanto, si se parte de una aproximación inicial apropiada, como puede ser el método de Euler, es probable que el método de Newton converja y, además, con orden de convergencia 2.
+	
+	Sin embargo, utilizando que $f$ es lipschitziana en la segunda variable, la función $g_i$ va a ser lipschitziana con constante de Lipschitz $\frac{hL}{2}$. Esto sugiere utilizar el método de iteración funcional dado por $g_i$ partiendo de una aproximación inicial, que se denota $w_i^{(0)}$. La sucesión definida por el método de iteración funcional es la siguiente
+	
+
 	\begin{equation} \label{eq:ti-def}
-	w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+		w_{i} ^{(j+1)} = g_i(w_i^{(j)}) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 	\end{equation}
 	
-	La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:error:iterativo}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Además, se probará que el error cometido utilizando esta aproximación es $O(h^3)$.
+	El objetivo es estudiar cuándo la sucesión $\{w_{i}^{(j)}\}$ converge. En tal caso, el límite es un punto fijo de $g_i$ y es la aproximación $w_i$ buscada. La aplicación de este método de iteración funcional para resolver la ecuación implícita (\ref{eq:ecuacion-implicita}) es lo que se conoce en la literatura especializada como método del trapecio iterativo \cite{akitson}.
 	
-	La segunda cuestión a tratar es cómo aplicar este nuevo método para obtener aproximaciones para todos los $t_i$. Nótese que en la definición previa se suponía haber calculado $y_{i-1}$ previamente. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
+	La siguiente proposición proporciona una condición suficiente de convergencia que no depende de la aproximación inicial escogida.
 	
-	\begin{equation} \label{eq:ti-def-2}
-	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
-	\end{equation}
+	\begin{proposition}
+		Supóngase que la función $f$ está definida en $[a,b]\times[-\infty, +\infty]$ y es lipschitziana en la segunda variable con constante de Lipschitz $L$. Si $\frac{LH}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
+	\end{proposition}
 	
-	
-	En tal caso se está cometiendo un nuevo error de aproximación.
-	
-	\subsection{Estudio del error} \label{sec:trapecio-iterativo:error}
+	\begin{proof}
+		La función $g_i$ está definida en $\mathbb{R}$. La constante de Lipschitz de $g_i$ es $\frac{hL}{2}$. Por tanto, si $\frac{LH}{2} < 1$, entonces $g_i$ es una contracción sobre $\mathbb{R}$. El resultado se desprende del teorema del punto fijo de Banach.
+	\end{proof}
 
-		El resultado del estudio de esta cuestión viene dado en la siguiente proposición.
+	La función $f$ puede estar definida en $[a,b]\times[\alpha, \beta]$ con  $-\infty < \alpha < \beta < +\infty$ si se toma una buena aproximación inicial. El problema reside en conseguir que $g_i([\alpha,\beta]) \subset [\alpha,\beta]$. Esta cuestión ya se estudió durante los métodos de iteración funcional. El resultado del estudio se recoge en la siguiente proposición.
+	
+	\begin{proposition}
+		Sea $w_i^{(0)}$ la aproximación inicial obtenida. Supóngase que la función $f$  es lipschitziana en la segunda variable, con constante de Lipschitz $L$, en el intervalo  $[w_i^{(0)}-r,w_i^{(0)}+r]$ para $r>0$. Si $\frac{LH}{2} < 1$ y $\left|w_i^{(1)} - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$, entonces $\{w_i^{(j)}\}$ está bien definida y es convergente.
+	\end{proposition}
+	
+	\begin{proof}
+		La función $g_i$ se puede restringir a $[w_i^{(0)}-r,w_i^{(0)}+r]$. La constante de Lipschitz de $g_i$ es $\frac{hL}{2}$. Las otras dos hipótesis proporcionan los siguientes hechos:
 		
-		\begin{proposition}
-			Si la función $f$ es Lipschitziana en la segunda variable con constante de Lipschitz $L$ y se verifica $\frac{hL}{2} < 1$, entonces la sucesión $\{w_i^{(j)}\}$ converge cuando $j \rightarrow +\infty$. Denotando $w_i = \lim w_i^{(j)}$, se tiene además $\left|y_{i} - w_{i}\right| = O(h^3)$.
-		\end{proposition}
-		
-		\begin{proof}
-			La prueba se centra en comprobar que $\{w_i^{(j)}\}$ es una sucesión de Cauchy. En primer lugar, se estudia $\{w_{i}^{(j+1)} - w_{i}^{(j)}\}$. Utilizando la condición de Lipschitz
-			
-			\begin{equation*}
-			\left|w_{i}^{(j+1)} - w_{i}^{(j)}\right| \le \frac{h}{2} \left| f(t_i, w_i^{(j)}) - f(t_i, w_i^{(j-1)}) \right| \le \frac{hL}{2} \left| w_i^{(j)} - w_i^{(j-1)} \right| \le \ldots \le \left(\frac{hL}{2}\right)^j \left|w_i^{(1)} - w_i^{(0)}\right|
-			\end{equation*}
-			
-			Posteriormente se utiliza la desigualdad obtenida para conseguir acotar $\left|w_{i}^{(j+q)} - w_{i}^{(j)}\right|$. 
-			
-			\begin{equation*}
-			\left|w_{i}^{(j+q)} - w_{i}^{(j)}\right| \le \sum_{k = j} ^ {j+q} \left|w_i^{(k)} - w_i^{(k-1)}\right| \le \sum_{k = j} ^ {j+q} \left(\frac{hL}{2}\right)^{k-1} \left|w_i^{(1)} - w_i^{(0)}\right| = \left|w_i^{(1)} - w_i^{(0)}\right| \sum_{k = j} ^ {j+q} \left(\frac{hL}{2}\right)^{k-1}
-			\end{equation*}
-			
-			Como $\frac{hL}{2} < 1$, se tiene que la serie $\sum_{j \ge 0} \left(\frac{hL}{2}\right) ^j$ converge. Por consiguiente, es de Cauchy. Aplicando este hecho en la expresión previa se obtiene que $\{w_i^{(j)}\}$ es una sucesión de Cauchy. 
-			
-			Nótese que tomando límites en (\ref{eq:ti-def}) se obtiene la siguiente igualdad
-			
-			\begin{equation} \label{eq:prop2.2}
-			w_{i} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i})\right]
-			\end{equation}
-			
-			
-			Por último, se estudia $\left|y_{i} - w_{i}\right|$. Restando las expresiones (\ref{eq:trapecio-igualdad}) y (\ref{eq:prop2.2}) se obtiene
-			
-			$$ \left|y_{i} - w_{i}\right| = \left|\frac{h}{2} \left[f(t_{i},y_{i}) - f(t_{i}, w_{i})\right] - \frac{h^3}{12}y^{3)}(\xi)\right| \le \frac{h}{2} \left|f(t_{i},y_{i}) - f(t_{i}, w_{i})\right| + \frac{h^3}{12}\left|y^{3)}(\xi)\right| \le$$
-			$$ \frac{hL}{2} \left|y_{i} - w_{i}\right| + \frac{h^3}{12}\left|y^{3)}(\xi)\right| $$
-			
-			Por tanto, agrupando los $\left|y_{i} - w_{i}\right|$ se tiene la siguiente desigualdad
-			
-			\begin{equation*}
-			\left|y_{i} - w_{i}\right| \le \frac{2}{2 - HL}\frac{h^3}{12}\left|y^{3)}(\xi)\right| = O(h^3)		
-			\end{equation*}
-			
-		\end{proof}
+		\begin{enumerate}
+			\item $g_i$ es una contracción sobre $[w_i^{(0)}-r,w_i^{(0)}+r]$.
+			\item $\left|g_i(w_i^{(0)}) - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$. Por tanto, si $x \in [w_i^{(0)}-r,w_i^{(0)}+r]$, entonces 
+			$$ \left|g_i(x) - w_i^{(0)}\right| \le \left|g_i(x) - g_i(w_i^{(0)})\right| + \left|g_i(w_i^{(0)}) - w_i^{(0)}\right| \le \frac{Lh}{2} \left|x - w_i^{(0)}\right| + (1-\frac{Lh}{2})r \le r $$
+			Luego $g_i(x) \in [w_i^{(0)}-r,w_i^{(0)}+r]$.
+		\end{enumerate}
 
+
+		De nuevo, la tesis se consigue aplicando el teorema del punto fijo de Banach.
+	\end{proof}
+
+	Tomando $h$ lo suficientemente pequeño se pueden conseguir las hipótesis de las dos proposiciones previas. Además, esto también asegura que se verifique la Proposición \ref{prop:implicito:error}.  En tal caso, se ha conseguido un método con error local de orden $3$ y, por tanto, con error global de orden $2$.
+	
+	En la práctica solo se realiza un número pequeño de iteraciones de la fórmula (\ref{eq:ti-def}). La ventaja del método del trapecio iterativo reside en que se puede calcular de forma teórica un número de iteraciones, llámese j, de manera que el error $\left|w_i - w_i^{(j)}\right|$ sea tan pequeño como se quiera. Esto es posible gracias a que se parte de que $g_i$ es lipschitziana con constante de lipschitz $\frac{hL}{2}$ menor que 1. Consecuentemente:
+	
+	$$ \left|w_i - w_i^{(j)}\right| = \left|g_i(w_i) - g_i(w_i^{(j-1)})\right| \le \frac{hL}{2} \left|w_i - w_i^{(j-1)}\right| \le \ldots \le \left(\frac{hL}{2}\right)^j \left|w_i - w_i^{(0)}\right| $$
+	
+	Por tanto, a la j-ésima iteración el error de aproximación cometido por no calcular exactamente $w_i$ es $O(h^j)$. Se necesita que este sea $O(h^3)$ o menor para conseguir mantener un error local de orden $3$. En la literatura especializada se recomienda incluso que se reduzca $\left|w_i - w_i^{(j)}\right|$ a $O(h^4)$ para mejorar el comportamiento del método \cite{akitson}.
+	
+	La aproximación que se toma como $w_i^{(0)}$ suele ser obtenida mediante un método explícito de menor orden, como el método de Euler. Nótese que en tal caso $w_i^{(1)}$ es el resultado de aplicar el método del trapecio explícito partiendo de $w_{i-1}$. Por tanto, el método del trapecio iterativo puede entenderse como una generalización del método del trapecio explícito. Además, el estudio del error local realizado para el método del trapecio explícito concluye que si se toma $w_i^{(1)}$ como aproximación, entonces el error local es $O(h^3)$. Por tanto, bajo las hipótesis adecuadas siempre se tendrá garantizado un error local de orden 3 tras la primera iteración del método de iteración funcional.
+			
+	Cabe destacar que el método del trapecio iterativo también puede concebirse como un mecanismo para corregir el error cometido por la aproximación inicial. Al método utilizado para calcular la aproximación inicial se le denomina predictor mientras que a la fórmula (\ref{eq:ti-def}) se la denomina fórmula correctora. La aplicación de la fórmula correctora al resultado del predictor es lo que se conoce como método predictor-corrector en la literatura especializada.
+	
+	
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: ARTÍCULO
@@ -654,9 +696,9 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 
 \section{Artículo de investigación} \label{sec:paper}
 
-\section{Ejemplos}
+\section{Ejemplos} \label{ejemplos}
 
-\subsection{Ejemplo 1}
+\subsection{Ejemplo 1} \label{ejemplo1}
 
 Considérese el ejemplo de problema de valores iniciales dado en la motivación. 
 
@@ -682,13 +724,13 @@ cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=8cm]{./Images/ej1-2.png}
-			\caption{Método del trapecio explícto aplicado al problema anterior con paso $10^{-3}$} 
+			\caption{Método del trapecio explícito aplicado al problema anterior con paso $10^{-3}$} 
 			\label{fig:ej1-2}
 		\end{figure}
 		
 		de modo que queda patente que converge el doble de rápido que el método de Euler. 
 		
-\subsection{Ejemplo 2}
+\subsection{Ejemplo 2} \label{ejemplo2}
 
 Considérese el problema de valores iniciales
 
@@ -737,12 +779,127 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 	
 	Teniendo en cuenta que $y(2)=-1.386294$, los errores relativos son $9.69 10^{-3}$ para el caso $h=0.25$ y $1.70 10^{-3}$ para el caso $h=0.10$. Como el método del trapecio es de orden 2 el error relativo es $O(h^2)$ y por tanto el cociente de los errores debería ser $\frac{C(0.25)^2}{C(0.10)^2}=6.25$ mientras que el valor real es 5.7. La razón de esta diferencia es que el orden es $O(h^2)$ asintóticamente, esto es, cuando $h \to 0$ y los valores de considerados para h no son suficientemente pequeños.
 
-\section{Ejercicios teórico-practicos}
+\section{Ejercicios teórico-prácticos} \label{ejtp}
 
-\subsection{Ejercicio 1}
+\subsection{Ejercicio 1} \label{ejtp1}
 
-\subsection{Ejercicio 2}
-Dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C apartir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
+Considérese el problema de valores iniciales 
+
+		\begin{equation*}
+			\begin{cases}
+				y'(t) = y - t^2 \\
+				y(0) = 3 
+			\end{cases}
+		\end{equation*}
+
+calcular una aproximación a la solución del problema de valores iniciales mediante el método de Euler y el método del Trapecio Explícito.
+
+La función $f(t,y) = y - t^2$ es continua, su derivada parcial respecto de $y$, esto es la función $g(t,y) = 1$ también lo es y esta acotada por $L=1$ en [0,2], luego se tiene que existe solución y es única.
+
+A continuación, se va a calcular la aproximación mediante el método de Euler. Para ello calculamos la sucesión de puntos que va converge al valor exacto:
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c ||}
+			\hline
+			\hline $j$ &  $t_j $ & $y_j$\\
+			\hline 0 & 0.0 & 3 \\
+			\hline 1 & 0.2 & 3.6  \\
+			\hline 2 & 0.4 & 4.312 \\
+			\hline 3 & 0.6 & 5.1424 \\
+			\hline 4 & 0.8 & 6.09888 \\
+			\hline 5 & 1.0 & 7.190656 \\
+			\hline 6 & 1.2 & 8.428787 \\
+			\hline 7 & 1.4 & 9.826544 \\
+			\hline 8 & 1.6 & 11.399853 \\
+			\hline 9 & 1.8 & 13.167824 \\
+			\hline 10 & 2.0 & 15.153389 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.2$}
+		\label{table:trapecio-ejtp1.1}
+	\end{table}
+
+A continuación se dibuja la gráfica de la función para ver la aproximación obtenida junto con la solución de la ecuación diferencial, $y(t)= e^x + t^2 + 2t + 2$. La aproximación se observa en la Figura \ref{fig:aprox1}.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ejtp1-1.png}
+		\caption{Aproximación a la solución con el método de Euler.} 
+		\label{fig:aprox1}
+	\end{figure}
+	
+Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito:
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c ||}
+			\hline
+			\hline $j$ &  $t_j $ & $y_j$\\
+			\hline 0 & 0.0 & 3 \\
+			\hline 1 & 0.2 & 3.656  \\
+			\hline 2 & 0.4 & 4.3952 \\
+			\hline 3 & 0.6 & 5.361014 \\
+			\hline 4 & 0.8 & 6.433237 \\
+			\hline 5 & 1.0 & 7.671749 \\
+			\hline 6 & 1.2 & 9.095534 \\
+			\hline 7 & 1.4 & 10.727752 \\
+			\hline 8 & 1.6 & 12.596657 \\
+			\hline 9 & 1.8 & 14.736722 \\
+			\hline 10 & 2.0 & 17.190000 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.2$}
+		\label{table:trapecio-ejtp1.2}
+	\end{table}
+	
+Se dibuja de nuevo la gráfica de la solución junto con las aproximaciones que se han obtenido.La aproximación se observa en la Figura \ref{fig:aprox2}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ejtp1-2.png}
+		\caption{Aproximación a la solución con el método del Trapecio Explícito.} 
+		\label{fig:aprox2}
+	\end{figure}
+
+Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito converge más rápidamente a la solución que el método de Euler, lo cual se debe a que el primer método es de orden 2 mientras que el de Euler es un método de orden 1.\\
+
+Además, el error absoluto en el primer método es $2,235666$ obtenido mediante el valor absoluto de la diferencia de la solución calculada menos la solución evaluada en $2$, esto es, $|y_{10} - y(2)|$. De la misma forma, se obtiene el error al usar el método del Trapecio Explícito. En este caso, el error cometido es $0,199054$, por lo que se puede ver que este método es mejor que el de Euler.
+ 
+Por último, se va a calcular la aproximación usando el método del Trapecio Implícito. Para ello calculamos la sucesión de puntos conforme al método y se obtiene el siguiente resultado:
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c ||}
+			\hline
+			\hline $j$ &  $t_j $ & $y_j$\\
+			\hline 0 & 0.0 & 3 \\
+			\hline 1 & 0.2 & 3.66216  \\
+			\hline 2 & 0.4 & 4.453683 \\
+			\hline 3 & 0.6 & 5.385540 \\
+			\hline 4 & 0.8 & 6.471135 \\
+			\hline 5 & 1.0 & 7.726853 \\
+			\hline 6 & 1.2 & 9.172720 \\
+			\hline 7 & 1.4 & 10.833211 \\
+			\hline 8 & 1.6 & 12.738239 \\
+			\hline 9 & 1.8 & 14.924363 \\
+			\hline 10 & 2.0 & 17.436269 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.2$}
+		\label{table:trapecio-ejtp1.3}
+	\end{table}
+
+La aproximación se observa en la Figura \ref{fig:aprox3}. Al igual que se tenía con el método del trapecio explícito, que era de orden 2, se observa en \ref{fig:aprox3} que se ajusta bastante bien a la gráfica de $y(t)$. El error absoluto cometido es $|y_{10} - y(2)|$ al igual que ocurría antes y en este caso es 0.047213.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ej1-3.png}
+		\caption{Aproximación a la solución con el método del Trapecio Implícito.} 
+		\label{fig:aprox3}
+		
+	\end{figure}
+	
+\subsection{Ejercicio 2} \label{ejtp2}
+
+Dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C a partir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
 
 Solución:
 
@@ -780,14 +937,14 @@ si restamos ambas ecuaciones y despejamos se obtiene:
 	$C=7.33$
 	Asumiendo entonces que el error global puede representarse mediante $7.33 h^2$ para que sea de orden $10^{-4}$ debe ser $h=3.7$ $10^{-3}$
 
-\subsection{Ejercicio 3}
+\subsection{Ejercicio 3} \label{ejtp3}
 El movimiento de caída de un cuerpo de masa m en un medio que opone una resistencia proporcional al cuadrado de la velocidad está gobernado por la ecuación diferencial:
 
 \begin{equation}
 \frac{d^2s}{dt^2}=g-\frac{K}{m}(\frac{ds}{dt})^2
 \end{equation}
 
-siendo $g=10 \frac{m}{s^2}$ y $K \frac{kg}{s}$ una constante de proporcionalidad cuyo valor depende del problema concreto. Si el cuerpo se abandona sin velocidad inicial y las condiciones inciales son 
+siendo $g=10 \frac{m}{s^2}$ y $K \frac{kg}{s}$ una constante de proporcionalidad cuyo valor depende del problema concreto. Si el cuerpo se abandona sin velocidad inicial y las condiciones iniciales son 
 
 
 \begin{equation}
@@ -860,10 +1017,22 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 		\centering
 		\includegraphics[width=10cm]{./Images/ejemplo3-1.png}
 		\caption{Representación gráfica de s y s'.} 
-		\label{fig:error}
+		\label{fig:cambiadlo}
 	\end{figure}
 
-\subsection{Ejercicio 4}
+\subsection{Ejercicio 4} \label{ejtp4}
+
+En este caso ilustraremos con un ejemplo el algoritmo de la suma compensada de Kahan cuyo objetivo primordial es reducir el error de redondeo cuando se suma una sucesión de números en coma flotante con suma finita. Este enfoque ha sido aplicado en distintos escenarios, en particular, en el ámbito de las ecuaciones diferenciales puede consultarse "The numerical statibility in solution of differential equations" de Vitasek. 
+
+Entre las ventajas más importantes del método es que al sumar una sucesión numérica de n números se tiene un error en el caso peor que crece de manera proporcional a n con una cota que es independiente de n y sólo depende de la precisión en coma flotante. 
+
+Nuestro objetivo es presentar el algoritmo y mostrar un ejemplo de su uso.
+
+funcion suma_compensada(vector_entrada)
+ suma=0.0
+ c=0.0
+ desde i=1 a longitud(vector_entrada) hacer(
+  y=vector_entrada[i]
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------

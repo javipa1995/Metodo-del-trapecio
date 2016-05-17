@@ -13,15 +13,8 @@
 }
 
 @book{burden,
-	author    = "R. Burden and J. Douglas Faires",
+	author    = "Numerical Analysis, and J. Douglas Faires",
 	title     = "Numerical Analysis",
-	year      = "2005",
-	publisher = "Thomson Learning"
-}
-
-@book{Butcher,
-	author    = "",
-	title     = "Numerical Methods for Ordinary Differential Equations",
 	year      = "2005",
 	publisher = "Thomson Learning"
 }
