@@ -232,11 +232,15 @@
 		\end{cases}
 	\end{equation*}
 
-	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, existen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial incluso cuando no se puedan obtener soluciones explícitamente.
+	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como: 
+	\begin{equation}
+	y'(t)^2 + y(t)^2 + 1 = 0
+	\end{equation}
+de las cuales no se conoce una solución exacta. Sin embargo, existen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial incluso cuando no se puedan obtener soluciones explícitamente.
 
 	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. En este contexto, es estándar en la literatura especializada considerar siempre condiciones iniciales del tipo $y(a) = y_0$ \cite{sauer}. Este será el tipo de problemas de valores iniciales que se abordarán en este trabajo.
 	
-	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$.
+	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$ \cite{gasca}.
 
 	La primera idea intuitiva para resolver este problema consiste en interpretar la ecuación $y'(t) = f(t,y(t))$ como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
 
@@ -257,7 +261,7 @@
 		\end{cases}$
 	\end{center}
 	
-	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le Mh$ para todo $i=0 \ldots n$.
+	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le Mh$ para todo $i=0 \ldots n$ cuando h tiende a 0.
 				
 	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación se presenta un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
 	
@@ -271,7 +275,7 @@
 			\end{cases}
 		\end{equation*}
 
-		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0) = 1$ para distintos valores de $n$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un 10000 de puntos. 
+		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0) = 1$ para distintos valores de $n$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta unos 10000 puntos. 
 	
 		\begin{table}[H]
 			\centering
@@ -311,7 +315,7 @@
 	En esta sección se proporcionan las definiciones y resultados que se necesitan para el estudio del método del trapecio. En primer lugar, una de las hipótesis con las que se suele trabajar para problemas de valores iniciales es que la función $f$ sea lipschitziana en la segunda variable.
 	
 	\begin{definition}
-		Sea $\Omega \subset \mathbb{R}^2$ y sea $f : \Omega \rightarrow \mathbb{R}$. Se dice que $f$ es lipschitziana respecto de la segunda variable, $y$, si existe una constante $L$, llamada constante de Lipschitz, de forma que $|f(t,y_1) - f(t, y_2)| \le L|y_1 - y_2|$ para cualquier $(t,y_1), (t,y_2) \in \Omega$.  
+		Sea $\Omega \subset \mathbb{R}^2$ y sea $f : \Omega \rightarrow \mathbb{R}$. Se dice que $f$ es lipschitziana respecto de la segunda variable, $y$, si existe una constante $L \in \mathbb{R^{+}}$, llamada constante de Lipschitz, de forma que $|f(t,y_1) - f(t, y_2)| \le L|y_1 - y_2|$ para cualquier par de puntos $(t,y_1), (t,y_2) \in \Omega$.  
 	\end{definition}
 	
 	No tiene sentido aplicar un método numérico para resolver un problema de valores iniciales que no tenga solución. Por tanto, los resultados que garanticen la existencia de soluciones al problema son fundamentales en este contexto. Además, si el problema admitiese varias soluciones distintas, entonces el método puede no comportarse correctamente pues no se sabe cuál debe calcular. Por tanto, la unicidad de soluciones también es un concepto que se debe estudiar en profundidad. El resultado de este estudio se resume en el teorema de existencia y unicidad de soluciones, que utiliza como hipótesis fundamental el concepto de función lipschitziana en la segunda variable.
@@ -332,7 +336,7 @@
 		\end{enumerate}
 	\end{theorem}
  
-	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad se pueden definir $y_i$ como los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
+	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad, denotaremos por $y_i$ a los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
  
 	El estudio de los métodos numéricos para problemas de valores iniciales se centra en la acotación de los errores cometidos y en el análisis de la estabilidad de los métodos. Las demostraciones de resultados asociados a estos conceptos suelen requerir el uso de múltiples desigualdades. El siguiente resultado, basado en la desigualdad de Gronwall, proporciona una de las desigualdades con más aplicaciones en esta área.
 	
