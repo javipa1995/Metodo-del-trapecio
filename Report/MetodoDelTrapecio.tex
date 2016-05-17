@@ -224,9 +224,11 @@
 
 	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como $y'(t)^2 + y(t)^2 + 1 = 0$ de las cuales no se conoce una solución exacta. Sin embargo, existen múltiples resultados que permiten asegurar la existencia y unicidad de soluciones de la ecuación diferencial incluso cuando no se puedan obtener soluciones explícitamente.
 
-	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización que son cualquier método numérico que trata obtener valores aproximados de una sucesión $y_n$ de la solución $y(x)$ en los diferentes nodos $x_n$ que se obtienen al realizar la partición del intervalo en el que se trabaja. Se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$. En lo que sigue, se trabajará siempre con condiciones iniciales sobre $y(a)$ para simplificar la definición de los métodos de discretización. 	
+	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. En este contexto, es estándar en la literatura especializada considerar siempre condiciones iniciales del tipo $y(a) = y_0$ \cite{sauer}. Este será el tipo de problemas de valores iniciales que se abordarán en este trabajo.
 	
-	La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
+	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$.
+
+	La primera idea intuitiva para resolver este problema consiste en interpretar la ecuación $y'(t) = f(t,y(t))$ como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
 
 	\begin{figure}[h]
 		\centering
@@ -235,7 +237,7 @@
 		\label{fig:interpret-pvi}
 	\end{figure}
 
-	Si conocemos la imagen de la solución $y$ en un punto $t_{i-1}$, entonces sabemos que en ese punto la función variará en la dirección dada por el campo vectorial comentado previamente. Nótese que esta es la dirección de la recta tangente a $y$ en $t_{i-1}$. Podemos utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene el método de Euler cuya expresión resumida es la siguiente:
+	Si se conoce la imagen de la solución $y$ en un punto $t_{i}$, entonces la dirección de la recta tangente a $y$ en $t_{i}$ vendrá dada por $f(t_i,y(t_i))$. Por tanto, se puede utilizar la imagen de esta recta tangente en $t_{i+1}$ para aproximar $y(t_{i+1})$. Esto es, se ha aproximado $y(t_{i+1})$ moviéndose en la dirección que indica el campo vectorial comentado previamente. Repitiendo el proceso para aproximar $y(t_{i+2})$ a partir de $w_{i+1}$, se obtiene el método de Euler cuya expresión resumida es la siguiente:
 
 	\begin{center}
 		$\begin{cases}
@@ -245,11 +247,12 @@
 		\end{cases}$
 	\end{center}
 	
-	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le\dfrac{Mh}{2}$ para todo $i=0 \ldots n$.
+	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le Mh$ para todo $i=0 \ldots n$.
 				
-	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
+	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación se presenta un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
 	
-	\begin{example} Considérese el siguiente problema de valores iniciales
+	\begin{example} \label{ej:motivacion}
+		Considérese el siguiente problema de valores iniciales
 		\begin{equation*}
 			\begin{cases}
 			y'(t) = -4 t^3 y^2 \\
@@ -258,34 +261,40 @@
 			\end{cases}
 		\end{equation*}
 
-		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0)$ para distintos valores de $h$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un 10000 de puntos. 
+		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0) = 1$ para distintos valores de $n$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un 10000 de puntos. 
+	
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{|| c | c | c ||}
+				\hline
+				\hline $N$ &  $h$ & $w_n$ \\
+				\hline 100 & 0.1 & 0.00390138 \\
+				\hline 1000 & 0.01 & 0.03085162 \\
+				\hline 5000 & 0.002 & 0.13282140 \\
+				\hline 7500 & 0.0013 & 0.18614311 \\
+				\hline 10000 & 0.001 & 0.23325153 \\		
+				\hline
+				\hline	
+			\end{tabular}
+			\caption{Ejemplo de un mal comportamiento del método de Euler.}
+			\label{table:euler}
+		\end{table}
+		
+		La Figura 2 muestra las soluciones de la Tabla \ref{table:euler} de forma gráfica. Puede verse que para $n=100$ la aproximación obtenida es prácticamente nula. Aunque para valores más altos de $n$ las aproximaciones imiten el comportamiento de $y$, distan mucho del valor real de la función.
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\textwidth]{./Images/eulermaxima.png}
+			\label{fig:euler}
+			\caption{Aproximaciones de $y(t)$ obtenidas con el método de Euler para diferentes valores de $n$.}
+		\end{figure}
 	\end{example}
 	
-	\begin{table}[H]
-		\centering
-		\begin{tabular}{|| c | c | c ||}
-			\hline
-			\hline $N$ &  $h$ & $w_n$ \\
-			\hline 100 & 0.1 & 0.00390138 \\
-			\hline 1000 & 0.01 & 0.03085162 \\
-			\hline 5000 & 0.002 & 0.13282140 \\
-			\hline 7500 & 0.0013 & 0.18614311 \\
-			\hline 10000 & 0.001 & 0.23325153 \\			
-		\end{tabular}
-		\caption{Ejemplo práctico del método de Euler.}
-		\label{table:euler}
-	\end{table}
 	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.7\textwidth]{./Images/eulermaxima.png}
-		\label{fig:euler}
-		\caption{Aproximaciones de $y(t)$ obtenidas con el método de Euler para diferentes valores de $n$.}
-	\end{figure}
+		
+	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error de aproximación que el método de Euler y consiga resolver el Ejemplo \ref{ej:motivacion}. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e implícita. 
 	
-	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error que el método de Euler. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
-	
-	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y estabilidad de las soluciones que serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
 	
 \section{Definiciones y resultados previos.} \label{sec:previo}
 	

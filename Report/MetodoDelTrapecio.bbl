@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex version 2.6 $
+% $ biblatex version 2.5 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -32,6 +32,24 @@
   \field{sortinit}{A}
   \field{title}{An Introduction To Numerical Analysis.}
   \field{year}{1988}
+\endentry
+
+\entry{sauer}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Sauer}{S.}%
+     {Timothy}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Pearson Education, Inc}%
+  }
+  \strng{namehash}{ST1}
+  \strng{fullhash}{ST1}
+  \field{sortinit}{S}
+  \field{title}{Numerical Analysis}
+  \field{year}{2006}
 \endentry
 
 \lossort
