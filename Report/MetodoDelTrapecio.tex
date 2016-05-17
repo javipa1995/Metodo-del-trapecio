@@ -661,9 +661,95 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 
 \section{Artículo de investigación} \label{sec:paper}
 
+\section{Ejemplos}
+
+\subsection{Ejemplo 1}
+
+Considérese el ejemplo de problema de valores iniciales dado en la motivación. 
+
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -4 t^3 y^2 \\
+			y(-10) = 1/10001 \\
+			t \in [-10,0] \\
+			\end{cases}
+		\end{equation*}
+	
+cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$ se obtienen las siguientes gráficas. 
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-1.png}
+			\caption{Método de Euler aplicado al problema anterior con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$} 
+			\label{fig:ej1-1}
+		\end{figure}
+		
+		Aplicando la regla del trapecio explícito con paso $10^{-3}$ se obtiene la siguiente gráfica:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-2.png}
+			\caption{Método del trapecio explícto aplicado al problema anterior con paso $10^{-3}$} 
+			\label{fig:ej1-2}
+		\end{figure}
+		
+		de modo que queda patente que converge el doble de rápido que el método de Euler. 
+		
+\subsection{Ejemplo 2}
+
+Considérese el problema de valores iniciales
+
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -1 + \frac{y}{t} \\
+			y(1) = 0 
+			\end{cases}
+		\end{equation*}
+		
+calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 1.00 & 0.000000 & 1.25 & -0.275000 \\
+			\hline 2 & 1.05 & -0.275000 & 1.50 & -0.600833 \\
+			\hline 3 & 1.10 & -0.600833 & 1.75 & -0.968829 \\
+			\hline 4 & 1.15 & -0.968829 & 2.00 & -1.372859 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.25$}
+		\label{table:trapecio-ejemplo2.1}
+	\end{table}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 0.00 & 0.000000 & 0.10 & -0.104545 \\
+			\hline 2 & 0.10 & -0.104545 & 0.20 & -0.218216 \\
+			\hline 3 & 0.20 & -0.218216 & 0.20 & -0.340247 \\
+			\hline 4 & 0.30 & -0.340247 & 0.40 & -0.469991 \\
+			\hline 5 & 0.40 & -0.469991 & 0.50 & -0.606896 \\
+			\hline 6 & 0.50 & -0.606896 & 0.60 & -0.750480 \\
+			\hline 7 & 0.60 & -0.750480 & 0.70 & -0.900326 \\
+			\hline 8 & 0.70 & -0.900326 & 0.80 & -1.056065 \\
+			\hline 9 & 0.80 & -1.056065 & 0.90 & -1.217366 \\
+			\hline 10 & 0.90 & -1.217366 & 1.00 & -1.383938 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.1$}
+		\label{table:trapecio-ejemplo2.2}
+	\end{table}
+	
+	Teniendo en cuenta que $y(2)=-1.386294$, los errores relativos son $9.69 10^{-3}$ para el caso $h=0.25$ y $1.70 10^{-3}$ para el caso $h=0.10$. Como el método del trapecio es de orden 2 el error relativo es $O(h^2)$ y por tanto el cociente de los errores debería ser $\frac{C(0.25)^2}{C(0.10)^2}=6.25$ mientras que el valor real es 5.7. La razón de esta diferencia es que el orden es $O(h^2)$ asintóticamente, esto es, cuando $h \to 0$ y los valores de considerados para h no son suficientemente pequeños.
+
 \section{Ejercicios teórico-practicos}
 
-Ejercicio 2: dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C apartir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
+\subsection{Ejercicio 1}
+
+\subsection{Ejercicio 2}
+Dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C apartir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
 
 Solución:
 
@@ -701,7 +787,90 @@ si restamos ambas ecuaciones y despejamos se obtiene:
 	$C=7.33$
 	Asumiendo entonces que el error global puede representarse mediante $7.33 h^2$ para que sea de orden $10^{-4}$ debe ser $h=3.7$ $10^{-3}$
 
+\subsection{Ejercicio 3}
+El movimiento de caída de un cuerpo de masa m en un medio que opone una resistencia proporcional al cuadrado de la velocidad está gobernado por la ecuación diferencial:
 
+\begin{equation}
+\frac{d^2s}{dt^2}=g-\frac{K}{m}(\frac{ds}{dt})^2
+\end{equation}
+
+siendo $g=10 \frac{m}{s^2}$ y $K \frac{kg}{s}$ una constante de proporcionalidad cuyo valor depende del problema concreto. Si el cuerpo se abandona sin velocidad inicial y las condiciones inciales son 
+
+
+\begin{equation}
+s(0)=s'(0)=0
+\end{equation}
+
+Calcular una tabla de valores de las funciones $s(t)$ y $s'(t)$ para dibujar sus gráficas en el intervalo $[0,1]$. Tomar $\frac{K}{m}=5$.
+
+Solución:
+
+El problema que se nos propone resolver es 
+
+	\begin{equation*}
+		\begin{cases}
+			s''+5(s')^2-10=0 \\
+			s(0)=s'(0)=0
+		\end{cases}
+	\end{equation*}
+
+Una formulación equivalente se obtiene haciendo $s(t) \equiv u(t)$ y $s'(t) \equiv v(t)$ de modo que se tiene el sistema:
+
+	\begin{equation*}
+		\begin{cases}
+			u'=v \\
+			v'=-5v^2+10 \\
+			u(0)=0,v(0)=0
+		\end{cases}
+	\end{equation*}
+
+como el objetivo es dibujar la gráfica de las funciones no es necesaria mucha exactitud y por su sencillez en este caso es ideal el uso del método del trapecio. Tomaremos $h = 0.1$. 
+
+La forma que toma el método del trapecio para sistemas de dos ecuaciones es:
+
+	\begin{equation*}
+		\begin{cases}
+			u_j=u_{j-1}+\frac{1}{2}(\Delta u_0+\Delta u_1) \\
+			\Delta u_0 = hf(t_{j-1},u_{j-1},v_{j-1}) \\
+			\Delta u_1 = hf(t_{j-1},u_{j-1}+\Delta u_0,v_{j-1}+\Delta v_0) \\
+			v_j=v_{j-1}+\frac{1}{2}(\Delta v_0+\Delta v_1) \\
+			\Delta v_0 = hg(t_{j-1},u_{j-1},v_{j-1}) \\
+			\Delta v_1 = hg(t_{j-1},u_{j-1}+\Delta u_0,v_{j-1}+\Delta v_0)
+		\end{cases}
+	\end{equation*}
+	
+cuya expresión será deducida en el correspondiente trabajo. La tabla de valores obtenida es la siguiente:
+
+ \begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $(u_{j-1},v_{j-1})$ & $t_j$ & $(u_{j},v_{j})$ \\
+			\hline 1 & 0.00 & 0.000000,0.000000 & 0.10 & 0.050000,0.750000 \\
+			\hline 2 & 0.10 & 0.050000,0.750000 & 0.20 & 0.160938,1.070068 \\
+			\hline 3 & 0.20 & 0.160938,1.070068 & 0.20 & 0.289318,1.223146 \\
+			\hline 4 & 0.30 & 0.289318,1.223146 & 0.40 & 0.424231,1.305143 \\
+			\hline 5 & 0.40 & 0.424231,1.305143 & 0.50 & 0.562160,1.351168 \\
+			\hline 6 & 0.50 & 0.562160,1.351168 & 0.60 & 0.701635,1.377549 \\
+			\hline 7 & 0.60 & 0.701635,1.377549 & 0.70 & 0.841949,1.392822 \\
+			\hline 8 & 0.70 & 0.841949,1.392822 & 0.80 & 0.982733,1.401712 \\
+			\hline 9 & 0.80 & 0.982733,1.401712 & 0.90 & 1.123784,1.406900 \\
+			\hline 10 & 0.90 & 1.123784,1.406900 & 1.00 & 1.264990,1.409933 \\
+		\end{tabular}
+		\caption{Trapecio para sistemas con $h=0.1$}
+		\label{table:trapecio-ej3}
+	\end{table}
+	
+	Finalmente las gráficas generadas son:
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ejemplo3-1.png}
+		\caption{Representación gráfica de s y s'.} 
+		\label{fig:error}
+	\end{figure}
+
+\subsection{Ejercicio 4}
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------

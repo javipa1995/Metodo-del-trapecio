@@ -1,0 +1,97 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 15.08.1+git ] */
+
+/* [wxMaxima: section start ]
+Método de Euler
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+MetodoEuler(a, b, N, y0, g):=block(
+    h: (b-a)/N,
+    ti: a,
+    approx: makelist(0,N+1),
+    approx[1]: [ti,y0],
+    for i:1 thru N do(
+       approx[i+1]: [ti+h, approx[i][2] + h*g(ti,approx[i][2])],
+       ti: ti+h
+    ),
+    return(approx)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Método del punto medio
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+MetodoPuntoMedio(a,b,N,y0,g):=block(
+    h:(b-a)/N,
+    t0:a,
+    sol:[y0],
+    while t0<b do(
+        y:y0+h*g(t0+(h/2),y0+(h/2)*g(t0,y0)),
+        t:to+h,
+        print("La aproximacion en el punto ",t, " es ", float(y)),
+        sol:append(sol,[y]),
+        to:t,
+        y0:y
+    ),
+    return (y)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Método del Trapecio Explícito
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+TrapecioExplicito(a, b, N, y0, g):=block(
+    h: (b-a)/N,
+    ti: a,
+    approx: makelist(0,N+1),
+    approx[1]: [ti,y0],
+    for i:1 thru N do(
+       approx[i+1]: [ti+h, approx[i][2] + (h/2)*(g(ti,approx[i][2]) + g(ti+h,approx[i][2] + h*g(ti,approx[i][2])))],
+       ti: ti+h
+    ),
+    return(approx)
+)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Método del Trapecio Implícito
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: input   start ] */
+f(t,y):=float(-4*t^3*y^2);
+
+
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l1: MetodoEuler(-10,0,100,1/10001,f)$
+l1[101];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l2:MetodoEuler(-10,0,1000,1/10001,f)$
+l2[1001];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l3:MetodoEuler(-10,0,5000,1/10001,f)$
+l3[5001];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l4:MetodoEuler(-10,0,7500,1/10001,f)$
+l4[7501];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l5:MetodoEuler(-10,0,10000,1/10001,f)$
+l5[10001];
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

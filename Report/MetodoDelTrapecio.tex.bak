@@ -133,7 +133,7 @@
  \newtheorem{proposition}[theorem]{Proposición}
  
  % Definiciones, notas, conjeturas
- \theoremstyle{definition}
+ \theoremstyle{definition-style}
  \newtheorem{definition}{Definición}[section]
  \newtheorem{conjecture}{Conjetura}[section]
  \newtheorem*{note}{Nota} % * indica que no tiene contador
@@ -278,6 +278,13 @@
 		\label{table:euler}
 	\end{table}
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{./Images/eulermaxima.png}
+		\label{fig:euler}
+		\caption{Aproximaciones de $y(t)$ obtenidas con el método de Euler para diferentes valores de $n$.}
+	\end{figure}
+	
 	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error que el método de Euler. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e iterativa. 
 	
 	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia, unicidad y estabilidad de las soluciones que serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e iterativo respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad de las soluciones. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación "Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
@@ -392,6 +399,34 @@
 		donde $M_i = \max\{z''(t) : t \in [t_{i-1}, t_i]\}$. Tomando $M = \max_{i = 1 \ldots n} M_i$, se tiene que el método de Euler es localmente de orden 2 como se quería. La prueba la cierra la aplicación del Teorema \ref{theorem:local-global-error}.
 	\end{proof}
 	
+	En general, un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $f, t_i, y_i$ y $h$. 
+	
+	\begin{definition}
+		\textbf{Creo que está mal.} Diremos que el método de un paso anterior es convergente si:
+		\begin{enumerate}
+			\item $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
+			\item $y_0 \to y(0)$ con $h=t/n$
+		\end{enumerate}
+		para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
+	\end{definition}
+	
+	Por tanto, si el orden del método es $O(h^r)$ con $r > 0$, se tiene que el método es convergente.
+	
+	\begin{definition}
+		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
+	\end{definition}
+	
+	\begin{theorem}
+		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
+		\begin{enumerate}
+			\item el método es estable. 
+			\item el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
+		\end{enumerate}		
+	\end{theorem}
+	
+	\begin{proof}
+		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
+	\end{proof}
 	
 	\textbf{FORMATEAR EL SIGUIENTE RESULTADO CUANDO SE INTRODUZCA ESTABILIDAD.}
 
@@ -520,33 +555,9 @@ Respecto al error de redondeo se tiene que la situación es análoga a la encont
 Así en el caso del método del trapecio, si tomamos $h=\frac{b-a}{N}$ entonces en cada uno de los $N$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto 
 $N(\epsilon+Ch{3})=\frac{\epsilon'}{h}+C'h^{2}$. En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
 
-Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio, un modelo más pesimista se pondría en el peor de los casos y un modelo probabilista que se puede encontrar en el libro de Henrici "Discrete Variable Methods in Ordinary Differential Equations". Otros autores como Butcher en su libro "Numerical Methods for Ordinary Differential Equations" en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamdo algoritmo de Gill-Moller o "suma compensada"
+Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio, un modelo más pesimista se pondría en el peor de los casos y un modelo probabilista que se puede encontrar en el libro de Henrici "Discrete Variable Methods in Ordinary Differential Equations". Otros autores como Butcher en su libro "Numerical Methods for Ordinary Differential Equations" en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamdo algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
-
-
-	En general un método de un paso para aproximar la solución de una ecuación diferencial es un método que puede ser escrito de la forma $y_{n+1}=y_n + h \phi(t_n,y_n,h)$ donde $\phi$ es una función de $f,t_n,y_n y h$. 
-	
-	\begin{definition}
-		Diremos que el método de un paso anterior es convergente si:
-		i) $y_n \to y(t)$ para todo $0 \le t \le b$ según $n \to \infty$ y 
-		ii) $y_0 \to y(0)$ con $h=t/n$
-		para cualquier ecuación diferencial $y'=f(y)$ que satisfaga una condición de Lipschitz.
-	\end{definition}
-	
-	\begin{definition}
-		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
-	\end{definition}
-	
-	\begin{theorem}
-		Si el método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y verifica una condición de Lipschitz en la segunda en todo el dominio $D={(t,y,h):a \leq t \leq b, w \in \mathbb{R}, h \in [0,h_0]}$ entonces:
-		i) el método es estable. 
-		ii) el método es convergente o, equivalentemente, $\phi(t,y,0)=f(t,y)$ para todo $a \leq t \leq b$.
-	\end{theorem}
-
-	\begin{proof}
-		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
-	\end{proof}
 
 	Aplicamos este teorema al método del trapecio. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo las condiciones que nos dan existencia y unicidad, si f es Lipschitziana en 
 	$\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ 
@@ -587,7 +598,7 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 	La segunda cuestión a tratar es cómo aplicar este nuevo método para obtener aproximaciones para todos los $t_i$. Nótese que en la definición previa se suponía haber calculado $y_{i-1}$ previamente. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
 	
 	\begin{equation} \label{eq:ti-def-2}
-	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 	\end{equation}
 	
 	
@@ -643,9 +654,95 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 
 \section{Artículo de investigación} \label{sec:paper}
 
+\section{Ejemplos}
+
+\subsection{Ejemplo 1}
+
+Considérese el ejemplo de problema de valores iniciales dado en la motivación. 
+
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -4 t^3 y^2 \\
+			y(-10) = 1/10001 \\
+			t \in [-10,0] \\
+			\end{cases}
+		\end{equation*}
+	
+cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$ se obtienen las siguientes gráficas. 
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-1.png}
+			\caption{Método de Euler aplicado al problema anterior con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$} 
+			\label{fig:ej1-1}
+		\end{figure}
+		
+		Aplicando la regla del trapecio explícito con paso $10^{-3}$ se obtiene la siguiente gráfica:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-2.png}
+			\caption{Método del trapecio explícto aplicado al problema anterior con paso $10^{-3}$} 
+			\label{fig:ej1-2}
+		\end{figure}
+		
+		de modo que queda patente que converge el doble de rápido que el método de Euler. 
+		
+\subsection{Ejemplo 2}
+
+Considérese el problema de valores iniciales
+
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -1 + \frac{y}{t} \\
+			y(1) = 0 
+			\end{cases}
+		\end{equation*}
+		
+calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 1.00 & 0.000000 & 1.25 & -0.275000 \\
+			\hline 2 & 1.05 & -0.275000 & 1.50 & -0.600833 \\
+			\hline 3 & 1.10 & -0.600833 & 1.75 & -0.968829 \\
+			\hline 4 & 1.15 & -0.968829 & 2.00 & -1.372859 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.25$}
+		\label{table:trapecio-ejemplo2.1}
+	\end{table}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
+			\hline 1 & 0.00 & 0.000000 & 0.10 & -0.104545 \\
+			\hline 2 & 0.10 & -0.104545 & 0.20 & -0.218216 \\
+			\hline 3 & 0.20 & -0.218216 & 0.20 & -0.340247 \\
+			\hline 4 & 0.30 & -0.340247 & 0.40 & -0.469991 \\
+			\hline 5 & 0.40 & -0.469991 & 0.50 & -0.606896 \\
+			\hline 6 & 0.50 & -0.606896 & 0.60 & -0.750480 \\
+			\hline 7 & 0.60 & -0.750480 & 0.70 & -0.900326 \\
+			\hline 8 & 0.70 & -0.900326 & 0.80 & -1.056065 \\
+			\hline 9 & 0.80 & -1.056065 & 0.90 & -1.217366 \\
+			\hline 10 & 0.90 & -1.217366 & 1.00 & -1.383938 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.1$}
+		\label{table:trapecio-ejemplo2.2}
+	\end{table}
+	
+	Teniendo en cuenta que $y(2)=-1.386294$, los errores relativos son $9.69 10^{-3}$ para el caso $h=0.25$ y $1.70 10^{-3}$ para el caso $h=0.10$. Como el método del trapecio es de orden 2 el error relativo es $O(h^2)$ y por tanto el cociente de los errores debería ser $\frac{C(0.25)^2}{C(0.10)^2}=6.25$ mientras que el valor real es 5.7. La razón de esta diferencia es que el orden es $O(h^2)$ asintóticamente, esto es, cuando $h \to 0$ y los valores de considerados para h no son suficientemente pequeños.
+
 \section{Ejercicios teórico-practicos}
 
-Ejercicio 2: dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C apartir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
+\subsection{Ejercicio 1}
+
+\subsection{Ejercicio 2}
+Dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C apartir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
 
 Solución:
 
@@ -683,7 +780,90 @@ si restamos ambas ecuaciones y despejamos se obtiene:
 	$C=7.33$
 	Asumiendo entonces que el error global puede representarse mediante $7.33 h^2$ para que sea de orden $10^{-4}$ debe ser $h=3.7$ $10^{-3}$
 
+\subsection{Ejercicio 3}
+El movimiento de caída de un cuerpo de masa m en un medio que opone una resistencia proporcional al cuadrado de la velocidad está gobernado por la ecuación diferencial:
 
+\begin{equation}
+\frac{d^2s}{dt^2}=g-\frac{K}{m}(\frac{ds}{dt})^2
+\end{equation}
+
+siendo $g=10 \frac{m}{s^2}$ y $K \frac{kg}{s}$ una constante de proporcionalidad cuyo valor depende del problema concreto. Si el cuerpo se abandona sin velocidad inicial y las condiciones inciales son 
+
+
+\begin{equation}
+s(0)=s'(0)=0
+\end{equation}
+
+Calcular una tabla de valores de las funciones $s(t)$ y $s'(t)$ para dibujar sus gráficas en el intervalo $[0,1]$. Tomar $\frac{K}{m}=5$.
+
+Solución:
+
+El problema que se nos propone resolver es 
+
+	\begin{equation*}
+		\begin{cases}
+			s''+5(s')^2-10=0 \\
+			s(0)=s'(0)=0
+		\end{cases}
+	\end{equation*}
+
+Una formulación equivalente se obtiene haciendo $s(t) \equiv u(t)$ y $s'(t) \equiv v(t)$ de modo que se tiene el sistema:
+
+	\begin{equation*}
+		\begin{cases}
+			u'=v \\
+			v'=-5v^2+10 \\
+			u(0)=0,v(0)=0
+		\end{cases}
+	\end{equation*}
+
+como el objetivo es dibujar la gráfica de las funciones no es necesaria mucha exactitud y por su sencillez en este caso es ideal el uso del método del trapecio. Tomaremos $h = 0.1$. 
+
+La forma que toma el método del trapecio para sistemas de dos ecuaciones es:
+
+	\begin{equation*}
+		\begin{cases}
+			u_j=u_{j-1}+\frac{1}{2}(\Delta u_0+\Delta u_1) \\
+			\Delta u_0 = hf(t_{j-1},u_{j-1},v_{j-1}) \\
+			\Delta u_1 = hf(t_{j-1},u_{j-1}+\Delta u_0,v_{j-1}+\Delta v_0) \\
+			v_j=v_{j-1}+\frac{1}{2}(\Delta v_0+\Delta v_1) \\
+			\Delta v_0 = hg(t_{j-1},u_{j-1},v_{j-1}) \\
+			\Delta v_1 = hg(t_{j-1},u_{j-1}+\Delta u_0,v_{j-1}+\Delta v_0)
+		\end{cases}
+	\end{equation*}
+	
+cuya expresión será deducida en el correspondiente trabajo. La tabla de valores obtenida es la siguiente:
+
+ \begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c | c | c ||}
+			\hline
+			\hline $j$ &  $t_{j-1}$ & $(u_{j-1},v_{j-1})$ & $t_j$ & $(u_{j},v_{j})$ \\
+			\hline 1 & 0.00 & 0.000000,0.000000 & 0.10 & 0.050000,0.750000 \\
+			\hline 2 & 0.10 & 0.050000,0.750000 & 0.20 & 0.160938,1.070068 \\
+			\hline 3 & 0.20 & 0.160938,1.070068 & 0.20 & 0.289318,1.223146 \\
+			\hline 4 & 0.30 & 0.289318,1.223146 & 0.40 & 0.424231,1.305143 \\
+			\hline 5 & 0.40 & 0.424231,1.305143 & 0.50 & 0.562160,1.351168 \\
+			\hline 6 & 0.50 & 0.562160,1.351168 & 0.60 & 0.701635,1.377549 \\
+			\hline 7 & 0.60 & 0.701635,1.377549 & 0.70 & 0.841949,1.392822 \\
+			\hline 8 & 0.70 & 0.841949,1.392822 & 0.80 & 0.982733,1.401712 \\
+			\hline 9 & 0.80 & 0.982733,1.401712 & 0.90 & 1.123784,1.406900 \\
+			\hline 10 & 0.90 & 1.123784,1.406900 & 1.00 & 1.264990,1.409933 \\
+		\end{tabular}
+		\caption{Trapecio para sistemas con $h=0.1$}
+		\label{table:trapecio-ej3}
+	\end{table}
+	
+	Finalmente las gráficas generadas son:
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ejemplo3-1.png}
+		\caption{Representación gráfica de s y s'.} 
+		\label{fig:error}
+	\end{figure}
+
+\subsection{Ejercicio 4}
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
