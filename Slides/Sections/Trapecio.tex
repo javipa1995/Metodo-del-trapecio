@@ -74,25 +74,57 @@
 			
 		\end{frame}
 
-		\begin{frame}{Método del trapecio explícito}
+		\begin{frame}{Comparación con el método de Euler}
 			\fontsize{10}{10}\selectfont		
 			\centering
-			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
-				\centering
-				\textbf{Idea: Utilizar el método de Euler}
-				\begin{equation*}
-				y(t_{i+1}) \approx w'_{i+1} = w'_i + h f(t_i,w'_i))
-				\end{equation*}
-				{\large\textbf{+}}
-				\begin{equation*}
-				y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i+1}, y(t_{i+1}))\right]
-				\end{equation*}			
-			\end{tcolorbox}			
+			\kern3mm
+			Denotamos
+			\begin{cases}
+				$S_L = h f(t_i,w_i)$ \\
+				$S_R = h f(t_{i+1}, w_i + S_L)$ \\
+			\end{cases}
+
+			\kern3mm
+			\begin{itemize}
+				\item \textbf{Método de euler:} $w'_{i+1} = w_i + S_L$
+				\item \textbf{Método del trapecio explícito:} $w_{i+1} = w_i + \frac{S_L + S_R}{2}$
+			\end{itemize}
+
+			\kern3mm
+			\includegraphics[width=0.65\textwidth]{./Images/trapecio-vs-euler.png}
+		\end{frame}
+		
+		\begin{frame}{Error local y global}
+			\begin{theorem}
+				El método del trapecio es localmente de orden tres. \\
+				En consecuencia, el método del trapecio es de orden dos.
+			\end{theorem}
 			
-			\begin{definition}[Método del trapecio explícito]
-				\begin{equation} \label{eq:app-exp}
-				y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i}+h, w_i + h f(t_i,w_i))\right]
-				\end{equation}
-			\end{definition}
+			\begin{proof}
+				Se basa en el teorema de Taylor.
+			\end{proof}
+
+			\begin{corollary}
+				El método del trapecio explícito es convergente.
+			\end{corollary}
+		\end{frame}
+		
+		\begin{frame}{Error de redondeo}
+			\centering
+			\includegraphics[width=0.65\textwidth]{./Images/redondeo.png}
+		\end{frame}
+		
+		\begin{frame}{Estabilidad y convergencia}
+			\textbf{Función de incremento:} $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$
 			
+			\begin{proposition}
+				Si $f: \Omega \rightarrow \mathbb{R}$ es lipschitziana respecto de la segunda variable, entonces $\phi$ es lipschitziana respecto de la segunda variable en $\Omega \times [0, h_0]$ para cualquier $h_0$.
+			\end{proposition}
+			
+			\begin{corollary}
+				El método del trapecio explícito es estable y consistente.
+			\end{corollary}
+			\begin{proof}
+				Teorema de consistencia, convergencia y estabilidad.
+			\end{proof}
 		\end{frame}

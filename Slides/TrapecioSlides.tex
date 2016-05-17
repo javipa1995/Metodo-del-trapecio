@@ -203,6 +203,21 @@
 		\usebeamertemplate{block begin}\em}
 	{\par\usebeamertemplate{block end}\end{actionenv}}
 
+\newenvironment<>{corollary}[1][\undefined]{
+	\begin{actionenv}#2
+		\ifx#1\undefined
+		\def\insertblocktitle{Corolario}%
+		\else
+		\def\insertblocktitle{Corolario ({\em#1})}%
+		\fi
+		\par
+		\mode<presentation>{%
+			\setbeamercolor{block title}{fg=white,bg=Jaguar!80}
+			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!10}
+		}%
+		\usebeamertemplate{block begin}\em}
+	{\par\usebeamertemplate{block end}\end{actionenv}}
+
 \renewenvironment<>{definition}[1][\undefined]{
 	\begin{actionenv}#2
 		\ifx#1\undefined
@@ -235,6 +250,7 @@
 			\begin{beamercolorbox}[sep=2pt,center]{title}	
 				\usebeamerfont{title}\textbf{\inserttitle}\par
 			\end{beamercolorbox}
+
 			\begin{beamercolorbox}[sep=4pt,center]{author}	
 				\usebeamerfont{author}\insertauthor
 			\end{beamercolorbox}
