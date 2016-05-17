@@ -173,7 +173,20 @@
 % Paquetes para matemáticas:                     
 \usepackage{amsmath, amsthm, amssymb, amsfonts, amscd} % Teoremas, fuentes y símbolos.
 
-\colorlet{shadecolor}{ChetwodeBlue!30}
+\renewenvironment<>{theorem}[1][\undefined]{
+	\begin{actionenv}#2
+		\ifx#1\undefined
+		\def\insertblocktitle{Teorema}%
+		\else
+		\def\insertblocktitle{Teorema ({\em#1})}%
+		\fi
+		\par
+		\mode<presentation>{%
+			\setbeamercolor{block title}{fg=white,bg=Jaguar!80}
+			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!10}
+		}%
+		\usebeamertemplate{block begin}\em}
+	{\par\usebeamertemplate{block end}\end{actionenv}}
 
 \newenvironment<>{proposition}[1][\undefined]{
 	\begin{actionenv}#2
@@ -184,12 +197,26 @@
 		\fi
 		\par
 		\mode<presentation>{%
-			\setbeamercolor{block title}{fg=white,bg=Jaguar!70}
-			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!20}
+			\setbeamercolor{block title}{fg=white,bg=Jaguar!80}
+			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!10}
 		}%
 		\usebeamertemplate{block begin}\em}
 	{\par\usebeamertemplate{block end}\end{actionenv}}
 
+\renewenvironment<>{definition}[1][\undefined]{
+	\begin{actionenv}#2
+		\ifx#1\undefined
+		\def\insertblocktitle{Definición}%
+		\else
+		\def\insertblocktitle{Definición ({\em#1})}%
+		\fi
+		\par
+		\mode<presentation>{%
+			\setbeamercolor{block title}{fg=white,bg=Jaguar!80}
+			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!10}
+		}%
+		\usebeamertemplate{block begin}\em}
+	{\par\usebeamertemplate{block end}\end{actionenv}}
 
 
 %-----------------------------------------------------------------------------------------------------
@@ -208,14 +235,9 @@
 			\begin{beamercolorbox}[sep=2pt,center]{title}	
 				\usebeamerfont{title}\textbf{\inserttitle}\par
 			\end{beamercolorbox}
-%			\begin{columns}
-%				\column{0.05\textwidth}
-%				\href{https://github.com/andreshp/Big-Data-TPCx-HS}{\includegraphics[width=40pt]{./Images/Logos/github.png}}
-%				\column{0.95\textwidth}
-%				\begin{beamercolorbox}[sep=4pt,center]{author}	
-%					\usebeamerfont{author}\authors
-%				\end{beamercolorbox}
-%			\end{columns}
+			\begin{beamercolorbox}[sep=4pt,center]{author}	
+				\usebeamerfont{author}\insertauthor
+			\end{beamercolorbox}
 		\end{titleBox}
 		
 }
@@ -228,7 +250,7 @@
 \title{Método del Trapecio}
 
 
-\author[]{yo, tu , el}
+\author[A. Herrera, J. Poyatos, R. Raya]{A. Herrera Poyatos \\ J. Poyatos Amador \\ R. Raya Castellano}
 
 % Date
 \date{18 de Mayo de 2016}
@@ -241,6 +263,7 @@
 
 	% Title page.
 	{
+		\usebackgroundtemplate{\includegraphics[width=1\paperwidth]{./Images/Wallpapers/BigDataCropped.jpg}}		
 		\begin{frame}[plain]
 			\titlepage 
 		\end{frame}			
