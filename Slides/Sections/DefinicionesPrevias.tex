@@ -1,45 +1,12 @@
-\section{TPCx-HS}
-
-	\subsection*{¿Por qué usar TPCx-HS?}
-
-		\begin{frame}{¿Qué es TPCx-HS?}
-			\kern -10mm
-			\begin{flushright}
-					\includegraphics[width=0.2\textwidth]{./Images/tpc-logo.png}
-			\end{flushright}
-			\kern -2mm
-			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
-				\fontsize{8}{8}\selectfont
-				\centering
-				\textbf{Transaction Processing Performance Council Express Hadoop System}
-			\end{tcolorbox}
-
-			\begin{columns}[c]
-				\column{.7\textwidth}					
-					\kern-2mm
-					\begin{center}
-						{\color{TurkishRose}\large \textbf{Benchmarking Hadoop}}						
-					\end{center}
-					
-					\kern 3mm
-
-					{\color{ChetwodeBlue}\large Carga de trabajo de TPCx-HS}		
-					\begin{itemize}
-						\fontsize{8}{10}\selectfont
-						\item HSGen: generación de datos con un factor de escala.
-						\item HSDataCheck: comprobación de los datos.
-						\item HSSort: Implementación en Hadoop de TeraSort.
-						\item HSValidate: comprobación de la salida.
-					\end{itemize}		
-			
-				\column{.3\textwidth}
-					\begin{figure}[h]
-						\centering
-						\includegraphics[width=0.9\textwidth]{./Images/hardwork.png}
-						
-						\includegraphics[width=0.7\textwidth]{./Images/benchmark.png}
-					\end{figure}
-			\end{columns}
+\section{Definiciones y resultados previos}
+		\begin{frame}{Definiciones Previas}
+			\begin{definition} 
+				Dada una función $f:\Omega \subseteq \mathbb R^2  \to \mathbb{R}$ continua, una un problema de valores iniciales de primer orden consiste en encontrar aquellas funciones $y: [a,b] \rightarrow \mathbb{R}$ de clase 1 que verifiquen $G(y) \subset \Omega$, $y'(t) = f(t,y(t)) \ \forall t \in [a,b]$ y la condición inicial $y(t_0) = y_0$, donde $t_0 \in [a,b]$.  
+			\end{definition}
+		
+			\begin{definition}
+				Sea $\Omega \subset \mathbb{R}^2$ y sea $f : \Omega \rightarrow \mathbb{R}$. Se dice que $f$ es lipschitziana respecto de la segunda variable, $y$, si existe una constante $L \in \mathbb{R^{+}}$, llamada constante de Lipschitz, de forma que $|f(t,y_1) - f(t, y_2)| \le L|y_1 - y_2|$ para cualquier par de puntos $(t,y_1), (t,y_2) \in \Omega$.  
+			\end{definition}
 		\end{frame}
 	
 	\subsection*{Funcionamiento de TPCx-HS}	
