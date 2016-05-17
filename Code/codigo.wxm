@@ -1,5 +1,5 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
-/* [ Created with wxMaxima version 15.04.0 ] */
+/* [ Created with wxMaxima version 15.08.1+git ] */
 
 /* [wxMaxima: title   start ]
 Método del trapecio
@@ -61,7 +61,7 @@ IteracionFuncional(g, ti, wi, wi10, h, numiter,tolerancia):=block(
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-TrapecioImplicito(g, a, b, N, w0, numiter) := block(
+TrapecioImplicito(a,b,N,w0,g,numiter):= block(
     h: (b-a)/N,
     ti: a,
     approx: makelist(0,N+1),
@@ -81,7 +81,7 @@ Ejercicio
    [wxMaxima: section end   ] */
 
 /* [wxMaxima: input   start ] */
-g(t,y):=y-t^2;
+f(t,y):=y-t^2;
 a:0;
 b:2;
 y0:3;
@@ -162,7 +162,7 @@ KahanSum(l3,2);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-	
+TrapecioImplicito(a,b,N,3,f,10);
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
