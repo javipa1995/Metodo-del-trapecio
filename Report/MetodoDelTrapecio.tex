@@ -738,28 +738,14 @@ Considérese el ejemplo de problema de valores iniciales dado en la motivación.
 			\end{cases}
 		\end{equation*}
 	
-cuando se resuelve mediante el método de Euler, Trapecio Explícito e Iterativo con paso $h=10^{-4}$ se obtienen las siguientes gráficas. 
+cuando se resuelve mediante el método de Euler, Trapecio Explícito e Iterativo con paso $h=10^{-4}$ se obtienen las siguientes gráficas. La tolerancia usada en el método del Trapecio Iterativo es $h^4$. Se muestra a continuación una gráfica comparativo de los tres métodos.
 
-	\begin{table}[H]
+	\begin{figure}[h]
 		\centering
-		\begin{tabular}{|| c | c | c | c | c ||}
-			\hline
-			\hline $j$ &  $t_j $ & $y_j Explicito$  & $y_j Ierativo$ & $y_j Euler$\\
-			\hline 0 & 0.0 & 3 & 3 & 3 \\
-			\hline 1 & 0.2 & 3.656 & 3.66216 & 3.6\\
-			\hline 2 & 0.4 & 4.3952 & 4.453683 & 4.312  \\
-			\hline 3 & 0.6 & 5.361014 & 5.385540 & 5.1424  \\
-			\hline 4 & 0.8 & 6.433237  & 6.471135 & 6.09888 \\
-			\hline 5 & 1.0 & 7.671749  & 7.726853 & 7.190656\\
-			\hline 6 & 1.2 & 9.095534  & 9.172720 & 8.428787 \\
-			\hline 7 & 1.4 & 10.727752 & 10.833211 & 9.826544\\
-			\hline 8 & 1.6 & 12.596657 & 12.738239 & 11.399853 \\
-			\hline 9 & 1.8 & 14.736722 & 14.924363 & 13.167824 \\
-			\hline 10 & 2.0 & 17.190000 & 17.436269 & 15.153389\\
-		\end{tabular}
-		\caption{Trapecio Explícito e Iterativo y Euler.}
-		\label{table:trapecio-ej1}
-	\end{table}
+		\includegraphics[width=10cm]{./Images/ej1.png}
+		\caption{Aproximación a la solución con el método del Trapecio Explícito.} 
+		\label{fig:ej1}
+	\end{figure}
 		
 \subsection{Ejemplo 2} \label{ejemplo2}
 
