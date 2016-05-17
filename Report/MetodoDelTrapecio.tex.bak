@@ -1027,12 +1027,12 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 		\centering
 		\includegraphics[width=10cm]{./Images/ejemplo3-1.png}
 		\caption{Representación gráfica de s y s'.} 
-		\label{fig:cambiadlo}
+		\label{fig:ejemplo3-1}
 	\end{figure}
 
 \subsection{Ejercicio 4} \label{ejtp4}
 
-En este caso ilustraremos con un ejemplo el algoritmo de la suma compensada de Kahan cuyo objetivo primordial es reducir el error de redondeo cuando se suma una sucesión de números en coma flotante con suma finita. Este enfoque ha sido aplicado en distintos escenarios, en particular, en el ámbito de las ecuaciones diferenciales puede consultarse "The numerical statibility in solution of differential equations" de Vitasek. 
+En este caso ilustraremos con un ejemplo el algoritmo de la suma compensada de Kahan cuyo objetivo primordial es reducir el error de redondeo cuando se suma una sucesión de números en coma flotante con suma finita. Este enfoque ha sido aplicado en distintos escenarios, en particular, en el ámbito de las ecuaciones diferenciales puede consultarse en \cite{Vitasek}.
 
 Entre las ventajas más importantes del método es que al sumar una sucesión numérica de n números se tiene un error en el caso peor que crece de manera proporcional a n con una cota que es independiente de n y sólo depende de la precisión en coma flotante. 
 
@@ -1068,7 +1068,7 @@ c es una compensación para los bits de orden pequeño perdidos por redondeo \\
 
 Supóngase que se utiliza aritmética decimal de seis dígitos, que el valor de suma es 10000.0 y que los siguientes dos valores en el vector de entrada son 2.14159 y 2.71828. Resuélvase este ejemplo mediante la suma usual con redondeo y utilizando el algoritmo de Kahan. 
 
-\texSolución:
+\textbf{Solución:}
 
 Notemos que el resultado exacto sería 10005.85987 que se redondea a 10005.9.
 

@@ -33,9 +33,17 @@
 	publisher = "García Maroto Editores S.L."
 }
 
-@article{spark-rdd,
-	author  = "Matei Zaharia,  et al.",
-	title   = "Resilient distributed datasets: A fault-tolerant abstraction for in-memory cluster computing",
-	journal = "Proceedings of the 9th USENIX conference on Networked Systems Design and Implementation. USENIX Association",
-	year    = "2012",
+
+@book{gear,
+	author    = "Gear, C. W.",
+	title     = "Numerical initial value problems in ordinary differential equations",
+	year      = "1971",
+	publisher = "Prentice Hall PTR"
+}
+
+@article{Vitasek,
+	author  = "Vitasek, E.",
+	title   = "The numerical stability in solution of differential equations",
+	journal = "Conference on Numerical Solution of Differential Equations, Springer",
+	year    = "1969",
 }
