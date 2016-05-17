@@ -1039,71 +1039,60 @@ Entre las ventajas más importantes del método es que al sumar una sucesión nu
 Nuestro objetivo es presentar el algoritmo y mostrar un ejemplo de su uso.
 
     \begin{algorithm}
-    	\caption{Exponenciación de matrices. Calcula $A^n$ en $\theta(\log n)$.}
-    	\label{algo:exp-matrix}
+    	\caption{Algoritmo de Kahan}
+    	\label{algo:algo-kahan}
     	\begin{algorithmic}
-    		\Function{funcion suma_compensada}{vector_entrada}
+    		\Function{suma-compensada}{vector-entrada}
     		\State suma=0.0
     		\State c=0.0 
-    		\State desde i=1 a longitud(vector\_entrada) hacer(
-    		\State y = vector_entrada[i]-c (1)
-    		\State t = suma + y 
-    		\State c = (t - suma) - y (3)
-    		\State suma = t (4)
-    		\State )
-    		\eturn suma
-    		\If{$n = 1$}
-    		\Return $A$
-    		\ElsIf {$n\mod{2} = 0$}
-    		\State $B \gets Potencia(A,n/2)$
-    		\State \Return $B^2$
-    		\Else
-    		\State $B \gets Potencia(A,n/2)$
-    		\State \Return $A B^2$
-    		\EndIf
+    		\For{i=1 \textbf{to} longitud(vector-entrada) } 
+    		\State (1) y = vector-entrada[i]-c 
+    		\State (2) t = suma + y 
+    		\State (3) c = (t - suma) - y 
+    		\State (4) suma = t 
+    		\EndFor
+    		
+    		\Return suma
     		\EndFunction
     	\end{algorithmic}
     \end{algorithm}
 
-\section{Ejemplo 1}
+\textbf{Explicación del algoritmo:}
 
- 
+c es una compensación para los bits de orden pequeño perdidos por redondeo \\
+(2) Al acumular en suma, el valor de suma es grande y el de y es pequeño por lo que los dígitos de orden pequeño de y se pierden. \\
+(3) (t-suma) cancela los dígitos de orden grande de y y restar y recupera de forma negativa los dígitos de orden pequeño de y. \\
+(4) Teóricamente, c debería ser siempre cero pero el hecho de que el algoritmo funcione se basa precisamente en esto ya que al volver a iterar los dígitos de orden pequeños perdidos se añaden de nuevo a y. \\
 
-Explicación del algoritmo:
-c es una compensación para los bits de orden pequeño perdidos por redondeo
-(2) Al acumular en suma, el valor de suma es grande y el de y es pequeño por lo que los dígitos de orden pequeño de y se pierden. 
-(3) (t-suma) cancela los dígitos de orden grande de y y restar y recupera de forma negativa los dígitos de orden pequeño de y. 
-(4) Teóricamente, c debería ser siempre cero pero el hecho de que el algoritmo funcione se basa precisamente en esto ya que al volver a iterar los dígitos de orden pequeños perdidos se añaden de nuevo a y. 
-
-Ejemplo:
+\textbf{Ejemplo:}
 
 Supóngase que se utiliza aritmética decimal de seis dígitos, que el valor de suma es 10000.0 y que los siguientes dos valores en el vector de entrada son 2.14159 y 2.71828. Resuélvase este ejemplo mediante la suma usual con redondeo y utilizando el algoritmo de Kahan. 
 
-Solución:
+\texSolución:
 
 Notemos que el resultado exacto sería 10005.85987 que se redondea a 10005.9.
 
-Método usual
+\textbf{Método usual}
 
-Tras la primera suma con redondeo: 10003.1
-Tras la segunda suma con redondeo: 10005.8
-este no era el resultado deseado.
+Tras la primera suma con redondeo: 10003.1 \\
+Tras la segunda suma con redondeo: 10005.8 \\
+Este no era el resultado deseado. 
 
-Método de Kahan
+\textbf{Método de Kahan}
 
 Tenemos los siguientes cálculos:
-c = 0.0
-y = 3.14159 
-t = 10000.0 + 3.14159 = 10003.14159 = 10003.1
-c = (10003.1 - 10000.0) - 3.14159 = 3.10000 - 3.14159 = -.0415900
-suma = 10003.1
+c = 0.0 \\
+y = 3.14159  \\
+t = 10000.0 + 3.14159 = 10003.14159 = 10003.1 \\
+c = (10003.1 - 10000.0) - 3.14159 = 3.10000 - 3.14159 = -.0415900 \\
+suma = 10003.1 
 
-esto es, en la primera iteración coincide con el método usual pero lo importante es que la suma es tan grande que sólo los dígitos de orden elevado están siendo acumulados pero la gran diferencia es que ahora c tiene almacenada la compensación.
+Esto es, en la primera iteración coincide con el método usual pero lo importante es que la suma es tan grande que sólo los dígitos de orden elevado están siendo acumulados pero la gran diferencia es que ahora c tiene almacenada la compensación.
 
-y = 2.71828 - -.0.415900 = 2.75987
-t = 10003.1 + 2.75987 = 10005.85987 = 10005.9
-c = (10005.9 - 10003.1) - 2.75987 = 2.80000 - 2.75987 = .040130
-suma = 10005.9
+y = 2.71828 - -.0.415900 = 2.75987 \\
+t = 10003.1 + 2.75987 = 10005.85987 = 10005.9 \\
+c = (10005.9 - 10003.1) - 2.75987 = 2.80000 - 2.75987 = .040130 \\
+suma = 10005.9 \\
 
 que era el resultado deseado.
 %-----------------------------------------------------------------------------------------------------
