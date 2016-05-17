@@ -232,7 +232,7 @@
 		\end{cases}
 	\end{equation*}
 
-	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como: 
+	Resolver de forma exacta un problema de valores iniciales es muy difícil. Existen ecuaciones diferenciales como:
 	\begin{equation}
 	y'(t)^2 + y(t)^2 + 1 = 0
 	\end{equation}
@@ -242,7 +242,7 @@
 	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. En este contexto, es estándar en la literatura especializada considerar siempre condiciones iniciales del tipo $y(a) = y_0$ \cite{sauer}. Este será el tipo de problemas de valores iniciales que se abordarán en este trabajo.
 
 	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$.
-	
+
 	Un conjunto de técnicas muy populares para resolver de forma aproximada problemas de valores iniciales son los métodos de discretización. Estos métodos tratan de obtener valores aproximados de la solución en un conjunto finito de puntos $t_0, t_1, \ldots, t_n \in [a,b]$ donde $a = t_0 < t_1 < \ldots < t_n = b$. A las aproximaciones obtenidas en dichos puntos se las denota $w_0, w_1, \ldots, w_n$. Evidentemente, siempre se toma $w_0 = y_0$ \cite{gasca}.
 
 	La primera idea intuitiva para resolver este problema consiste en interpretar la ecuación $y'(t) = f(t,y(t))$ como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
@@ -263,16 +263,16 @@
 		w_{i+1} = w_i + h_{i} f(t_i,w_i)
 		\end{cases}$
 	\end{center}
-	
+
 	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le Mh$ para todo $i=0 \ldots n$.
 
 	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación se presenta un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable.
 
-	
+
 	Los mejores resultados se obtienen mediante el uso de puntos equidistantes, esto es, $h = \frac{b-a}{n}$ y $t_i = a + ih \ \forall i = 0 \ldots n$. En el resto del texto se trabajará siempre con puntos equidistantes. El estudio del método de Euler concluye que el error global de aproximación cometido es $O(h)$, esto es, existe $M \ge 0$ tal que $\left|y_i - w_i\right| \le Mh$ para todo $i=0 \ldots n$ cuando h tiende a 0.
-				
-	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación se presenta un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
-	
+
+	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación se presenta un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable.
+
 	\begin{example} \label{ej:motivacion}
 		Considérese el siguiente problema de valores iniciales
 		\begin{equation*}
@@ -283,8 +283,8 @@
 			\end{cases}
 		\end{equation*}
 
-		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0) = 1$ para distintos valores de $n$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta unos 10000 puntos. 
-	
+		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0) = 1$ para distintos valores de $n$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta unos 10000 puntos.
+
 		\begin{table}[H]
 			\centering
 			\begin{tabular}{|| c | c | c ||}
@@ -323,7 +323,7 @@
 	En esta sección se proporcionan las definiciones y resultados que se necesitan para el estudio del método del trapecio. En primer lugar, una de las hipótesis con las que se suele trabajar para problemas de valores iniciales es que la función $f$ sea lipschitziana en la segunda variable.
 
 	\begin{definition}
-		Sea $\Omega \subset \mathbb{R}^2$ y sea $f : \Omega \rightarrow \mathbb{R}$. Se dice que $f$ es lipschitziana respecto de la segunda variable, $y$, si existe una constante $L \in \mathbb{R^{+}}$, llamada constante de Lipschitz, de forma que $|f(t,y_1) - f(t, y_2)| \le L|y_1 - y_2|$ para cualquier par de puntos $(t,y_1), (t,y_2) \in \Omega$.  
+		Sea $\Omega \subset \mathbb{R}^2$ y sea $f : \Omega \rightarrow \mathbb{R}$. Se dice que $f$ es lipschitziana respecto de la segunda variable, $y$, si existe una constante $L \in \mathbb{R^{+}}$, llamada constante de Lipschitz, de forma que $|f(t,y_1) - f(t, y_2)| \le L|y_1 - y_2|$ para cualquier par de puntos $(t,y_1), (t,y_2) \in \Omega$.
 	\end{definition}
 
 	No tiene sentido aplicar un método numérico para resolver un problema de valores iniciales que no tenga solución. Por tanto, los resultados que garanticen la existencia de soluciones al problema son fundamentales en este contexto. Además, si el problema admitiese varias soluciones distintas, entonces el método puede no comportarse correctamente pues no se sabe cuál debe calcular. Por tanto, la unicidad de soluciones también es un concepto que se debe estudiar en profundidad. El resultado de este estudio se resume en el teorema de existencia y unicidad de soluciones, que utiliza como hipótesis fundamental el concepto de función lipschitziana en la segunda variable.
@@ -343,11 +343,11 @@
 			\item Si $I = ]-\infty,\infty[$ y $f$ es lipschitziana respecto de la segunda variable en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$
 		\end{enumerate}
 	\end{theorem}
-	
+
 	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad se pueden definir $y_i$ como los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
 
 	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad, denotaremos por $y_i$ a los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
- 
+
 	El estudio de los métodos numéricos para problemas de valores iniciales se centra en la acotación de los errores cometidos y en el análisis de la estabilidad de los métodos. Las demostraciones de resultados asociados a estos conceptos suelen requerir el uso de múltiples desigualdades. El siguiente resultado, basado en la desigualdad de Gronwall, proporciona una de las desigualdades con más aplicaciones en esta área.
 
 	\begin{theorem} \label{theorem:desigualdad-sols}
@@ -434,31 +434,52 @@
 
 	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
 
-	En la práctica, cuando se considera un problema de valores iniciales $y' = f(t, y)$  con condición inicial $y(a) = y_0$ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por $y' = f(t, y)$ e $y(a) = y_0 + \epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración e incluso diverger cuando $h$ tiende a $0$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, la diferencia entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
+    Otro concepto importante es la consistencia:
+    \begin{definition}
+    	Un método de discretización se dice consistene si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que
+    	$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} e_i = 0 $$
+    	Esto es, los errores locales convergen uniformemente a 0 cuando $n \rightarrow +\infty$.
+    \end{definition}
+
+    Nótese que si un método es localmente de orden $r$ con $r > 0$, entonces el método es consistente ya que los errores locales están uniformemente acotados por un polinomio que depende de $h$.
+
+    Cuando se considera un problema de valores iniciales $y' = f(t, y)$  con condición inicial $y(a) = y_0$ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por $y' = f(t, y)$ e $y(a) = y_0 + \epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
 
 	\begin{definition}
 		Un método de discretización se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
 	\end{definition}
 
-	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$.
+	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$ para cualquier $h$ lo suficientemente pequeño.
 
-	Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler.
+	Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso \cite{gear}. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler. Uno de estos resultados es el siguiente teorema.
 
-	\begin{theorem}
-		Si un método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el correspondiente dominio para $h \in [0, h_0]$, entonces:
+	\begin{theorem} \label{theorem:stability}
+		Si un método de un paso verifica que para cualquier PVI con $f$ lipschitziana respecto de la segunda variable se tiene que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el dominio $\Omega \times [0, h_0]$, donde $\Omega$ es el dominio de $f$, entonces:
 		\begin{enumerate}
 			\item el método es estable.
-			\item el método es convergente o, equivalentemente, $\phi(b,y,0) = f(b,y)$.
+			\item el método es convergente (o, equivalentemente, $\phi(b,y,0) = f(b,y)$), si , y solo si, el método es consistente.
 		\end{enumerate}
 	\end{theorem}
 
-	\begin{proof}
-		i) Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden. ii) Puede encontrarse en la sección 4.3 del libro de Gear: "Numerical initial value problems in ordinary differential equations".
+	\begin{proof} Se referencian los libros en los que se encuentra la prueba:
+        \begin{enumerate}
+            \item Puede encontrarse en los ejercicios resueltos de la sección 5.10 del libro de Burden-Faires \cite{burden}. 
+            \item Puede encontrarse en la sección 4.3 del libro de Gear \cite{gear}.
+        \end{enumerate}
 	\end{proof}
 
+    Como consecuencia, se obtiene el siguiente corolario para el método de Euler:
+
+    \begin{corollary}
+        El método de Euler es estable, consistente y convergente.
+    \end{corollary}
+
+    \begin{proof}
+        En el caso del método de Euler $\phi(t,y,h) = f(t,y)$. Por tanto, se cumplen las hipótesis del Teorema \ref{theorem:stability}. Además, el orden del método de Euler es 1, luego es convergente y, por tanto, consistente.
+    \end{proof}
 
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN 2: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
+%	SECCIÓN 3: INTRODUCCIÓN AL MÉTODO DEL TRAPECIO
 %-----------------------------------------------------------------------------------------------------
 
 \section{Introducción al método del trapecio} \label{sec:intro-trapecio}
@@ -497,7 +518,7 @@
 		y(t_1) \approx w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, y(t_1))\right]
 	\end{equation}
 
-	El problema reside en que para aproximar el valor de $y$ en $t_1$ se debe conocer previamente dicho valor. En este contexto se plantean dos soluciones diferentes obteniendo dos métodos, denominados método del trapecio explícito e iterativo respectivamente. En el resto del texto se desarrollan sendos métodos, proporcionando el error teórico cometido y resultados de convergencia y estabilidad.
+	El problema reside en que para aproximar el valor de $y$ en $t_1$ se debe conocer previamente dicho valor. En este contexto se plantean dos soluciones diferentes obteniendo dos métodos, denominados método del trapecio explícito e implícito respectivamente. En el resto del texto se desarrollan sendos métodos, proporcionando el error teórico cometido y resultados de convergencia y estabilidad.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 3: MÉTODO DEL TRAPECIO EXPLÍCITO
@@ -528,7 +549,7 @@
 
 		Puesto que la nueva aproximación $w_i$ se consigue "mejorando" la aproximación del método de Euler mediante una media, cabe esperar que el método del trapecio explícito presente un mejor comportamiento. En efecto, este hecho se estudiará en la Sección \ref{sec:trapecio-explicito:error}. Posteriormente en la Sección \ref{sec:trapecio-explicito:estabilidad} se estudiará la estabilidad del método del trapecio explícito.
 
-	\subsection{Error local y global} \label{sec:trapecio-explicito:error}
+	\subsection{Error local y global. Convergencia} \label{sec:trapecio-explicito:error}
 
 		El estudio del error del método del trapecio explícito se resume en el siguiente teorema.
 
@@ -573,7 +594,9 @@
 			De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
 		\end{proof}
 
-	\subsection{Error de redondeo} \label{sec:trapecio-explicito:redondeo}
+        Como consecuencia, el método del trapecio explícito es convergente.
+
+    \subsection{Error de redondeo} \label{sec:trapecio-explicito:redondeo}
 
 		El error de redondeo debe tenerse en cuenta a la hora de evaluar un método numérico. En el caso de las ecuaciones diferenciales se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima (véase la Figura \ref{fig:redondeo}). Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. Este hecho explica la importancia de utilizar métodos con el mayor orden posible pues son capaces de obtener aproximaciones de calidad sin necesidad de utilizar valores de $h$ muy pequeños. \cite{Vazquez}
 
@@ -592,9 +615,7 @@
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
-	Aplicamos este teorema al método del trapecio. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo las condiciones que nos dan existencia y unicidad, si f es Lipschitziana en
-	$\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$
-	con constante de Lipschitz L entonces:
+	El estudio de la estabilidad y convergencia del método del trapecio explícito es un corolario del Teorema \ref{theorem:stability}. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo que $f$ es lipschitziana respecto de la segunda variable en  $\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ con constante de Lipschitz $L$ entonces:
 
 	$|\phi(t,y,h)-\phi(t,y',h)|=|\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y'))| \leq \frac{1}{2}L|y-y'|+\frac{1}{2}L|y+hf(t,y)-y'-hf(t,y')| \leq L |y-y'|+\frac{1}{2}L|hf(t,y)-hf(t,y')|=(L+\frac{1}{2}hL^{2})|y-y'|$
 
@@ -604,15 +625,13 @@
 	$L'=L+\frac{1}{2} h_0 L^{2}$
 	para cualquier $h_0 > 0$.
 
-	Finalmente, si f es continua en
-	$\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$
-	entonces $\phi$ es continua en
-	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$
-	directamente por la propia definición de $\phi$.
+    Finalmente, si f es continua en $\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$, entonces $\phi$ es continua en  $\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$ directamente por la propia definición de $\phi$.
 
-	De este modo podemos aplicar el teorema anterior y tenemos demostrado que el método del trapecio es estable.
+	De este modo se puede aplicar el Toerema \ref{theorem:stability} y se tiene demostrado que el método del trapecio es estable.
 
 	Considerando ahora $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ tenemos la condición de consistencia expresada anteriormente lo que nos dice que el método es convergente.
+
+    Además, el método del trapecio explícito es convergente y, por tanto,  $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ y el método es consistente.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN 3: MÉTODO DEL TRAPECIO IMPLÍCITO
@@ -642,7 +661,7 @@
 	Si se define $g_i(w) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w)\right]$, en definitiva se está buscando un punto fijo de $g_i$. En este contexto se puede aplicar un método de iteración funcional para calcular dicho punto fijo. En caso de obtenerse, el siguiente resultado proporciona el error local cometido.
 
 	\begin{proposition} \label{prop:implicito:error}
-		Sea $w_i$ una solución de la ecuación implícita (\ref{eq:ecuacion-implicita}). Supóngase que $f$ es lipschitziana en la segunda variable con constante de Lipschitz $L$. En tal caso, si se toma $w_i$ como aproximación y $hL+r < 2$ para cierto $r >0$, entonces el error local cometido es $O(h^3)$.
+		Sea $w_i$ una solución de la ecuación implícita (\ref{eq:ecuacion-implicita}). Supóngase que $f$ es lipschitziana en la segunda variable con constante de Lipschitz $L$. En tal caso, si se toma $w_i$ como aproximación y $hL+r < 2$ para cierto $r >0$, entonces el error local cometido es $O(h^3)$. Consecuentemente, el método es localmente de orden 3.
 	\end{proposition}
 
 	\begin{proof}
@@ -673,17 +692,17 @@
 	La siguiente proposición proporciona una condición suficiente de convergencia que no depende de la aproximación inicial escogida.
 
 	\begin{proposition}
-		Supóngase que la función $f$ está definida en $[a,b]\times[-\infty, +\infty]$ y es lipschitziana en la segunda variable con constante de Lipschitz $L$. Si $\frac{LH}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
+		Supóngase que la función $f$ está definida en $[a,b]\times[-\infty, +\infty]$ y es lipschitziana en la segunda variable con constante de Lipschitz $L$. Si $\frac{Lh}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
 	\end{proposition}
 
 	\begin{proof}
-		La función $g_i$ está definida en $\mathbb{R}$. La constante de Lipschitz de $g_i$ es $\frac{hL}{2}$. Por tanto, si $\frac{LH}{2} < 1$, entonces $g_i$ es una contracción sobre $\mathbb{R}$. El resultado se desprende del teorema del punto fijo de Banach.
+		La función $g_i$ está definida en $\mathbb{R}$. La constante de Lipschitz de $g_i$ es $\frac{hL}{2}$. Por tanto, si $\frac{Lh}{2} < 1$, entonces $g_i$ es una contracción sobre $\mathbb{R}$. El resultado se desprende del teorema del punto fijo de Banach.
 	\end{proof}
 
 	La función $f$ puede estar definida en $[a,b]\times[\alpha, \beta]$ con  $-\infty < \alpha < \beta < +\infty$ si se toma una buena aproximación inicial. El problema reside en conseguir que $g_i([\alpha,\beta]) \subset [\alpha,\beta]$. Esta cuestión ya se estudió durante los métodos de iteración funcional. El resultado del estudio se recoge en la siguiente proposición.
 
 	\begin{proposition}
-		Sea $w_i^{(0)}$ la aproximación inicial obtenida. Supóngase que la función $f$  es lipschitziana en la segunda variable, con constante de Lipschitz $L$, en el intervalo  $[w_i^{(0)}-r,w_i^{(0)}+r]$ para $r>0$. Si $\frac{LH}{2} < 1$ y $\left|w_i^{(1)} - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$, entonces $\{w_i^{(j)}\}$ está bien definida y es convergente.
+		Sea $w_i^{(0)}$ la aproximación inicial obtenida. Supóngase que la función $f$  es lipschitziana en la segunda variable, con constante de Lipschitz $L$, en el intervalo  $[w_i^{(0)}-r,w_i^{(0)}+r]$ para $r>0$. Si $\frac{Lh}{2} < 1$ y $\left|w_i^{(1)} - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$, entonces $\{w_i^{(j)}\}$ está bien definida y es convergente.
 	\end{proposition}
 
 	\begin{proof}
