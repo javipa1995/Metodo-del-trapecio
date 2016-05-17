@@ -878,7 +878,39 @@ Se dibuja de nuevo la gráfica de la solución junto con las aproximaciones que 
 Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito converge más rápidamente a la solución que el método de Euler, lo cual se debe a que el primer método es de orden 2 mientras que el de Euler es un método de orden 1.\\
 
 Además, el error absoluto en el primer método es $2,235666$ obtenido mediante el valor absoluto de la diferencia de la solución calculada menos la solución evaluada en $2$, esto es, $|y_{10} - y(2)|$. De la misma forma, se obtiene el error al usar el método del Trapecio Explícito. En este caso, el error cometido es $0,199054$, por lo que se puede ver que este método es mejor que el de Euler.
+ 
+Por último, se va a calcular la aproximación usando el método del Trapecio Implícito. Para ello calculamos la sucesión de puntos conforme al método y se obtiene el siguiente resultado:
 
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c ||}
+			\hline
+			\hline $j$ &  $t_j $ & $y_j$\\
+			\hline 0 & 0.0 & 3 \\
+			\hline 1 & 0.2 & 3.66216  \\
+			\hline 2 & 0.4 & 4.453683 \\
+			\hline 3 & 0.6 & 5.385540 \\
+			\hline 4 & 0.8 & 6.471135 \\
+			\hline 5 & 1.0 & 7.726853 \\
+			\hline 6 & 1.2 & 9.172720 \\
+			\hline 7 & 1.4 & 10.833211 \\
+			\hline 8 & 1.6 & 12.738239 \\
+			\hline 9 & 1.8 & 14.924363 \\
+			\hline 10 & 2.0 & 17.436269 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.2$}
+		\label{table:trapecio-ejtp1.3}
+	\end{table}
+
+La aproximación se observa en la Figura \ref{fig:aprox3}. Al igual que se tenía con el método del trapecio explícito, que era de orden 2, se observa en \ref{fig:aprox3} que se ajusta bastante bien a la gráfica de $y(t)$. El error absoluto cometido es $|y_{10} - y(2)|$ al igual que ocurría antes y en este caso es 0.047213.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ej1-3.png}
+		\caption{Aproximación a la solución con el método del Trapecio Implícito.} 
+		\label{fig:aprox3}
+		
+	\end{figure}
 \subsection{Ejercicio 2}
 Dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C a partir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
 

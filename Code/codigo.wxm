@@ -149,5 +149,13 @@ wxplot2d([[discrete,l3],h(t)],[t,0,2],[style,[points,1,1],lines],
     [legend,"aprox","y"], [ylabel, "y(t)"]);
 /* [wxMaxima: input   end   ] */
 
+/* [wxMaxima: input   start ] */
+l3[N+1][2];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+abs(l3[N+1][2]-h(2));
+/* [wxMaxima: input   end   ] */
+
 /* Maxima can't load/batch files which end with a comment! */
 "Created with wxMaxima"$
