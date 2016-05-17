@@ -54,10 +54,13 @@
 				\end{equation}
 				\centering
 				\fontsize{10}{8}\selectfont	
-				\textbf{Método de Euler.}
+				\textbf{Método de Euler}
 				\fontsize{9}{8}\selectfont								
 				\begin{itemize}
-					
+					\item Mejores resultados para puntos equidistantes.
+					\item Es estable, consistente y convergente.
+					\item El error global de aproximación es $O(h)$.
+					\item Puede parecer válido en cualquier aplicación.
 				\end{itemize}
 			\end{tcolorbox}	
 	\end{frame}
@@ -67,11 +70,39 @@
 	% Set the headline 
 	\setbeamertemplate{headline}{
 		\begin{beamercolorbox}[sep=10pt]{title} 
-			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Necesidad de tratar y analizar los datos}
+			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Ejemplo}
 		\end{beamercolorbox}
 	}
 	
-	\begin{frame}{}
-				
+	\begin{frame}{
+		Considérese el siguiente problema de valores iniciales:
+		
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -4 t^3 y^2 \\
+			y(-10) = 1/10001 \\
+			t \in [-10,0] \\
+			\end{cases}
+		\end{equation*}
+		
+		\begin{itemize}
+			\item La solución exacta es $y(t)= \frac{1}{1+t^4}$.
+			\item Queremos calcular la aproximación de y en 0 con $y(0)=1$.
+		\end{itemize}		
+	}			
+	\end{frame}
+}
+
+{
+	% Set the headline 
+	\setbeamertemplate{headline}{
+		\begin{beamercolorbox}[sep=10pt]{title} 
+			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Ejemplo}
+		\end{beamercolorbox}
+	}
+	
+	\begin{frame}{
+			
+	}
 	\end{frame}
 }
