@@ -711,9 +711,9 @@
 
 \section{Artículo de investigación} \label{sec:paper}
 
-\section{Ejemplos}
+\section{Ejemplos} \label{ejemplos}
 
-\subsection{Ejemplo 1}
+\subsection{Ejemplo 1} \label{ejemplo1}
 
 Considérese el ejemplo de problema de valores iniciales dado en la motivación. 
 
@@ -745,7 +745,7 @@ cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y 
 		
 		de modo que queda patente que converge el doble de rápido que el método de Euler. 
 		
-\subsection{Ejemplo 2}
+\subsection{Ejemplo 2} \label{ejemplo2}
 
 Considérese el problema de valores iniciales
 
@@ -794,9 +794,9 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 	
 	Teniendo en cuenta que $y(2)=-1.386294$, los errores relativos son $9.69 10^{-3}$ para el caso $h=0.25$ y $1.70 10^{-3}$ para el caso $h=0.10$. Como el método del trapecio es de orden 2 el error relativo es $O(h^2)$ y por tanto el cociente de los errores debería ser $\frac{C(0.25)^2}{C(0.10)^2}=6.25$ mientras que el valor real es 5.7. La razón de esta diferencia es que el orden es $O(h^2)$ asintóticamente, esto es, cuando $h \to 0$ y los valores de considerados para h no son suficientemente pequeños.
 
-\section{Ejercicios teórico-prácticos}
+\section{Ejercicios teórico-prácticos} \label{ejtp}
 
-\subsection{Ejercicio 1}
+\subsection{Ejercicio 1} \label{ejtp1}
 
 Considérese el problema de valores iniciales 
 
@@ -911,7 +911,9 @@ La aproximación se observa en la Figura \ref{fig:aprox3}. Al igual que se tení
 		\label{fig:aprox3}
 		
 	\end{figure}
-\subsection{Ejercicio 2}
+	
+\subsection{Ejercicio 2} \label{ejtp2}
+
 Dada la ecuación $y'=t+y^2$ con $y(1)=1$ aproximar mediante el método del trapecio: a) y(1,2) con 2 pasos (h=0,1) y b) y(1,2) con 4 pasos (h=0,05). Si el error global es de la forma $Ch^2$, estimar el valor de C a partir de los resultados anteriores. Determinar h para que el error sea del orden de $10^{-4}$.
 
 Solución:
@@ -950,7 +952,7 @@ si restamos ambas ecuaciones y despejamos se obtiene:
 	$C=7.33$
 	Asumiendo entonces que el error global puede representarse mediante $7.33 h^2$ para que sea de orden $10^{-4}$ debe ser $h=3.7$ $10^{-3}$
 
-\subsection{Ejercicio 3}
+\subsection{Ejercicio 3} \label{ejtp3}
 El movimiento de caída de un cuerpo de masa m en un medio que opone una resistencia proporcional al cuadrado de la velocidad está gobernado por la ecuación diferencial:
 
 \begin{equation}
@@ -1033,7 +1035,9 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 		\label{fig:cambiadlo}
 	\end{figure}
 
-\subsection{Ejercicio 4}
+\subsection{Ejercicio 4} \label{ejtp4}
+
+En este último ejercicio se propone un algoritmo como la suma de Kahan. En el análisis númerico, la suma de Kahan reduce significativamente el error numérico del total. Para ello, esto lo termina rodrigo....
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
