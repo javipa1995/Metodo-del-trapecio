@@ -124,7 +124,7 @@ l3:TrapecioImplicito(a,b,N,1/10001,f,100)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-wxplot2d([[discrete,l1], [discrete,l2], [discrete,l3], h(t)],[t,0,2],[style,[points,2,1],[points,2,2],[points,2,3],[lines,2,4]],
+wxplot2d([[discrete,l1], [discrete,l2], [discrete,l3], solucion(t)],[t,-10,0],[style,[lines,2,1],[lines,2,2],[lines,2,3],[lines,2,4]],
     [legend,"euler","explicito","iterativo","y"], 
     [ylabel, "y(t)"]);
 /* [wxMaxima: input   end   ] */
