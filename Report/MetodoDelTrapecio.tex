@@ -226,7 +226,7 @@
 
 	Uno de los objetivos de la teoría del Análisis Numérico en el campo de las ecuaciones diferenciales ordinarias es resolver de forma aproximada problemas de valores iniciales una vez se conoce la existencia y unicidad de soluciones. Para ello, una técnica habitual son los métodos de discretización que son cualquier método numérico que trata obtener valores aproximados de una sucesión $y_n$ de la solución $y(x)$ en los diferentes nodos $x_n$ que se obtienen al realizar la partición del intervalo en el que se trabaja. Se toman $n+1$ puntos $t_0, t_1, \ldots, t_n \in [a.b]$ con $a = t_0 < t_1 < \ldots < t_n = b$ y se intenta aproximar la imagen de la solución del problema de valores iniciales en estos puntos. Es habitual denotar a las aproximaciones obtenidas $w_i$. En lo que sigue, se trabajará siempre con condiciones iniciales sobre $y(a)$ para simplificar la definición de los métodos de discretización. 	
 	
-	\textbf{Repasar estos dos párrafos, no sé si queda claro.}La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
+	La primera idea intuitiva para resolver este problema consiste en interpretar la primera ecuación como un campo vectorial aprovechando la definición de derivada como aproximación lineal de la función en un punto. Esto es, $f$ le asigna a cada punto la dirección en la que varía cualquier solución del problema que pase por ese punto.
 
 	\begin{figure}[h]
 		\centering
@@ -249,8 +249,6 @@
 				
 	A priori, puede parecer que el método de Euler es válido en cualquier aplicación simplemente reduciendo el valor de $h$, esto es, aproximando un mayor número de puntos. Sin embargo, a continuación estudiaremos un ejemplo para el cual el método de Euler requiere una excesiva cantidad de puntos para obtener un error de aproximación aceptable. 
 	
-	\textbf{EJEMPLO DEL MÉTODO DE EULER. MEJORAR}
-	
 	\begin{example} Considérese el siguiente problema de valores iniciales
 		\begin{equation*}
 			\begin{cases}
@@ -260,7 +258,7 @@
 			\end{cases}
 		\end{equation*}
 
-		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0)$ para distintos valores de $h$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un millón de puntos. 
+		La solución exacta de este problema es $y(t)=\frac{1}{1+t^4}$. La Tabla \ref{table:euler} muestra los resultados de aproximación obtenidos por el método de Euler en $y(0)$ para distintos valores de $h$. Se observa que la aproximación obtenida deja mucho que desear a pesar de haber llegado a utilizar hasta un 10000 de puntos. 
 	\end{example}
 	
 	\begin{table}[H]
@@ -314,15 +312,13 @@
 			\item Si f es Lipschitz en $[a,b]\times]-\infty,\infty[$, entonces existe exactamente una solución en $[a,b]$	
 		\end{enumerate}
 	\end{theorem}
-	
-	\textbf{Demostración en caso de tener tiempo.}
  
 	Nótese que el resultado es válido para cualquier condición inicial escogida. Esto es, la existencia y unicidad solamente depende de $f$. De aquí en adelante siempre se supondrá que el problema de valores iniciales a resolver tiene solución y que esta es única. En la práctica este hecho es algo que habrá que comprobar mediante el Teorema \ref{theorem:existence-uniqueness}. Bajo hipótesis de existencia y unicidad se pueden definir $y_i$ como los valores que toma la solución en los puntos $t_i = a + ih$ para todo $i = 0 \ldots n$, donde $h = \frac{b-a}{n}$ .
  
 	El estudio de los métodos numéricos para problemas de valores iniciales se centra en la acotación de los errores cometidos y en el análisis de la estabilidad de los métodos. Las demostraciones de resultados asociados a estos conceptos suelen requerir el uso de múltiples desigualdades. El siguiente resultado, basado en la desigualdad de Gronwall, proporciona una de las desigualdades con más aplicaciones en esta área.
 	
 	\begin{theorem}
-		Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supóngase que f es de Lispchtiz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
+		Sean dos soluciones $y(t), z(t)$ de los problemas de valores iniciales con ecuación $y'(t) = f(t,y(t))$ y condiciones iniciales $y(a)$ y $z(a)$, respectivamente. Supóngase que f es de Lipschitz en $[a,b]\times[\alpha,\beta]$. Entonces $|y(t)-z(t)| \leq e^{L(t-a)}|y(a)-z(a)|$ donde L es la constante de Lipschitz de f.
 	\end{theorem}
 
 	Un método será mejor que otro cuanto menor error presenten las aproximaciones obtenidas. Sin embargo, el concepto de error se puede ampliar introduciendo los errores locales y globales.
@@ -413,7 +409,7 @@
 	Por tanto, si el orden del método es $O(h^r)$ con $r > 0$, se tiene que el método es convergente.
 	
 	\begin{definition}
-		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschit existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
+		Diremos que el método de un paso anterior es estable si para cada ecuación diferencial que satisfaga una condición de Lipschitz existen constantes positivas $h_0$ y $K$ tales que la diferencia entre dos soluciones obtenidas numéricamente $y_n$ e $w_n$ es tal que $||y_n-w_n|| \leq K ||y_o-w_0||$ para todo $h \in [0,h_0]$.
 	\end{definition}
 	
 	\begin{theorem}
@@ -575,7 +571,6 @@
 			\label{fig:redondeo}
 		\end{figure}
 		
-		
 		Así en el caso del método del trapecio, si tomamos $h=\frac{b-a}{N}$ entonces en cada uno de los $N$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto 
 		$N(\epsilon+Ch{3})=\frac{\epsilon'}{h}+C'h^{2}$. En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
 		
@@ -591,7 +586,7 @@
 	
 	Por tanto, $\phi$ satisface una condición de Lipschitz sobre el conjunto 
 	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$ 
-	con constante de Lipschizt 
+	con constante de Lipschitz 
 	$L'=L+\frac{1}{2} h_0 L^{2}$ 
 	para cualquier $h_0 > 0$. 
 	
@@ -652,7 +647,7 @@
 	
 	La pregunta que queda por resolver es qué método de iteración funcional se debe utilizar para conseguir aproximar un punto fijo de $g_i$. Una primera respuesta puede ser el método de Newton en caso de conocer la derivada parcial de $f$ con respecto de la segunda variable. Este método asegura la convergencia en un entorno del punto fijo. Por tanto, si se parte de una aproximación inicial apropiada, como puede ser el método de Euler, es probable que el método de Newton converja y, además, con orden de convergencia 2.
 	
-	Sin embargo, utilizando que $f$ es lipshchitziana en la segunda variable, la función $g_i$ va a ser lipschitziana con constante de Lipschitz $\frac{hL}{2}$. Esto sugiere utilizar el método de iteración funcional dado por $g_i$ partiendo de una aproximación inicial, que se denota $w_i^{(0)}$. La sucesión definida por el método de iteración funcional es la siguiente
+	Sin embargo, utilizando que $f$ es lipschitziana en la segunda variable, la función $g_i$ va a ser lipschitziana con constante de Lipschitz $\frac{hL}{2}$. Esto sugiere utilizar el método de iteración funcional dado por $g_i$ partiendo de una aproximación inicial, que se denota $w_i^{(0)}$. La sucesión definida por el método de iteración funcional es la siguiente
 	
 
 	\begin{equation} \label{eq:ti-def}
@@ -739,7 +734,7 @@ cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=8cm]{./Images/ej1-2.png}
-			\caption{Método del trapecio explícto aplicado al problema anterior con paso $10^{-3}$} 
+			\caption{Método del trapecio explícito aplicado al problema anterior con paso $10^{-3}$} 
 			\label{fig:ej1-2}
 		\end{figure}
 		
@@ -925,7 +920,7 @@ El movimiento de caída de un cuerpo de masa m en un medio que opone una resiste
 \frac{d^2s}{dt^2}=g-\frac{K}{m}(\frac{ds}{dt})^2
 \end{equation}
 
-siendo $g=10 \frac{m}{s^2}$ y $K \frac{kg}{s}$ una constante de proporcionalidad cuyo valor depende del problema concreto. Si el cuerpo se abandona sin velocidad inicial y las condiciones inciales son 
+siendo $g=10 \frac{m}{s^2}$ y $K \frac{kg}{s}$ una constante de proporcionalidad cuyo valor depende del problema concreto. Si el cuerpo se abandona sin velocidad inicial y las condiciones iniciales son 
 
 
 \begin{equation}
