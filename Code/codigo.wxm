@@ -1,5 +1,5 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
-/* [ Created with wxMaxima version 15.04.0 ] */
+/* [ Created with wxMaxima version 15.08.1+git ] */
 
 /* [wxMaxima: title   start ]
 Método del trapecio
@@ -64,7 +64,7 @@ IteracionFuncional(g, ti, wi, wi10, h, numiter,tolerancia):=block(
 TrapecioImplicito(a,b,N,w0,g,numiter):= block(
     h: (b-a)/N,
     ti: a,
-    approx: makelist(0,N+1),
+    approx:makelist(0,N+1),
     approx[1]: [ti, w0],
     for i:1 thru N do(
         euler: approx[i][2] + h * g(ti, approx[i][2]),
@@ -107,27 +107,6 @@ wxplot2d([[discrete,l1],h(t)],[t,0,2],[style,[points,1,1],lines],
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-h:(b-a)/N$
-t0:a$
-sol:[y0]$
-while t0<b do(
-    y:y0+h*g(t0+(h/2),y0+(h/2)*g(t0,y0)),
-    t:t0+h,
-    sol:append(sol,[y]),
-    t0:t,
-    y0:y
-)$
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-kill(all);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-sol;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
 l2:TrapecioExplicito(a, b, N, y0, g);
 /* [wxMaxima: input   end   ] */
 
@@ -158,7 +137,16 @@ KahanSum(l3,2);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-TrapecioImplicito(a,b,N,3,f,100);
+numer:true;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l3:TrapecioImplicito(a,b,N,3,f,100);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([[discrete,l3],h(t)],[t,0,2],[style,[points,1,1],lines],
+    [legend,"aprox","y"], [ylabel, "y(t)"]);
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
