@@ -381,12 +381,12 @@
 	
 	Las constantes de la definición previa dependerán del problema de valores iniciales en cuestión. Nótese que el Teorema \ref{theorem:local-global-error} está diciendo si un método es localmente de orden $k+1$, entonces es de orden $k$. Como aplicación directa de este teorema se obtiene fácilmente el orden del método de Euler.
 	
-	\begin{theorem}
+	\begin{theorem} \label{theorem:euler:error}
 		Supóngase que $f: [a,b] \times ]-\infty, +\infty[ \rightarrow \mathbb{R}$ es derivable y lipschitziana en la segunda variable. Entonces, el método de Euler es localmente de orden $2$. Consecuentemente, el método de Euler es de orden $1$.
 	\end{theorem}
 	
 	\begin{proof}
-		Sea $y$ la solución del problema de valores iniciales para $y(a) = y_0$. Fijemos $i = 1 \ldots n$ y sea $z$ la solución del problema de valores iniciales para $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito. El teorema de Taylor para orden 2 proporciona la siguiente igualdad para cualquier 
+		Sea $y$ la solución del problema de valores iniciales para $y(a) = y_0$. Se fija $i = 1 \ldots n$ y sea $z$ la solución del problema de valores iniciales para $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito. El teorema de Taylor para orden 2 proporciona la siguiente igualdad para cualquier 
 		\begin{equation}
 			z_i= w_{i-1} + h f(t_{i-1}, w_{i-1}) + \frac{h^2}{2} z''(\xi_i) = w_i + \frac{h^2}{2} z''(\xi_i)
 		\end{equation}
@@ -498,7 +498,7 @@
 
 \section{Método del trapecio explícito}	 \label{sec:trapecio-explicito}
 		
-		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias que se comentó en la Sección \ref{sec:motivacion}. Denotemos $w'_i$ a las aproximaciones obtenidas por este método. El valor de la solución en cada punto se aproxima a partir del anterior mediante la siguiente expresión:
+		Recuérdese en este punto el método de Euler para ecuaciones diferenciales ordinarias que se comentó en la Sección \ref{sec:motivacion}. Llámese $w'_i$ a las aproximaciones obtenidas por este método. El valor de la solución $y$ en cada punto se aproxima mediante la siguiente expresión, donde $w_0' = y_0$:
 		
 		\begin{equation*} \label{eq:euler}
 			y(t_{i+1}) \approx w'_{i+1} = w'_i + h f(t_i,w'_i))
@@ -515,47 +515,71 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=10cm]{./Images/trapecio-vs-euler.png}
-			\caption{Esquema visual del método del trapecio explícito.} 
+			\caption{Esquema visual del método del trapecio explícito en contraposición con el método de Euler.} 
 			\label{fig:trapecio-vs-euler}
 		\end{figure}
 
-\subsection{Error} \label{sec:trapecio-explicito:error}
+		Puesto que la nueva aproximación $w_i$ se consigue "mejorando" la aproximación del método de Euler mediante una media, cabe esperar que el método del trapecio explícito presente un mejor comportamiento. En efecto, este hecho se estudiará en la Sección \ref{sec:trapecio-explicito:error}. Posteriormente en la Sección \ref{sec:trapecio-explicito:estabilidad} se estudiará la estabilidad del método del trapecio explícito. 
 
-\begin{theorem}
-El error local del método del trapecio es de orden tres. En consecuencia, el error global del método es de orden dos. 
-\end{theorem}
-\begin{proof}
-Podemos particularizar la expresión del método para $j-1 = 0$ y $j=1$ como 
-$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$ siendo $K_0=f(t_0,y_0)$. 
+	\subsection{Error del método del trapecio explícito} \label{sec:trapecio-explicito:error}
+	
+		El estudio del error del método del trapecio explícito se resume en el siguiente teorema.
+	
+		\begin{theorem}
+			El error local del método del trapecio es de orden tres. En consecuencia, el error global del método es de orden dos. 
+		\end{theorem}
 
-Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
+		\begin{proof}
+			La prueba es similar a la realizada en el Teorema \ref{theorem:euler:error}. Sean $w_0, w_1, \ldots, w_n$ las aproximaciones obtenidas por el método del trapecio explícito, se fija $i = 1, 2, \ldots, m$. Sea $z$ la solución del problema de valores iniciales para la condición $z(t_{i-1}) = w_{i-1}$. Por inducción, $z$ es de clase infinito.
 
-$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$ 
+			Por tanto, aplicando la igualdad (\ref{eq:trapecio-igualdad}) a $z$, se obtiene la siguiente expresión:
+			$$ z_i = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, z_i)\right] + 0(h^3) $$
+			Denótese $w'_i =  w_{i-1} + hf(t_{i-1}, w_{i-1})$. Utilizando la definición de $w_i$ y la expresión previa en la definición de error local se obtiene			
+			$$ e_i = \left|z_i - w_i\right| =  \left|\frac{h}{2} \left[f(t_i, z_i) - f(t_i, w'_i)\right] + 0(h^3) \right| \le \frac{h}{2} \left|f(t_i, z_i) - f(t_i, w'_i)\right| + 0(h^3) $$ 
 
-ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$
+			Considérese el desarrollo de Taylor de orden 1 con respecto de la variable $y$ para $f(t_i, w'_i)$ en el punto $(t_i,z_i)$:
+			$$ f(t_i, w'_i) = f(t_i, z_i) + \frac{\partial f}{\partial y}(t_i, z_i) (w'_i - z_i) = f(t_i, z_i) + O(h^2) $$
+			donde se ha usado que $z_i - w'_i$ es el error local del método de Euler y, por tanto, es de orden 2. Basta juntar las dos expresiones obtenidas para conseguir
+			$$ e_i \le \frac{h}{2} \left|f(t_i, z_i) - f(t_i, w_{i-1} + hf(t_{i-1}, w_{i-1})\right| + 0(h^3) =  \frac{h}{2} O(h^2) + 0(h^3) = O(h^3) $$ 
+			
+			Por último, el Teorema \ref{theorem:local-global-error} implica que el error global es de orden 2.
 
-Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$
+		\end{proof}
 
-Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es 
-$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$. 
+		\begin{proof} \textit{Prueba alternativa.}
+			
+			Podemos particularizar la expresión del método para $j-1 = 0$ y $j=1$ como 
+			$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$ siendo $K_0=f(t_0,y_0)$. 
+			
+			Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
 
-De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
-\end{proof}
-
-Respecto al error de redondeo se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima. Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. 
-
+			
+			$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$ 
+			
+			ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$
+			
+			Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$
+			
+			Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es 
+			$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$. 
+			
+			De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
+		\end{proof}
+		
+		Respecto al error de redondeo se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima. Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. 
+		
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=8cm]{./Images/redondeo.png}
 			\caption{Combinación de los errores de truncatura y redondeo} 
 			\label{fig:redondeo}
 		\end{figure}
-
-
-Así en el caso del método del trapecio, si tomamos $h=\frac{b-a}{N}$ entonces en cada uno de los $N$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto 
-$N(\epsilon+Ch{3})=\frac{\epsilon'}{h}+C'h^{2}$. En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
-
-Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio, un modelo más pesimista se pondría en el peor de los casos y un modelo probabilista que se puede encontrar en el libro de Henrici "Discrete Variable Methods in Ordinary Differential Equations". Otros autores como Butcher en su libro "Numerical Methods for Ordinary Differential Equations" en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamdo algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
+		
+		
+		Así en el caso del método del trapecio, si tomamos $h=\frac{b-a}{N}$ entonces en cada uno de los $N$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto 
+		$N(\epsilon+Ch{3})=\frac{\epsilon'}{h}+C'h^{2}$. En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
+		
+		Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio, un modelo más pesimista se pondría en el peor de los casos y un modelo probabilista que se puede encontrar en el libro de Henrici "Discrete Variable Methods in Ordinary Differential Equations". Otros autores como Butcher en su libro "Numerical Methods for Ordinary Differential Equations" en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamdo algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
