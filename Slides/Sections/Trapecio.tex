@@ -22,14 +22,10 @@
 		\end{frame}
 
 		\begin{frame}{Introducción al método del trapecio}
-			\fontsize{9}{9}\selectfont				
+			\fontsize{10}{10}\selectfont				
 
 			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
 				\centering
-				\kern -5mm
-				\begin{equation*}
-				y(t_1)  = y_0 + \int_{t_0}^{t_1} f(s,y(s))) \ ds
-				\end{equation*}		
 				\textbf{Idea: Método del trapecio para integración numérica}
 				\begin{equation} \label{eq:trapecio-igualdad}
 					y(t_{1}) = y_0 + \frac{h}{2} \left[f(t_0,y_0) + f(t_1, y(t_1))\right] - \frac{h^3}{12}y^{3)}(\xi)
@@ -41,23 +37,23 @@
 				\end{equation}			
 			\end{tcolorbox}			
 
-			{\centering\textbf{¿Cómo cálcular la aproximación?}}
+			\kern 1mm
+			\centering
+			\textbf{¿Cómo cálcular la aproximación?}
+
+			\kern 1mm
 			\begin{itemize}
-				\item Método del trapecio explícito
-				\item Método del trapecio implícito
+				\item \color{ChetwodeBlue}\textbf{Método del trapecio explícito}
+				\item \color{ChetwodeBlue}\textbf{Método del trapecio implícito}
 			\end{itemize}
 		\end{frame}
 
 
-		\begin{frame}{Introducción al método del trapecio}
-			\fontsize{11}{11}\selectfont				
-			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
-				\centering
-				\textbf{Aproximación implicita}	
-				\begin{equation*}
-					y(t_1) \approx w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, y(t_1))\right]
-				\end{equation*}							
-			\end{tcolorbox}			
+		\begin{frame}{Método del trapecio explícito}
+			\fontsize{11}{11}\selectfont		
 
+			\begin{equation} \label{eq:app-exp}
+				y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i}+h, w_i + h f(t_i,w_i))\right]
+			\end{equation}
 			
 		\end{frame}
