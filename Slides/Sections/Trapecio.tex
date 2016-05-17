@@ -48,12 +48,51 @@
 			\end{itemize}
 		\end{frame}
 
+	\subsection{Método del trapecio explícito}
+
 
 		\begin{frame}{Método del trapecio explícito}
-			\fontsize{11}{11}\selectfont		
+			\fontsize{10}{10}\selectfont		
+			\centering
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\centering
+				\textbf{Idea: Utilizar el método de Euler}
+				\begin{equation*}
+					y(t_{i+1}) \approx w'_{i+1} = w'_i + h f(t_i,w'_i))
+				\end{equation*}
+				{\large\textbf{+}}
+				\begin{equation*}
+					y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i+1}, y(t_{i+1}))\right]
+				\end{equation*}			
+			\end{tcolorbox}			
 
-			\begin{equation} \label{eq:app-exp}
+			 \begin{definition}[Método del trapecio explícito]
+				\begin{equation} \label{eq:app-exp}
+					y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i}+h, w_i + h f(t_i,w_i))\right]
+				\end{equation}
+			 \end{definition}
+			
+		\end{frame}
+
+		\begin{frame}{Método del trapecio explícito}
+			\fontsize{10}{10}\selectfont		
+			\centering
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\centering
+				\textbf{Idea: Utilizar el método de Euler}
+				\begin{equation*}
+				y(t_{i+1}) \approx w'_{i+1} = w'_i + h f(t_i,w'_i))
+				\end{equation*}
+				{\large\textbf{+}}
+				\begin{equation*}
+				y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i+1}, y(t_{i+1}))\right]
+				\end{equation*}			
+			\end{tcolorbox}			
+			
+			\begin{definition}[Método del trapecio explícito]
+				\begin{equation} \label{eq:app-exp}
 				y(t_{i+1}) \approx w_{i+1} = w_i + \frac{h}{2} \left[f(t_i,w_i) + f(t_{i}+h, w_i + h f(t_i,w_i))\right]
-			\end{equation}
+				\end{equation}
+			\end{definition}
 			
 		\end{frame}

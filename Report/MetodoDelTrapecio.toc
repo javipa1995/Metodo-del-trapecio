@@ -5,36 +5,36 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Motivaci\IeC {\'o}n: ecuaciones diferenciales ordinarias de primer orden}{2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Definiciones y resultados previos}{4}
+\contentsline {section}{\numberline {2}Definiciones y resultados previos}{5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Introducci\IeC {\'o}n al m\IeC {\'e}todo del trapecio}{8}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}M\IeC {\'e}todo del trapecio expl\IeC {\'\i }cito}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Error local y global}{9}
+\contentsline {subsection}{\numberline {4.1}Error local y global}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}Error de redondeo}{10}
+\contentsline {subsection}{\numberline {4.2}Error de redondeo}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}Estabilidad y convergencia}{11}
+\contentsline {subsection}{\numberline {4.3}Estabilidad y convergencia}{12}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}M\IeC {\'e}todo del trapecio impl\IeC {\'\i }cito}{12}
+\contentsline {section}{\numberline {5}M\IeC {\'e}todo del trapecio impl\IeC {\'\i }cito}{13}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{14}
+\contentsline {section}{\numberline {6}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Ejemplos}{14}
+\contentsline {section}{\numberline {7}Ejemplos}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Ejemplo 1}{14}
+\contentsline {subsection}{\numberline {7.1}Ejemplo 1}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Ejemplo 2}{15}
+\contentsline {subsection}{\numberline {7.2}Ejemplo 2}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8}Ejercicios te\IeC {\'o}rico-pr\IeC {\'a}cticos}{16}
+\contentsline {section}{\numberline {8}Ejercicios te\IeC {\'o}rico-pr\IeC {\'a}cticos}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.1}Ejercicio 1}{16}
+\contentsline {subsection}{\numberline {8.1}Ejercicio 1}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.2}Ejercicio 2}{19}
+\contentsline {subsection}{\numberline {8.2}Ejercicio 2}{20}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.3}Ejercicio 3}{20}
+\contentsline {subsection}{\numberline {8.3}Ejercicio 3}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.4}Ejercicio 4}{21}
+\contentsline {subsection}{\numberline {8.4}Ejercicio 4}{22}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{23}
+\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{24}

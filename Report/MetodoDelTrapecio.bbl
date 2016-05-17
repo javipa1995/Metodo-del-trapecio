@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex version 2.3 $
+% $ biblatex version 2.5 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -25,7 +25,7 @@
      {}{}}%
   }
   \list{publisher}{1}{%
-    {John Wiley \&Sons, Inc.}%
+    {John Wiley \& Sons, Inc.}%
   }
   \strng{namehash}{AKE1}
   \strng{fullhash}{AKE1}
@@ -42,9 +42,8 @@
      {}{}%
      {}{}}%
   }
-  \list{publisher}{2}{%
-    {John Wiley}%
-    {Sons}%
+  \list{publisher}{1}{%
+    {John Wiley \& Sons}%
   }
   \strng{namehash}{BJ1}
   \strng{fullhash}{BJ1}
