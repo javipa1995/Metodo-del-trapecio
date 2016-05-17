@@ -587,22 +587,29 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 
 \section{Método del trapecio iterativo} \label{sec:trapecio-iterativo}
 	
-	Supóngase que se han calculado las $i$ primeras aproximaciones de la función $y$ y que, además, se ha obtenido una aproximación inicial para $y_i$. Esta aproximación se denota $w_i^{(0)}$. Si la aproximación es buena, la expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha utilizando $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
+	 Supóngase que se conoce $y_{i-1}$ para cierto $i \in \{1, 2, \ldots, n\}$ y que, además, se ha obtenido una aproximación inicial para $y_i$. Esta aproximación se denota $w_i^{(0)}$. La expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha utilizando $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
 	
 	\begin{equation} \label{eq:ti-def}
-	w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+		w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 	\end{equation}
 	
-	La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:error:iterativo}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Además, se probará que el error cometido utilizando esta aproximación es $O(h^3)$.
+	Nótese que la sucesión definida en (\ref{eq:ti-def}) es esencialmente un método de iteración funcional para obtener un punto fijo de $g(y) = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, y)\right]$. La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:trapecio-iterativo:error}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Además, se probará que el error local cometido utilizando esta aproximación es $O(h^3)$.
 	
-	La segunda cuestión a tratar es cómo aplicar este nuevo método para obtener aproximaciones para todos los $t_i$. Nótese que en la definición previa se suponía haber calculado $y_{i-1}$ previamente. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
+	La segunda cuestión a tratar es cómo aplicar este método para obtener aproximaciones de todos los $t_i$ si solamente se conoce $y_0$. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
 	
 	\begin{equation} \label{eq:ti-def-2}
-	w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+		\begin{cases}
+			w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right] \\
+			w_i = \lim w_{i}^{(j)} \\
+		\end{cases}
 	\end{equation}
+
+	La aproximación que se toma como $w_i^{(0)}$ suele ser obtenida mediante un método explícito de menor orden, como el método de Euler. Nótese que en tal caso $w_i^{(1)}$ es el resultado de aplicar el método del trapecio explícito partiendo de $w_{i-1}$. Por tanto, el método del trapecio iterativo puede entenderse como una generalización del método del trapecio explícito.
 	
+	Por otro lado, el método del trapecio iterativo también puede concebirse como un mecanismo para corregir el error cometido por la aproximación inicial. Al método utilizado para calcular la aproximación inicial se le denomina predictor mientras que a la fórmula (\ref{eq:ti-def-2}) se la denomina fórmula correctora. La aplicación de la fórmula correctora al resultado del predictor es lo que se conoce como método predictor-corrector en la literatura especializada.
 	
-	En tal caso se está cometiendo un nuevo error de aproximación.
+	Por último, en la práctica solo se realizan un número pequeño de iteraciones de la fórmula (\ref{eq:ti-def-2}). Si $j$ es el número de iteraciones escogido, se puede calcular de forma teórica un valor de $j$ de manera que el error $w_i - w_i^{(j)}$ sea tan pequeño como se quiera. En la Sección \ref{eq:ti-def-2} se explica cómo.
+	
 	
 	\subsection{Estudio del error} \label{sec:trapecio-iterativo:error}
 
