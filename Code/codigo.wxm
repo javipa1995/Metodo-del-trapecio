@@ -1,6 +1,10 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
 /* [ Created with wxMaxima version 15.04.0 ] */
 
+/* [wxMaxima: title   start ]
+Método del trapecio
+   [wxMaxima: title   end   ] */
+
 /* [wxMaxima: input   start ] */
 numer:true;
 /* [wxMaxima: input   end   ] */
@@ -10,7 +14,7 @@ Método de Euler
    [wxMaxima: section end   ] */
 
 /* [wxMaxima: input   start ] */
-MetodoEuler(a, b, N, y0, g):=block(
+MetodoEuler(a, b, N, y0, g) := block(
     h: (b-a)/N,
     ti: a,
     approx: makelist(0,N+1),
@@ -22,10 +26,6 @@ MetodoEuler(a, b, N, y0, g):=block(
     return(approx)
 )$
 /* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: section start ]
-Método del punto medio
-   [wxMaxima: section end   ] */
 
 /* [wxMaxima: section start ]
 Método del Trapecio Explícito
@@ -77,7 +77,7 @@ TrapecioImplicito(g, a, b, N, w0, numiter) := block(
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: section start ]
-Ejercici
+Ejercicio
    [wxMaxima: section end   ] */
 
 /* [wxMaxima: input   start ] */
