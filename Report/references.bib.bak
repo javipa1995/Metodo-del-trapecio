@@ -9,7 +9,7 @@
 	author    = "Kendall E. Atkinson",
 	title     = "An Introduction To Numerical Analysis.",
 	year      = "1988",
-	publisher = "John Wiley \& Sons, Inc.",
+	publisher = "John Wiley \&Sons, Inc.",
 }
 
 @book{burden,
@@ -23,7 +23,7 @@
 	author    = "J.C. Butcher",
 	title     = "Numerical Methods for Ordinary Differential Equations",
 	year      = "2008",
-	publisher = "John Wiley \& Sons"
+	publisher = "John Wiley and Sons"
 }
 
 @book{Vazquez,

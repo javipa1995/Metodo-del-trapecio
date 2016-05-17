@@ -183,59 +183,8 @@
 
 \begin{document}
 
-\section{Ejemplo 1}
+\section{Lista de erratas}
 
-funcion suma\_compensada(vector\_entrada)
- suma=0.0
- c=0.0 
- desde i=1 a longitud(vector\_entrada) hacer(
-  y = vector\_entrada[i]-c (1)
-  t = suma + y //al hacer esto suma es grande e y pequeño y pierde sus bits (2)
-  c = (t - suma) - y (3)
-  suma = t (4)
- )
- devolver suma
-
-Explicación del algoritmo:
-c es una compensación para los bits de orden pequeño perdidos por redondeo
-(2) Al acumular en suma, el valor de suma es grande y el de y es pequeño por lo que los dígitos de orden pequeño de y se pierden. 
-(3) (t-suma) cancela los dígitos de orden grande de y y restar y recupera de forma negativa los dígitos de orden pequeño de y. 
-(4) Teóricamente, c debería ser siempre cero pero el hecho de que el algoritmo funcione se basa precisamente en esto ya que al volver a iterar los dígitos de orden pequeños perdidos se añaden de nuevo a y. 
-
-Ejemplo:
-
-Supóngase que se utiliza aritmética decimal de seis dígitos, que el valor de suma es 10000.0 y que los siguientes dos valores en el vector de entrada son 2.14159 y 2.71828. Resuélvase este ejemplo mediante la suma usual con redondeo y utilizando el algoritmo de Kahan. 
-
-Solución:
-
-Notemos que el resultado exacto sería 10005.85987 que se redondea a 10005.9.
-
-Método usual
-
-Tras la primera suma con redondeo: 10003.1
-Tras la segunda suma con redondeo: 10005.8
-este no era el resultado deseado.
-
-Método de Kahan
-
-Tenemos los siguientes cálculos:
-c = 0.0
-y = 3.14159 
-t = 10000.0 + 3.14159 = 10003.14159 = 10003.1
-c = (10003.1 - 10000.0) - 3.14159 = 3.10000 - 3.14159 = -.0415900
-suma = 10003.1
-
-esto es, en la primera iteración coincide con el método usual pero lo importante es que la suma es tan grande que sólo los dígitos de orden elevado están siendo acumulados pero la gran diferencia es que ahora c tiene almacenada la compensación.
-
-y = 2.71828 - -.0.415900 = 2.75987
-t = 10003.1 + 2.75987 = 10005.85987 = 10005.9
-c = (10005.9 - 10003.1) - 2.75987 = 2.80000 - 2.75987 = .040130
-suma = 10005.9
-
-que era el resultado deseado.
-
-
-
-
+En la definición 1.1 donde dice $G(y) \subset \Omega$ no está definido G
 
 \end{document}
