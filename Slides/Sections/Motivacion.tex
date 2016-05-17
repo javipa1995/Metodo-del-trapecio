@@ -10,64 +10,59 @@
 	% Set the headline 
 	\setbeamertemplate{headline}{
 		\begin{beamercolorbox}[sep=4pt]{title} 
-			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: El ser humano recopila información}
+			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Un nuevo método.}
 		\end{beamercolorbox}
 	}
 	
-	\begin{frame}{}			
-
-		\kern -3mm
+	\begin{frame}{Motivación}
 		\begin{columns}
-			\column{0.3\textwidth}
-			\begin{figure}[H]
+			\column{0.6\textwidth}
+			\begin{itemize}
+				\item Ecuaciones diferenciales ordinarias.
+				\item ¿Existe solución y es única?
+				\item Métodos de discretización.
+				\item Método de Euler.		
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			
+			\begin{figure}[h]
 				\centering
-				\includegraphics[width=3cm]{./Images/libros.jpg}
+				\includegraphics[width=4cm]{./Images/interpret-pvi.png}
+					\caption{Representación del campo vectorial asociado a la ecuación logística $y'(t) = c y(t) (1 - y(t))$.} 
 			\end{figure}
-			\column{0.3\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=3cm]{./Images/disco-duro.jpg}
-			\end{figure}
-			\column{0.3\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=3cm]{./Images/usb.png}
-			\end{figure}
-		\end{columns}
-
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=10cm]{./Images/data.png}
-		\end{figure}
-
-		\centering{$1$ EB $= 10^9$ GB}
-
+		\end{columns}			
 	\end{frame}
 }
-			
-
+		
 {
 	% Set the headline 
 	\setbeamertemplate{headline}{
 		\begin{beamercolorbox}[sep=10pt]{title} 
-			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Explosión de los datos}
+			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Método de Euler}
 		\end{beamercolorbox}
 	}
 		
-	\begin{frame}{}
-
-		\kern -2mm
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=9.5cm]{./Images/data2.png}
-		\end{figure}
-		\kern -5mm
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=9.5cm]{./Images/data3.png}
-		\end{figure}
-
-		\centering{$1$ EB $= 10^9$ GB, $1$ ZB = $10^{12}$ GB}
+	\begin{frame}
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\begin{equation}
+					\begin{cases}
+					w_0=y_0 \\
+					h_{i} = t_{i+1} - t_i \\
+					w_{i+1} = w_i + h_{i} f(t_i,w_i)
+					\end{cases}
+				\end{equation}
+				\centering
+				\fontsize{10}{8}\selectfont	
+				\textbf{Método de Euler}
+				\fontsize{9}{8}\selectfont								
+				\begin{itemize}
+					\item Mejores resultados para puntos equidistantes.
+					\item Es estable, consistente y convergente.
+					\item El error global de aproximación es $O(h)$.
+					\item Puede parecer válido en cualquier aplicación.
+				\end{itemize}
+			\end{tcolorbox}	
 	\end{frame}
 }
 
@@ -75,64 +70,39 @@
 	% Set the headline 
 	\setbeamertemplate{headline}{
 		\begin{beamercolorbox}[sep=10pt]{title} 
-			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Necesidad de tratar y analizar los datos}
+			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Ejemplo}
 		\end{beamercolorbox}
 	}
 	
-	\begin{frame}{}
-		\kern-5mm
-		\begin{columns}[c]
-			\column{.33333\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=\textwidth]{./Images/dna.jpg}
-				
-				\small DNA, proteínas...
-			\end{figure}
-
-			\column{.33\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=\textwidth]{./Images/health-data-analysis.jpg}
-				
-				\small Health data analysis
-			\end{figure}
-			
-			\column{.33333\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=\textwidth]{./Images/bolsa.jpg}
-				
-				\small Bolsa, mercados...
-			\end{figure}
-		\end{columns}
+	\begin{frame}{
+		Considérese el siguiente problema de valores iniciales:
 		
-		\begin{columns}[c]
-			\column{.333333\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=\textwidth]{./Images/tiempo.jpg}
-				
-				\small Predicción del tiempo
-			\end{figure}
-						
-			\column{.333333\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=\textwidth]{./Images/social.jpg}
-				
-				\small Social data analysis
-			\end{figure}
-			
-			\column{.333333\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=\textwidth]{./Images/recommendations.jpg}
-				
-				\small Sistemas de recomendación
-			\end{figure}			
-		\end{columns}
-
+		\begin{equation*}
+			\begin{cases}
+			y'(t) = -4 t^3 y^2 \\
+			y(-10) = 1/10001 \\
+			t \in [-10,0] \\
+			\end{cases}
+		\end{equation*}
 		
+		\begin{itemize}
+			\item La solución exacta es $y(t)= \frac{1}{1+t^4}$.
+			\item Queremos calcular la aproximación de y en 0 con $y(0)=1$.
+		\end{itemize}		
+	}			
+	\end{frame}
+}
+
+{
+	% Set the headline 
+	\setbeamertemplate{headline}{
+		\begin{beamercolorbox}[sep=10pt]{title} 
+			\usebeamerfont{frametitle}{\color{ChetwodeBlue}Motivación: Ejemplo}
+		\end{beamercolorbox}
+	}
+	
+	\begin{frame}{
+			
+	}
 	\end{frame}
 }
