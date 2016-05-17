@@ -477,7 +477,7 @@
 		y(t)  = y_0 + \int_{t_0}^{t} f(s,y(s))) \ ds
 	\end{equation}
 	
-	En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Para ello supóngase que $f$ es diferenciable. En tal caso una obvia inducción concluye que $y$ es de clase infinito. Por tanto, se puede utilizar la fórmula del trapecio para integración numérica, obteniendo la siguiente igualdad
+	En este contexto se pueden aplicar los métodos de integración numérica para aproximar la integral que aparece en la segunda igualdad. Para ello supóngase de aquí en adelante que $f$ es diferenciable. En tal caso una obvia inducción concluye que $y$ es de clase infinito. Por tanto, se puede utilizar la fórmula del trapecio para integración numérica, obteniendo la siguiente igualdad
 	
 	\begin{equation} \label{eq:trapecio-igualdad}
 		y(t_{1}) = y_0 + \frac{h}{2} \left[f(t_0,y_0) + f(t_1, y(t_1))\right] - \frac{h^3}{12}y^{3)}(\xi)
@@ -582,78 +582,100 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 	Considerando ahora $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ tenemos la condición de consistencia expresada anteriormente lo que nos dice que el método es convergente.
 
 %-----------------------------------------------------------------------------------------------------
-%	SECCIÓN 3: MÉTODO DEL TRAPECIO ITERATIVO
+%	SECCIÓN 3: MÉTODO DEL TRAPECIO IMPLÍCITO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Método del trapecio iterativo} \label{sec:trapecio-iterativo}
+\section{Método del trapecio implícito} \label{sec:trapecio-iterativo}
 	
-	 Supóngase que se conoce $y_{i-1}$ para cierto $i \in \{1, 2, \ldots, n\}$ y que, además, se ha obtenido una aproximación inicial para $y_i$. Esta aproximación se denota $w_i^{(0)}$. La expresión (\ref{eq:app}) sugiere evaluar el miembro de la derecha utilizando $w_i^{(0)}$ en lugar de $y_i$ para obtener una nueva aproximación. De esta forma se define
 	
+	Recuérdese en este punto la aproximación (\ref{eq:app}), que se mostraba en la Sección \ref{sec:intro-trapecio}, dada por
+
+	\begin{equation*}
+		y_1 \approx w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, y_1)\right]
+	\end{equation*}
+
+	En caso de ser una igualdad ($w_1 = y_1$), se tendría la siguiente ecuación implícita
+
+	\begin{equation*}
+		w_1 = w_0 + \frac{h}{2} \left[f(t_0,w_0) + f(t_1, w_1)\right]
+	\end{equation*}
+
+	En esta sección se resolverá dicha ecuación implícita mediante métodos numéricos. La solución obtenida será tomada como $w_1$. Posteriormente, se puede repetir el proceso para obtener $w_2$. En general, para cada $i = 1 \ldots n$ se está resolviendo la siguiente ecuación implícita
+
+	\begin{equation} \label{eq:ecuacion-implicita}
+		w_i = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w_i)\right]
+	\end{equation}
+
+	Si se define $g_i(w) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w)\right]$, en definitiva se está buscando un punto fijo de $g_i$. En este contexto se puede aplicar un método de iteración funcional para calcular dicho punto fijo. En caso de obtenerse, el siguiente resultado proporciona el error local cometido.
+	
+	\begin{proposition} \label{prop:implicito:error}
+		Sea $w_i$ una solución de la ecuación implícita (\ref{eq:ecuacion-implicita}). Supóngase que $f$ es lipschitziana en la segunda variable con constante de Lipschitz $L$. En tal caso, si se toma $w_i$ como aproximación y $hL+r < 2$ para cierto $r >0$, entonces el error local cometido es $O(h^3)$.
+	\end{proposition}
+	
+	\begin{proof}
+		Basta aplicar la igualdad (\ref{eq:trapecio-igualdad}), tomando como condición inicial $z(t_{i-1}) = w_{i-1}$, junto con la ecuación implícita (\ref{eq:ecuacion-implicita}):
+
+		$$ e_i = \left|z_i - w_i \right| = \left|\frac{h}{2} \left[ f(t_i, z_i) - f(t_i, w_i) \right] - \frac{h^3}{12}z^{3)}(\xi) \right| \le \frac{hL}{2} e_i + \left|\frac{h^3}{12}z^{3)}(\xi) \right| $$
+		
+		Por tanto, juntando los $e_i$ y usando que $2 \ne hL$, se obtiene la siguiente desigualdad:
+		
+		$$ e_i \le \frac{2}{2-hL} \left|\frac{h^3}{12}z^{3)}(\xi) \right| $$
+		
+		Se ha tomado $h$ lo suficientemente pequeño de manera que $\frac{2}{2-hL} < \frac{2}{r}$. Por tanto, $e_i = O(h^3)$. 
+	\end{proof}
+
+
+	Normalmente se trabaja con funciones $f$ que sean lipschitzianas respecto de la segunda variable. Por tanto, tomando $h$ lo suficientemente pequeño, siempre se pueden verificar las hipótesis de la proposición previa.
+	
+	La pregunta que queda por resolver es qué método de iteración funcional se debe utilizar. Una primera respuesta puede ser el método de Newton si se conoce la derivada parcial de $f$ con respecto de la segunda variable. Este método asegura la convergencia en un entorno del punto fijo. Por tanto, si se parte de una aproximación inicial apropiada, como puede ser el método de Euler, es probable que el método de Newton converja y, además, con orden de convergencia 2.
+	
+	Sin embargo, utilizando que $f$ es lipshchitziana en la segunda variable, la función $g_i$ va a ser lipschitziana con constante de Lipschitz $\frac{hL}{2}$. Esto sugiere utilizar el método de iteración funcional dado por $g_i$ partiendo de una aproximación inicial, que se denota $w_i^{(0)}$. La sucesión definida por el método de iteración funcional es la siguiente
+	
+
 	\begin{equation} \label{eq:ti-def}
-		w_{i} ^{(j+1)} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+		w_{i} ^{(j+1)} = g_i(w_i^{(j)}) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 	\end{equation}
 	
-	Nótese que la sucesión definida en (\ref{eq:ti-def}) es esencialmente un método de iteración funcional para obtener un punto fijo de $g(y) = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, y)\right]$. La primera pregunta que surge es si la sucesión $\{w_{i}^{(j)}\}$ converge. Este hecho se estudia en la Sección \ref{sec:trapecio-iterativo:error}, donde se probará la convergencia bajo determinadas condiciones. En tal caso, se toma $w_i = \lim w_i^{(j)}$ como aproximación de $y_i$. Además, se probará que el error local cometido utilizando esta aproximación es $O(h^3)$.
+	El objetivo es estudiar cuándo la sucesión $\{w_{i}^{(j)}\}$ converge. En tal caso, el límite es un punto fijo de $g_i$ y es la aproximación $w_i$ buscada. La aplicación de este método de iteración funcional para resolver la ecuación implícita (\ref{eq:ecuacion-implicita}) es lo que se conoce en la literatura especializada como método del trapecio iterativo \cite{akitson}.
 	
-	La segunda cuestión a tratar es cómo aplicar este método para obtener aproximaciones de todos los $t_i$ si solamente se conoce $y_0$. La idea es simple, utilizar la aproximación $w_{i-1}$ como $y_{i-1}$ en la expresión (\ref{eq:ti-def}). De esta forma se obtiene el siguiente método
+	La siguiente proposición proporciona una condición suficiente de convergencia que no depende de la aproximación inicial escogida.
 	
-	\begin{equation} \label{eq:ti-def-2}
-		\begin{cases}
-			w_{i} ^{(j+1)} = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right] \\
-			w_i = \lim w_{i}^{(j)} \\
-		\end{cases}
-	\end{equation}
+	\begin{proposition}
+		Supóngase que la función $f$ está definida en $[a,b]\times[-\infty, +\infty]$ y es lipschitziana en la segunda variable con constante de Lipschitz $L$. Si $\frac{LH}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
+	\end{proposition}
+	
+	\begin{proof}
+		La función $g_i$ está definida en $\mathbb{R}$. La constante de Lipschitz de $g_i$ es $\frac{hL}{2}$. Por tanto, si $\frac{LH}{2} < 1$, entonces $g_i$ es una contracción sobre $\mathbb{R}$. El resultado se desprende del teorema del punto fijo de Banach.
+	\end{proof}
 
+	La función $f$ puede estar definida en $[a,b]\times[\alpha, \beta]$ con  $-\infty < \alpha < \beta < +\infty$ si se toma una buena aproximación inicial. El problema reside en conseguir que $g_i([\alpha,\beta]) \subset [\alpha,\beta]$. Esta cuestión ya se estudió durante los métodos de iteración funcional. El resultado del estudio se recoge en la siguiente proposición.
+	
+	\begin{proposition}
+		Sea $w_i^{(0)}$ la aproximación inicial obtenida. Supóngase que la función $f$  es lipschitziana en la segunda variable, con constante de Lipschitz $L$, en el intervalo  $[w_i^{(0)}-r,w_i^{(0)}+r]$ para $r>0$. Si $\frac{LH}{2} < 1$ y $\left|w_i^{(1)} - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$, entonces $\{w_i^{(j)}\}$ está bien definida y es convergente.
+	\end{proposition}
+	
+	\begin{proof}
+		La función $g_i$ se puede restringir a $[w_i^{(0)}-r,w_i^{(0)}+r]$. La constante de Lipschitz de $g_i$ es $\frac{hL}{2}$. Las otras dos hipótesis proporcionan los siguientes hechos:
+		
+		\begin{enumerate}
+			\item $g_i$ es una contracción sobre $[w_i^{(0)}-r,w_i^{(0)}+r]$.
+			\item $\left|g_i(w_i^{(0)}) - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$. Por tanto, si $x \in [w_i^{(0)}-r,w_i^{(0)}+r]$, entonces 
+			$$ \left|g_i(x) - w_i^{(0)}\right| \le \left|g_i(x) - g_i(w_i^{(0)})\right| + \left|g_i(w_i^{(0)}) - w_i^{(0)}\right| \le \frac{Lh}{2} \left|x - w_i^{(0)}\right| + (1-\frac{Lh}{2})r \le r $$
+			Luego $g_i(x) \in [w_i^{(0)}-r,w_i^{(0)}+r]$.
+		\end{enumerate}
+
+
+		De nuevo, la tesis se consigue aplicando el teorema del punto fijo de Banach.
+	\end{proof}
+
+	De nuevo, tomando $h$ lo suficientemente pequeño, se pueden conseguir las hipótesis de las dos aproximaciones previas. Además, esto también asegura que se verifique la Proposición \ref{prop:implicito:error}. 
+	
 	La aproximación que se toma como $w_i^{(0)}$ suele ser obtenida mediante un método explícito de menor orden, como el método de Euler. Nótese que en tal caso $w_i^{(1)}$ es el resultado de aplicar el método del trapecio explícito partiendo de $w_{i-1}$. Por tanto, el método del trapecio iterativo puede entenderse como una generalización del método del trapecio explícito.
-	
-	Por otro lado, el método del trapecio iterativo también puede concebirse como un mecanismo para corregir el error cometido por la aproximación inicial. Al método utilizado para calcular la aproximación inicial se le denomina predictor mientras que a la fórmula (\ref{eq:ti-def-2}) se la denomina fórmula correctora. La aplicación de la fórmula correctora al resultado del predictor es lo que se conoce como método predictor-corrector en la literatura especializada.
-	
+
 	Por último, en la práctica solo se realizan un número pequeño de iteraciones de la fórmula (\ref{eq:ti-def-2}). Si $j$ es el número de iteraciones escogido, se puede calcular de forma teórica un valor de $j$ de manera que el error $w_i - w_i^{(j)}$ sea tan pequeño como se quiera. En la Sección \ref{eq:ti-def-2} se explica cómo.
-	
-	
-	\subsection{Estudio del error} \label{sec:trapecio-iterativo:error}
 
-		El resultado del estudio de esta cuestión viene dado en la siguiente proposición.
-		
-		\begin{proposition}
-			Si la función $f$ es Lipschitziana en la segunda variable con constante de Lipschitz $L$ y se verifica $\frac{hL}{2} < 1$, entonces la sucesión $\{w_i^{(j)}\}$ converge cuando $j \rightarrow +\infty$. Denotando $w_i = \lim w_i^{(j)}$, se tiene además $\left|y_{i} - w_{i}\right| = O(h^3)$.
-		\end{proposition}
-		
-		\begin{proof}
-			La prueba se centra en comprobar que $\{w_i^{(j)}\}$ es una sucesión de Cauchy. En primer lugar, se estudia $\{w_{i}^{(j+1)} - w_{i}^{(j)}\}$. Utilizando la condición de Lipschitz
-			
-			\begin{equation*}
-			\left|w_{i}^{(j+1)} - w_{i}^{(j)}\right| \le \frac{h}{2} \left| f(t_i, w_i^{(j)}) - f(t_i, w_i^{(j-1)}) \right| \le \frac{hL}{2} \left| w_i^{(j)} - w_i^{(j-1)} \right| \le \ldots \le \left(\frac{hL}{2}\right)^j \left|w_i^{(1)} - w_i^{(0)}\right|
-			\end{equation*}
-			
-			Posteriormente se utiliza la desigualdad obtenida para conseguir acotar $\left|w_{i}^{(j+q)} - w_{i}^{(j)}\right|$. 
-			
-			\begin{equation*}
-			\left|w_{i}^{(j+q)} - w_{i}^{(j)}\right| \le \sum_{k = j} ^ {j+q} \left|w_i^{(k)} - w_i^{(k-1)}\right| \le \sum_{k = j} ^ {j+q} \left(\frac{hL}{2}\right)^{k-1} \left|w_i^{(1)} - w_i^{(0)}\right| = \left|w_i^{(1)} - w_i^{(0)}\right| \sum_{k = j} ^ {j+q} \left(\frac{hL}{2}\right)^{k-1}
-			\end{equation*}
-			
-			Como $\frac{hL}{2} < 1$, se tiene que la serie $\sum_{j \ge 0} \left(\frac{hL}{2}\right) ^j$ converge. Por consiguiente, es de Cauchy. Aplicando este hecho en la expresión previa se obtiene que $\{w_i^{(j)}\}$ es una sucesión de Cauchy. 
-			
-			Nótese que tomando límites en (\ref{eq:ti-def}) se obtiene la siguiente igualdad
-			
-			\begin{equation} \label{eq:prop2.2}
-			w_{i} = y_{i-1} + \frac{h}{2} \left[f(t_{i-1}, y_{i-1}) + f(t_i, w_{i})\right]
-			\end{equation}
-			
-			
-			Por último, se estudia $\left|y_{i} - w_{i}\right|$. Restando las expresiones (\ref{eq:trapecio-igualdad}) y (\ref{eq:prop2.2}) se obtiene
-			
-			$$ \left|y_{i} - w_{i}\right| = \left|\frac{h}{2} \left[f(t_{i},y_{i}) - f(t_{i}, w_{i})\right] - \frac{h^3}{12}y^{3)}(\xi)\right| \le \frac{h}{2} \left|f(t_{i},y_{i}) - f(t_{i}, w_{i})\right| + \frac{h^3}{12}\left|y^{3)}(\xi)\right| \le$$
-			$$ \frac{hL}{2} \left|y_{i} - w_{i}\right| + \frac{h^3}{12}\left|y^{3)}(\xi)\right| $$
-			
-			Por tanto, agrupando los $\left|y_{i} - w_{i}\right|$ se tiene la siguiente desigualdad
-			
-			\begin{equation*}
-			\left|y_{i} - w_{i}\right| \le \frac{2}{2 - HL}\frac{h^3}{12}\left|y^{3)}(\xi)\right| = O(h^3)		
-			\end{equation*}
-			
-		\end{proof}
-
+	
+	Por otro lado, el método del trapecio iterativo también puede concebirse como un mecanismo para corregir el error cometido por la aproximación inicial. Al método utilizado para calcular la aproximación inicial se le denomina predictor mientras que a la fórmula (\ref{eq:ti-def}) se la denomina fórmula correctora. La aplicación de la fórmula correctora al resultado del predictor es lo que se conoce como método predictor-corrector en la literatura especializada.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: ARTÍCULO

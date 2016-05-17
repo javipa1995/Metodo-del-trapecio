@@ -16,6 +16,24 @@
   {}
 \endgroup
 
+\entry{akitson}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Atkinson}{A.}%
+     {Kendall~E.}{K.~E.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {John Wiley \&Sons, Inc.}%
+  }
+  \strng{namehash}{AKE1}
+  \strng{fullhash}{AKE1}
+  \field{sortinit}{A}
+  \field{title}{An Introduction To Numerical Analysis.}
+  \field{year}{1988}
+\endentry
+
 \lossort
 \endlossort
 
