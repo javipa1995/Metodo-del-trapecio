@@ -624,10 +624,9 @@ Sin embargo, el análisis es bastante más complicado que esto y existen al meno
 		Se ha tomado $h$ lo suficientemente pequeño de manera que $\frac{2}{2-hL} < \frac{2}{r}$. Por tanto, $e_i = O(h^3)$. 
 	\end{proof}
 
-
 	Normalmente se trabaja con funciones $f$ que sean lipschitzianas respecto de la segunda variable. Por tanto, tomando $h$ lo suficientemente pequeño, siempre se pueden verificar las hipótesis de la proposición previa.
 	
-	La pregunta que queda por resolver es qué método de iteración funcional se debe utilizar. Una primera respuesta puede ser el método de Newton si se conoce la derivada parcial de $f$ con respecto de la segunda variable. Este método asegura la convergencia en un entorno del punto fijo. Por tanto, si se parte de una aproximación inicial apropiada, como puede ser el método de Euler, es probable que el método de Newton converja y, además, con orden de convergencia 2.
+	La pregunta que queda por resolver es qué método de iteración funcional se debe utilizar para conseguir aproximar un punto fijo de $g_i$. Una primera respuesta puede ser el método de Newton si se conoce la derivada parcial de $f$ con respecto de la segunda variable. Este método asegura la convergencia en un entorno del punto fijo. Por tanto, si se parte de una aproximación inicial apropiada, como puede ser el método de Euler, es probable que el método de Newton converja y, además, con orden de convergencia 2.
 	
 	Sin embargo, utilizando que $f$ es lipshchitziana en la segunda variable, la función $g_i$ va a ser lipschitziana con constante de Lipschitz $\frac{hL}{2}$. Esto sugiere utilizar el método de iteración funcional dado por $g_i$ partiendo de una aproximación inicial, que se denota $w_i^{(0)}$. La sucesión definida por el método de iteración funcional es la siguiente
 	
