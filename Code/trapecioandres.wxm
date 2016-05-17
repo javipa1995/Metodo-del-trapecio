@@ -37,15 +37,16 @@ CalculaValor(yanterior,tanterior,t,winicial,tolerancia,h,numiter,g):=block([wi],
 
 /* [wxMaxima: input   start ] */
 TrapecioImplicito(a, b, N,w0,wanterior,tanterior,t,g):=block([wi],
-    h:(b-a)/N,   
+    h:(b-a)/N,
+    ti:a,
+    approx: makelist(0,N+1),
+    approx[1]: [ti,y0],
     for i:1 thru N do(
-        wi:CalculaValor(wanterior,tanterior,t,w0,h^3,h,N,g),
-        if abs(wi-w0)<tolerancia
-        then return(wi)
-        else w0:wi
+        approx[i+1]:[ti+h,CalculaValor(wanterior,tanterior,ti,w0,h^3,h,N,g)],
+        ti:ti+h
     ),
     
-    return (wi)
+    return (approx)
 );
 /* [wxMaxima: input   end   ] */
 
