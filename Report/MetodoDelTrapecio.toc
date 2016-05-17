@@ -7,7 +7,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2}Definiciones y resultados previos}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Introducci\IeC {\'o}n al m\IeC {\'e}todo del trapecio}{8}
+\contentsline {section}{\numberline {3}Introducci\IeC {\'o}n al m\IeC {\'e}todo del trapecio}{9}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4}M\IeC {\'e}todo del trapecio expl\IeC {\'\i }cito}{9}
 \defcounter {refsection}{0}\relax 

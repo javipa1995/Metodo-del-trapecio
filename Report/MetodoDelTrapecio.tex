@@ -422,26 +422,44 @@
 
 	El orden de un método permite tener información teórica sobre el error que se va a cometer.
 
-    Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de paso \cite{gear}. A la función $\phi$ se la denomina función incremento. Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler. De aquí en adelante se hablará únicamente de este tipo de métodos, pues son los más extendidos y utilizados.
+    Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de un paso \cite{gear}. A la función $\phi$ se la denomina función incremento. 
+    
+    Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler. De aquí en adelante se hablará únicamente de este tipo de métodos, pues son los más extendidos y utilizados.
 
     Una propiedad que debe interesar al estudiar un método de un paso es que este sea convergente.
 
 	\begin{definition}
-		Un método de un paso se dice convergente si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que $\lim_{n \rightarrow +\infty} y_n = y(b)$.
+		Un método de un paso se dice convergente respecto a la ecuación diferencial que aproxima (con función $f$ lipschitziana con respecto a la segunda variable) si:
+		$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} g_i = 0 $$
 	\end{definition}
 
 	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
 
     Otro concepto importante es la consistencia:
     \begin{definition}
-    	Un método de un paso se dice consistene si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que
+    	Un método de un paso se dice consistente con respecto a la ecuación diferencial que aproxima (con función $f$ lipschitziana con respecto a la segunda variable) si:
     	$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} e_i = 0 $$
     	Esto es, los errores locales convergen uniformemente a 0 cuando $n \rightarrow +\infty$.
     \end{definition}
 
     Nótese que si un método es localmente de orden $r$ con $r > 0$, entonces el método es consistente ya que los errores locales están uniformemente acotados por un polinomio que depende de $h$.
 
-    Cuando se considera un problema de valores iniciales $y' = f(t, y)$  con condición inicial $y(a) = y_0$ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por $y' = f(t, y)$ e $y(a) = y_0 + \epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
+    Cuando se considera un problema de valores iniciales:
+     \begin{equation*}
+		\begin{cases}
+			y' = f(t, y) \\
+			y(a) = y_0 \\
+		\end{cases}
+	\end{equation*}
+se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por:
+    \begin{equation*}
+		\begin{cases}
+			y' = f(t, y) \\
+			y(a) = y_0 + \epsilon_0 \\
+		\end{cases}
+	\end{equation*}
+    
+donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
 
 	\begin{definition}
 		Un método de un paso se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
@@ -450,10 +468,10 @@
 	En definitiva, la estabilidad indica que un error cometido al principio del método no se magnifica al calcular las sucesivas iteraciones del método, siempre permanece acotado por $K |y_0 - y'_0|$ para cualquier $h$ lo suficientemente pequeño. El siguiente resultado permite asegurar la estabilidad de un método de un paso bajo determinadas condiciones.
 
 	\begin{theorem} \label{theorem:stability}
-		Si un método de un paso verifica que para cualquier PVI con $f$ lipschitziana respecto de la segunda variable se tiene que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el dominio $\Omega \times [0, h_0]$, donde $\Omega$ es el dominio de $f$, entonces:
+		Si un método de un paso verifica que (para cualquier PVI con $f$ lipschitziana respecto de la segunda variable) se tiene que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el dominio $\Omega \times [0, h_0]$, donde $\Omega$ es el dominio de $f$, entonces:
 		\begin{enumerate}
 			\item el método es estable.
-			\item el método es convergente (o, equivalentemente, $\phi(b,y,0) = f(b,y)$), si , y solo si, el método es consistente.
+			\item el método es convergente (o, equivalentemente, $\phi(t,y,0) = f(t,y)$ para todo $t \in [a,b]$), si , y solo si, el método es consistente.
 		\end{enumerate}
 	\end{theorem}
 
