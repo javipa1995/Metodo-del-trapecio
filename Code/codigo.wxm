@@ -60,7 +60,7 @@ solucion(t):=exp(t) + t^2 + 2*t + 2;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-l1:MetodoEuler(a, b, N, y0,f)$
+l1:MetodoEuler(a, b, N, y0,f);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -68,11 +68,12 @@ solucionEuler:l1[N+1];
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-h(x):=%e^x + x^2 + 2*x +2;
+h(t):=%e^t + t^2 + 2*t +2;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-wxplot2d([[discrete,l1],h(x)],[x,0,2],[style,points,lines])$
+wxplot2d([[discrete,l1],h(t)],[t,0,2],[style,[points,1,1],lines],
+    [legend,"aprox","y"], [ylabel, "y(t)"]);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -101,7 +102,33 @@ l2:TrapecioExplicito(a, b, N, y0, g);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-wxplot2d([[discrete,l2],h(x)],[x,0,2],[style,points,lines])$
+wxplot2d([[discrete,l2],h(t)],[t,0,2],[style,[points,1,1],lines],
+    [legend,"aprox","y"], [ylabel, "y(t)"]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+KahanSum(input,N):=block(
+    sum:10000.0,
+    c:0.0,      
+    for i:1 thru N do(
+        y:input[i]-c,
+        t:sum+y,
+        c:(t-sum)-y,
+        sum:t
+    ),       
+    return (sum))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+   
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+l3:[3.14159,2.71828];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+KahanSum(l3,2);
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
