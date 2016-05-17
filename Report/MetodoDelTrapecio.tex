@@ -517,7 +517,7 @@
 
 		Puesto que la nueva aproximación $w_i$ se consigue "mejorando" la aproximación del método de Euler mediante una media, cabe esperar que el método del trapecio explícito presente un mejor comportamiento. En efecto, este hecho se estudiará en la Sección \ref{sec:trapecio-explicito:error}. Posteriormente en la Sección \ref{sec:trapecio-explicito:estabilidad} se estudiará la estabilidad del método del trapecio explícito. 
 
-	\subsection{Error del método del trapecio explícito} \label{sec:trapecio-explicito:error}
+	\subsection{Error local y global} \label{sec:trapecio-explicito:error}
 	
 		El estudio del error del método del trapecio explícito se resume en el siguiente teorema.
 	
@@ -562,7 +562,9 @@
 			De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
 		\end{proof}
 		
-		Respecto al error de redondeo se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima. Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. 
+	\subsection{Error de redondeo}
+
+		El error de redondeo debe tenerse en cuenta a la hora de evaluar un método numérico. En el caso de las ecuaciones diferenciales se tiene que la situación es análoga a la encontrada con las fórmulas de derivación: el error de truncamiento disminuye con h, pero el error de redondeo aumenta, existiendo un valor óptimo para el cual la suma de estos errores es mínima (véase la Figura \ref{fig:redondeo}). Este valor óptimo de h suele ser tan pequeño que utilizarlo supone un coste computacional muy grande. Este hecho explica la importancia de utilizar métodos con el mayor orden posible pues son capaces de obtener aproximaciones de calidad sin necesidad de utilizar valores de $h$ muy pequeños.
 		
 		\begin{figure}[H]
 			\centering
@@ -571,10 +573,11 @@
 			\label{fig:redondeo}
 		\end{figure}
 		
-		Así en el caso del método del trapecio, si tomamos $h=\frac{b-a}{N}$ entonces en cada uno de los $N$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto 
-		$N(\epsilon+Ch{3})=\frac{\epsilon'}{h}+C'h^{2}$. En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
+		En el caso del método del trapecio, si se toma $h=\frac{b-a}{n}$, entonces en cada uno de los $n$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto, se obtiene el siguiente error 
+		$$ n(\epsilon+Ch{3})=\frac{\epsilon}{h}+Ch^{2} $$
+		En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
 		
-		Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio, un modelo más pesimista se pondría en el peor de los casos y un modelo probabilista que se puede encontrar en el libro de Henrici "Discrete Variable Methods in Ordinary Differential Equations". Otros autores como Butcher en su libro "Numerical Methods for Ordinary Differential Equations" en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamdo algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
+		Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio. El primero es un modelo más pesimista que se pondría en el peor de los casos. El segundo es un modelo probabilista que se puede encontrar en el libro de Henrici ``Discrete Variable Methods in Ordinary Differential Equations''. Otros autores como Butcher en su libro ``Numerical Methods for Ordinary Differential Equations'' en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamado algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
