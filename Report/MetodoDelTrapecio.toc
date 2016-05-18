@@ -33,8 +33,8 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {8.2}Ejercicio 2}{20}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.3}Ejercicio 3}{21}
+\contentsline {subsection}{\numberline {8.3}Ejercicio 3}{20}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {8.4}Ejercicio 4}{22}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{24}
+\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{23}
