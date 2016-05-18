@@ -312,7 +312,7 @@
 
 	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error de aproximación que el método de Euler y consiga resolver el Ejemplo \ref{ej:motivacion}. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e implícita.
 
-	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método. En la Sección \ref{sec:paper} se resume el artículo de investigación ``Nombre del artículo", que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método En la Sección \ref{ejemplos} se proponen una serie de ejercicios y ejemplo relacionados con el trabajo. En la Sección \ref{sec:paper} se resume el artículo de investigación Solving Differential Equations with Constructed Neural Networks, que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
 
 \section{Definiciones y resultados previos} \label{sec:previo}
 
@@ -749,16 +749,6 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 %	SECCIÓN X: ARTÍCULO
 %-----------------------------------------------------------------------------------------------------
 
-\section{Artículo de investigación} \label{sec:paper}
-
-En esta sección se expone el artículo Solving Differential Equations with Constructed Neural Networks \cite{articulo}.
-
-En el se desarrolla un método innovador para la resolución de ecuaciones diferenciales y ecuaciones diferenciales en derivadas parciales. El método crea soluciones de prueba en una red neuronal. Las soluciones de prueba se van mejorando periódicamente usando un procedimiento de optimización local. El método propuesto se ha probado en una serie de ecuaciones diferenciales así como en ecuaciones diferenciales en derivadas parciales.
-
-La red neuronal que se usa en el método usa un esquema basado en la evolución de la gramática, es decir, se tiene que usar gramáticas libres de contexto o, equivalentemente, que sigan una sintaxis BNF, que es un metalenguaje para expresar gramática libres de contexto.
-
-La evolución gramatical es una técnica que puede producir código en cualquier lenguaje de programación solamente requiriendo que el lenguaje siga la sintaxis BNF. El algoritmo empieza desde el símbolo inicial de la gramática y va creando gradualmente cadenas de texto siguiendo las reglas de la gramática. Para ello  es esencial el uso de cromosomas, que funcionan como vectores de enteros. Entonces, el algoritmo lee un elemento del cromosoma y selecciona una regla de la gramática de acorde con el valor escogido del cromosoma.
-
 \section{Ejemplos} \label{ejemplos}
 
 \subsection{Ejemplo 1} \label{ejemplo1}
@@ -773,25 +763,13 @@ Considérese el ejemplo de problema de valores iniciales dado en la motivación.
 			\end{cases}
 		\end{equation*}
 
-cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$ se obtienen las siguientes gráficas.
+			cuando se resuelve mediante el método de Euler y con el método del Trapecio Explícito e Iterativo, con paso $10^{-3}$. se obtienen la siguiente gráfica. El método del Trapecio Iterativo usa una tolerancia de $10^{-4}$.
 
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=8cm]{./Images/ej1-1.png}
-			\caption{Método de Euler aplicado al problema anterior con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$}
-			\label{fig:ej1-1}
-		\end{figure}
-
-		Aplicando la regla del trapecio explícito con paso $10^{-3}$ se obtiene la siguiente gráfica:
-
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=8cm]{./Images/ej1-2.png}
-			\caption{Método del trapecio explícito aplicado al problema anterior con paso $10^{-3}$}
-			\label{fig:ej1-2}
-		\end{figure}
-
-		de modo que queda patente que converge el doble de rápido que el método de Euler.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=10cm]{./Images/ej1.png}
+				\caption{Aproximación a la solución con los distintos métodos.}
+			\end{figure}
 
 \subsection{Ejemplo 2} \label{ejemplo2}
 
@@ -815,6 +793,8 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 			\hline 2 & 1.05 & -0.275000 & 1.50 & -0.600833 \\
 			\hline 3 & 1.10 & -0.600833 & 1.75 & -0.968829 \\
 			\hline 4 & 1.15 & -0.968829 & 2.00 & -1.372859 \\
+			\hline
+			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.25$}
 		\label{table:trapecio-ejemplo2.1}
@@ -835,6 +815,8 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 			\hline 8 & 0.70 & -0.900326 & 0.80 & -1.056065 \\
 			\hline 9 & 0.80 & -1.056065 & 0.90 & -1.217366 \\
 			\hline 10 & 0.90 & -1.217366 & 1.00 & -1.383938 \\
+			\hline
+			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.1$}
 		\label{table:trapecio-ejemplo2.2}
@@ -855,7 +837,7 @@ Considérese el problema de valores iniciales
 			\end{cases}
 		\end{equation*}
 
-calcular una aproximación a la solución del problema de valores iniciales mediante el método de Euler y el método del Trapecio Explícito.
+calcular una aproximación a la solución del problema de valores iniciales mediante el método de Euler y el método del Trapecio Explícito e Iterativo.
 
 La función $f(t,y) = y - t^2$ es continua, su derivada parcial respecto de $y$, esto es la función $g(t,y) = 1$ también lo es y esta acotada por $L=1$ en [0,2], luego se tiene que existe solución y es única.
 
@@ -877,6 +859,8 @@ A continuación, se va a calcular la aproximación mediante el método de Euler.
 			\hline 8 & 1.6 & 11.399853 \\
 			\hline 9 & 1.8 & 13.167824 \\
 			\hline 10 & 2.0 & 15.153389 \\
+			\hline
+			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.2$}
 		\label{table:trapecio-ejtp1.1}
@@ -891,74 +875,42 @@ A continuación se dibuja la gráfica de la función para ver la aproximación o
 		\label{fig:aprox1}
 	\end{figure}
 
-Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito:
+Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito e Iterativo. Además, se comparan los resultados con el método de Euler:
 
-	\begin{table}[H]
-		\centering
-		\begin{tabular}{|| c | c | c ||}
-			\hline
-			\hline $j$ &  $t_j $ & $y_j$\\
-			\hline 0 & 0.0 & 3 \\
-			\hline 1 & 0.2 & 3.656  \\
-			\hline 2 & 0.4 & 4.3952 \\
-			\hline 3 & 0.6 & 5.361014 \\
-			\hline 4 & 0.8 & 6.433237 \\
-			\hline 5 & 1.0 & 7.671749 \\
-			\hline 6 & 1.2 & 9.095534 \\
-			\hline 7 & 1.4 & 10.727752 \\
-			\hline 8 & 1.6 & 12.596657 \\
-			\hline 9 & 1.8 & 14.736722 \\
-			\hline 10 & 2.0 & 17.190000 \\
-		\end{tabular}
-		\caption{Trapecio con $h=0.2$}
-		\label{table:trapecio-ejtp1.2}
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{|| c | c | c | c | c||}
+				\hline
+				\hline $j$ &  $t_j $ & $y_j Explicito$ & $y_j Implicito$ & $y_j Euler$ \\
+				\hline 0 & 0.0 & 3 & 3 & 3 \\
+				\hline 1 & 0.2 & 3.656 & 3.66216 & 3.6 \\
+				\hline 2 & 0.4 & 4.3952 & 4.453683 & 4.312 \\
+				\hline 3 & 0.6 & 5.361014 & 5.385540 & 5.1424 \\
+				\hline 4 & 0.8 & 6.433237 & 6.471135 & 6.09888 \\
+				\hline 5 & 1.0 & 7.671749 & 7.726853 & 7.190656 \\
+				\hline 6 & 1.2 & 9.095534 & 9.172720 & 8.428787 \\
+				\hline 7 & 1.4 & 10.727752 & 10.833211 & 9.826544 \\
+				\hline 8 & 1.6 & 12.596657 & 12.738239 & 11.399853 \\
+				\hline 9 & 1.8 & 14.736722 & 14.924363 & 13.167824 \\
+				\hline 10 & 2.0 & 17.190000 & 17.436269 & 15.153389 \\
+				\hline
+				\hline
+			\end{tabular}
+			\caption{Tabla comparativa con $h=0.2$}
+			\label{table:trapecio-ejtp1.2}
 	\end{table}
 
-Se dibuja de nuevo la gráfica de la solución junto con las aproximaciones que se han obtenido.La aproximación se observa en la Figura \ref{fig:aprox2}.
+Se dibuja de nuevo la gráfica de la solución junto con las aproximaciones que se han obtenido. La aproximación se observa en la Figura \ref{fig:aprox2}.
 
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=10cm]{./Images/ejtp1-2.png}
-		\caption{Aproximación a la solución con el método del Trapecio Explícito.}
-		\label{fig:aprox2}
+	\begin{figure}[H]
+				\centering
+				\includegraphics[width=10cm]{./Images/ejtp1-2.png}
+				\caption{Aproximación a la solución con los métodos.}
 	\end{figure}
 
-Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito converge más rápidamente a la solución que el método de Euler, lo cual se debe a que el primer método es de orden 2 mientras que el de Euler es un método de orden 1.\\
+Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito e Iterativo convergen más rápidamente a la solución que el método de Euler, lo cual se debe a que son de orden 2 mientras que el de Euler es un método de orden 1.\\
 
-Además, el error absoluto en el primer método es $2,235666$ obtenido mediante el valor absoluto de la diferencia de la solución calculada menos la solución evaluada en $2$, esto es, $|y_{10} - y(2)|$. De la misma forma, se obtiene el error al usar el método del Trapecio Explícito. En este caso, el error cometido es $0,199054$, por lo que se puede ver que este método es mejor que el de Euler.
-
-Por último, se va a calcular la aproximación usando el método del Trapecio Implícito. Para ello calculamos la sucesión de puntos conforme al método y se obtiene el siguiente resultado:
-
-	\begin{table}[H]
-		\centering
-		\begin{tabular}{|| c | c | c ||}
-			\hline
-			\hline $j$ &  $t_j $ & $y_j$\\
-			\hline 0 & 0.0 & 3 \\
-			\hline 1 & 0.2 & 3.66216  \\
-			\hline 2 & 0.4 & 4.453683 \\
-			\hline 3 & 0.6 & 5.385540 \\
-			\hline 4 & 0.8 & 6.471135 \\
-			\hline 5 & 1.0 & 7.726853 \\
-			\hline 6 & 1.2 & 9.172720 \\
-			\hline 7 & 1.4 & 10.833211 \\
-			\hline 8 & 1.6 & 12.738239 \\
-			\hline 9 & 1.8 & 14.924363 \\
-			\hline 10 & 2.0 & 17.436269 \\
-		\end{tabular}
-		\caption{Trapecio con $h=0.2$}
-		\label{table:trapecio-ejtp1.3}
-	\end{table}
-
-La aproximación se observa en la Figura \ref{fig:aprox3}. Al igual que se tenía con el método del trapecio explícito, que era de orden 2, se observa en \ref{fig:aprox3} que se ajusta bastante bien a la gráfica de $y(t)$. El error absoluto cometido es $|y_{10} - y(2)|$ al igual que ocurría antes y en este caso es 0.047213.
-
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=10cm]{./Images/ej1-3.png}
-		\caption{Aproximación a la solución con el método del Trapecio Implícito.}
-		\label{fig:aprox3}
-
-	\end{figure}
+Además, el error absoluto en el primer método es $2,235666$ obtenido mediante el valor absoluto de la diferencia de la solución calculada menos la solución evaluada en $2$, esto es, $|y_{10} - y(2)|$. De la misma forma, se obtiene el error al usar el método del Trapecio Explícito. En este caso, el error cometido es $0,199054$, por lo que se puede ver que este método es mejor que el de Euler. Análogamente, se calcula el error para el método del Trapecio Iterativo que es 0.047213.
 
 \subsection{Ejercicio 2} \label{ejtp2}
 
@@ -973,6 +925,8 @@ Solución:
 			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
 			\hline 1 & 1.00 & 2.000000 & 1.10 & 2.617500 \\
 			\hline 2 & 1.10 & 2.617500 & 1.20 & 3.657368 \\
+			\hline
+			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.1$}
 		\label{table:trapecio-ej2}
@@ -987,6 +941,8 @@ Solución:
 			\hline 2 & 1.05 & 2.277813 & 1.10 & 2.628941 \\
 			\hline 3 & 1.10 & 2.628941 & 1.15 & 3.087423 \\
 			\hline 4 & 1.15 & 3.087423 & 1.20 & 3.712364 \\
+			\hline
+			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.05$}
 		\label{table:trapecio-ej2.1}
@@ -1069,6 +1025,8 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 			\hline 8 & 0.70 & 0.841949,1.392822 & 0.80 & 0.982733,1.401712 \\
 			\hline 9 & 0.80 & 0.982733,1.401712 & 0.90 & 1.123784,1.406900 \\
 			\hline 10 & 0.90 & 1.123784,1.406900 & 1.00 & 1.264990,1.409933 \\
+			\hline
+			\hline
 		\end{tabular}
 		\caption{Trapecio para sistemas con $h=0.1$}
 		\label{table:trapecio-ej3}
@@ -1148,6 +1106,16 @@ c = (10005.9 - 10003.1) - 2.75987 = 2.80000 - 2.75987 = .040130 \\
 suma = 10005.9 \\
 
 que era el resultado deseado.
+
+\section{Artículo de investigación} \label{sec:paper}
+
+En esta sección se expone el artículo Solving Differential Equations with Constructed Neural Networks \cite{articulo}.
+
+En el se desarrolla un método innovador para la resolución de ecuaciones diferenciales y ecuaciones diferenciales en derivadas parciales. El método crea soluciones de prueba en una red neuronal. Las soluciones de prueba se van mejorando periódicamente usando un procedimiento de optimización local. El método propuesto se ha probado en una serie de ecuaciones diferenciales así como en ecuaciones diferenciales en derivadas parciales.
+
+La red neuronal que se usa en el método usa un esquema basado en la evolución de la gramática, es decir, se tiene que usar gramáticas libres de contexto o, equivalentemente, que sigan una sintaxis BNF, que es un metalenguaje para expresar gramática libres de contexto.
+
+La evolución gramatical es una técnica que puede producir código en cualquier lenguaje de programación solamente requiriendo que el lenguaje siga la sintaxis BNF. El algoritmo empieza desde el símbolo inicial de la gramática y va creando gradualmente cadenas de texto siguiendo las reglas de la gramática. Para ello  es esencial el uso de cromosomas, que funcionan como vectores de enteros. Entonces, el algoritmo lee un elemento del cromosoma y selecciona una regla de la gramática de acorde con el valor escogido del cromosoma.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
