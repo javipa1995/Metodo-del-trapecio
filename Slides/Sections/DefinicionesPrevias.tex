@@ -78,8 +78,8 @@
 			\begin{definition}
 				Considérese un método de discretización para problemas de valores iniciales. Entonces:
 				\begin{enumerate}
-					\item El método es localmente de orden $k$ si existe una constante $C \ge 0$ tal que $e_i \le C h^k$ para todo $i = 0 \ldots n$.
-					\item El método es de orden $k$ si existe una constante $C \ge 0$ tal que $g_i \le C h^k$ para todo $i = 0 \ldots n$.
+					\item El método es localmente de orden $k$ si existe una constante $C \ge 0$ tal que $e_i \le C h^k$ para todo $i = 0 \ldots n$ cuando h tiende a 0.
+					\item El método es de orden $k$ si existe una constante $C \ge 0$ tal que $g_i \le C h^k$ para todo $i = 0 \ldots n$ cuando h tiende a 0.
 				\end{enumerate}
 			\end{definition}
 			
@@ -90,8 +90,15 @@
 			
 		\begin{frame}{Método de discretización}		
 			\begin{definition}
-				Un método de discretización se dice convergente si para cualquier problema de valores iniciales tal que la función $f$ es lipschitziana respecto de la segunda variable se tiene que $\lim_{n \rightarrow +\infty} y_n = y(b)$.
+			Un método de un paso se dice convergente respecto a la ecuación diferencial que aproxima (con función $f$ lipschitziana con respecto a la segunda variable) si:
+			$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} g_i = 0 $$
 			\end{definition}
+	
+		    \begin{definition}
+		    	Un método de un paso se dice consistente con respecto a la ecuación diferencial que aproxima (con función $f$ lipschitziana con respecto a la segunda variable) si:
+		    	$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} e_i = 0 $$
+		    	Esto es, los errores locales convergen uniformemente a 0 cuando $n \rightarrow +\infty$.
+		    \end{definition}
 		\end{frame}	
 			
 		\begin{frame}{Método de discretización}
