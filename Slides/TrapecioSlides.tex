@@ -233,6 +233,20 @@
 		\usebeamertemplate{block begin}\em}
 	{\par\usebeamertemplate{block end}\end{actionenv}}
 
+\renewenvironment<>{note}[1][\undefined]{
+	\begin{actionenv}#2
+		\ifx#1\undefined
+		\def\insertblocktitle{Observación}%
+		\else
+		\def\insertblocktitle{Observación ({\em#1})}%
+		\fi
+		\par
+		\mode<presentation>{%
+			\setbeamercolor{block title}{fg=white,bg=Jaguar!80}
+			\setbeamercolor{block body}{fg=black,bg=ChetwodeBlue!10}
+		}%
+		\usebeamertemplate{block begin}\em}
+	{\par\usebeamertemplate{block end}\end{actionenv}}
 
 %-----------------------------------------------------------------------------------------------------
 %	TITLE PAGE

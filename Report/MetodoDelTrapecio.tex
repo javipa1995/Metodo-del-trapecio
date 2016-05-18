@@ -422,8 +422,8 @@
 
 	El orden de un método permite tener información teórica sobre el error que se va a cometer.
 
-    Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de un paso \cite{gear}. A la función $\phi$ se la denomina función incremento. 
-    
+    Muchos de los métodos de discretización pueden ser escritos de la forma $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$. A este conjunto de métodos se los denomina métodos de un paso \cite{gear}. A la función $\phi$ se la denomina función incremento.
+
     Esta generalización permite probar resultados para métodos de paso arbitrarios y aplicarlos después a casos particulares como el método de Euler. De aquí en adelante se hablará únicamente de este tipo de métodos, pues son los más extendidos y utilizados.
 
     Una propiedad que debe interesar al estudiar un método de un paso es que este sea convergente.
@@ -458,7 +458,7 @@ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \e
 			y(a) = y_0 + \epsilon_0 \\
 		\end{cases}
 	\end{equation*}
-    
+
 donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
 
 	\begin{definition}
@@ -592,7 +592,7 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 
 			Podemos particularizar la expresión del método para $j-1 \equiv 0$ y $j \equiv 1$ como
 			$$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$$ siendo $K_0=f(t_0,y_0)$.
-			
+
 			Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
 			$$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$$
 
@@ -626,14 +626,14 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
-	El estudio de la estabilidad y convergencia del método del trapecio explícito es un corolario del Teorema \ref{theorem:stability}. En este caso 
+	El estudio de la estabilidad y convergencia del método del trapecio explícito es un corolario del Teorema \ref{theorem:stability}. En este caso
 	$$\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$$
 	Asumiendo que $f$ es lipschitziana respecto de la segunda variable en  $\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ con constante de Lipschitz $L$ entonces:
-	
-	$|\phi(t,y,h)-\phi(t,y',h)|=|\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y'))| 
-	\leq 
+
+	$|\phi(t,y,h)-\phi(t,y',h)|=|\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y'))|
+	\leq
 	\frac{1}{2}L|y-y'|+\frac{1}{2}L|y+hf(t,y)-y'-hf(t,y')| \leq L |y-y'|+\frac{1}{2}L|hf(t,y)-hf(t,y')|=(L+\frac{1}{2}hL^{2})|y-y'|$
-	
+
 
 	Por tanto, $\phi$ satisface una condición de Lipschitz sobre el conjunto
 	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$
@@ -654,7 +654,6 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 %-----------------------------------------------------------------------------------------------------
 
 \section{Método del trapecio implícito} \label{sec:trapecio-iterativo}
-
 
 	Recuérdese en este punto la aproximación (\ref{eq:app}), que se mostraba en la Sección \ref{sec:intro-trapecio}, dada por
 
@@ -698,7 +697,6 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 
 	Sin embargo, utilizando que $f$ es lipschitziana en la segunda variable, la función $g_i$ va a ser lipschitziana con constante de Lipschitz $\frac{hL}{2}$. Esto sugiere utilizar el método de iteración funcional dado por $g_i$ partiendo de una aproximación inicial, que se denota $w_i^{(0)}$. La sucesión definida por el método de iteración funcional es la siguiente
 
-
 	\begin{equation} \label{eq:ti-def}
 		w_{i} ^{(j+1)} = g_i(w_i^{(j)}) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
 	\end{equation}
@@ -708,7 +706,7 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 	La siguiente proposición proporciona una condición suficiente de convergencia que no depende de la aproximación inicial escogida.
 
 	\begin{proposition}
-		Supóngase que la función $f$ está definida en $[a,b]\times[-\infty, +\infty]$ y es lipschitziana en la segunda variable con constante de Lipschitz $L$. Si $\frac{Lh}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
+		Supóngase que la función $f$ está definida en $[a,b]\times]-\infty, +\infty[$ y es lipschitziana en la segunda variable con constante de Lipschitz $L$. Si $\frac{Lh}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
 	\end{proposition}
 
 	\begin{proof}
@@ -746,8 +744,6 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 	La aproximación que se toma como $w_i^{(0)}$ suele ser obtenida mediante un método explícito de menor orden, como el método de Euler. Nótese que en tal caso $w_i^{(1)}$ es el resultado de aplicar el método del trapecio explícito partiendo de $w_{i-1}$. Por tanto, el método del trapecio iterativo puede entenderse como una generalización del método del trapecio explícito. Además, el estudio del error local realizado para el método del trapecio explícito concluye que si se toma $w_i^{(1)}$ como aproximación, entonces el error local es $O(h^3)$. Por tanto, bajo las hipótesis adecuadas siempre se tendrá garantizado un error local de orden 3 tras la primera iteración del método de iteración funcional.
 
 	Cabe destacar que el método del trapecio iterativo también puede concebirse como un mecanismo para corregir el error cometido por la aproximación inicial. Al método utilizado para calcular la aproximación inicial se le denomina predictor mientras que a la fórmula (\ref{eq:ti-def}) se la denomina fórmula correctora. La aplicación de la fórmula correctora al resultado del predictor es lo que se conoce como método predictor-corrector en la literatura especializada.
-
-
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: ARTÍCULO

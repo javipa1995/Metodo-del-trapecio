@@ -128,3 +128,130 @@
 				Teorema de consistencia, convergencia y estabilidad.
 			\end{proof}
 		\end{frame}
+		
+	\subsection{Método del trapecio implícito}
+		
+		\begin{frame}{Método del trapecio implícito: Ecuación implícita}
+
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\centering
+				\textbf{Recordatorio}
+				\begin{equation*} 
+				y(t_{i}) = y_{i-1} + \frac{h}{2} \left[f(t_{i-1},y_{i-1}) + f(t_i, y(t_i))\right] - \frac{h^3}{12}y^{3)}(\xi)
+				\end{equation*}
+			\end{tcolorbox}
+			
+			Ignoramos el último sumando:
+
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\textit{Partiendo del valor exacto:}
+				\begin{equation} \label{eq:ecuacion-implicita1}
+					w_i = y_{i-1} + \frac{h}{2} \left[f(t_{i-1},y_{i-1}) + f(t_i, w_i)\right]
+				\end{equation}
+
+				
+				\textit{Partiendo de una aproximación:}
+				\begin{equation} \label{eq:ecuacion-implicita2}
+					w_i = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w_i)\right]
+				\end{equation}
+			\end{tcolorbox}
+		\end{frame}
+		
+
+		\begin{frame}{Idea: Resolver la ecuación implícita}
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\centering
+				\textbf{Ecuación implícita}
+				\begin{equation*}
+					w_i = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w_i)\right]
+				\end{equation*}
+			\end{tcolorbox}
+
+			\kern2mm
+			Definimos $g_i(w) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, w)\right]$. 
+
+			\kern2mm
+			\begin{note}
+				$w_i$ es solución de la ecuación implícita $\iff$ $g_i(w_i) = w_i$. 
+			\end{note}
+
+			\color{ChetwodeBlue}\large\textbf{Cálculo de un punto fijo mediante métodos numéricos.}
+
+		\end{frame}
+		
+		
+		\begin{frame}{Error local y global}
+			\fontsize{11}{12}\selectfont
+			\begin{proposition} \label{prop:implicito:error}
+				\begin{cases}
+					$g_i(w_i) = w_i$ \\
+					$f$ \text{ es lipschitziana en la segunda variable (} $L$ \text{ constante de Lipschitz)} \\
+					$h \in [0, h_0]$ con $h_0L< 2$
+				\end{cases}
+				Entonces el error local cometido es $O(h^3)$.
+			\end{proposition}
+			\begin{proof}
+				Utilizar $z(t_{i}) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1},w_{i-1}) + f(t_i, z(t_i))\right] - \frac{h^3}{12}z^{3)}(\xi)$.
+			\end{proof}
+			
+			\begin{corollary}
+				El método del trapecio implícito es localmente de orden 3. Por tanto, es de orden 2.
+			\end{corollary}
+		\end{frame}
+		
+		\begin{frame}{Resolución de la ecuación implícita}
+			\begin{itemize}
+				\item \textbf{Método de Newton.} 
+					\begin{itemize}
+						\item Se necesita la derivada de $g_i$. 
+						\item Convergencia local. 
+						\item Orden de convergencia cuadrático.
+					\end{itemize}
+				\item \textbf{Método de iteración funcional asociado a } $g_i$.
+			\end{itemize}
+			
+			\begin{definition}[Método del trapecio iterativo]
+				Se toma una aproximación inicial $w_i^{(0)}$.
+				\begin{equation} \label{eq:ti-def}
+					w_{i} ^{(j+1)} = g_i(w_i^{(j)}) = w_{i-1} + \frac{h}{2} \left[f(t_{i-1}, w_{i-1}) + f(t_i, w_{i}^{(j)})\right]
+				\end{equation}
+			\end{definition}
+		\end{frame}
+		
+		\begin{frame}{Convergencia del método de iteración funcional}
+			\fontsize{10}{12}\selectfont			
+			Supóngase que $f: [a,b]\timesI \rightarrow \mathbb{R}$ es lipschitziana respecto de la segunda variable con constante de Lipschitz $L$.
+			
+			\begin{note}
+				$g_i$ es lispchitziana con constante $L' = \frac{Lh}{2}$.
+			\end{note}
+			
+			\begin{proposition}
+				Si $I = ]-\infty, +\infty[$ y $\frac{Lh}{2} < 1$, entonces existe $w_i$ tal que $\{w_i^{(j)}\}$ converge a $w_i$ para cualquier aproximación inicial.
+			\end{proposition}
+			
+			\begin{proposition}
+				Sea $r > 0$. Si $[w_i^{(0)}-r,w_i^{(0)}+r] \subset I$,  $\frac{Lh}{2} < 1$ y $\left|w_i^{(1)} - w_i^{(0)}\right| < (1-\frac{Lh}{2})r$, entonces $\{w_i^{(j)}\}$ está bien definida y es convergente.
+			\end{proposition}
+			
+		\end{frame}
+		
+		\begin{frame}{Error de aproximación del método de iteración funcional}
+			\begin{tcolorbox}[colback=ChetwodeBlue!10,colframe=ChetwodeBlue!60]
+				\begin{itemize}
+					\item Necesitamos que sea como mucho $O(h^3)$.
+					\item Algunos autores recomiendan $O(h^4)$.	
+				\end{itemize}
+			\end{tcolorbox}
+			
+			En caso de convergencia:
+			$$ \left|w_i - w_i^{(j)}\right| \le \left(\frac{hL}{2}\right)^j \left|w_i - w_i^{(0)}\right| $$
+			
+			\textbf{Podemos calcular el número de iteraciones necesarias.}
+			
+			\begin{itemize}
+				\item $w_i^{(0)}$ se calcula habitualmente mediante el método de Euler.
+				\item En tal caso, $w_i^{(1)}$ es el método del trapecio explícito.
+				\item Métodos predictor - corrector.
+			\end{itemize}
+		\end{frame}
