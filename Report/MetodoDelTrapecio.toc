@@ -9,7 +9,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Introducci\IeC {\'o}n al m\IeC {\'e}todo del trapecio}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}M\IeC {\'e}todo del trapecio expl\IeC {\'\i }cito}{9}
+\contentsline {section}{\numberline {4}M\IeC {\'e}todo del trapecio expl\IeC {\'\i }cito}{10}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.1}Error local y global. Convergencia}{10}
 \defcounter {refsection}{0}\relax 
@@ -37,4 +37,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {8}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{24}
+\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n. Ventajas y desventajas del m\IeC {\'e}todo}{24}

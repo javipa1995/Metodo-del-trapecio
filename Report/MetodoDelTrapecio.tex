@@ -194,7 +194,7 @@
 % Resumen del documento. Va en la portada.
 % Puedes también dejarlo vacío, en cuyo caso no aparece en la portada.
 %\newcommand{\docabstract}{}
-\newcommand{\docabstract}{El objetivo de este trabajo es el de estudiar uno de los métodos numéricos parala resolución de ecuaciones diferenciales ordinarias: el método del Trapecio. Es un método didáctico y que da buenas aproximaciones de las soluciones.}
+\newcommand{\docabstract}{El objetivo de este trabajo es el de estudiar uno de los métodos numéricos para la resolución de ecuaciones diferenciales ordinarias: el método del Trapecio. Éste es un método de orden 2 que se suele utilizar para fines didácticos.}
 
 \begin{document}
 
@@ -312,7 +312,7 @@
 
 	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error de aproximación que el método de Euler y consiga resolver el Ejemplo \ref{ej:motivacion}. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e implícita.
 
-	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método En la Sección \ref{ejemplos} se proponen una serie de ejercicios y ejemplo relacionados con el trabajo. En la Sección \ref{sec:paper} se resume el artículo de investigación Solving Differential Equations with Constructed Neural Networks, que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Ambos métodos se estudian desde una doble perspectiva: cálculo del error y estabilidad. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método En la Sección \ref{ejemplos} se introducen dos ejemplos que muestran el comportamiento de los métodos desarrollados. En la Sección  \ref{sec:ejtp} se proponen 4 ejercicios de ámbito teórico - práctico que discuten diferentes facetas del trabajo. En la Sección \ref{sec:paper} se resume el artículo de investigación Solving Differential Equations with Constructed Neural Networks, que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
 
 \section{Definiciones y resultados previos} \label{sec:previo}
 
@@ -433,7 +433,7 @@
 		$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} g_i = 0 $$
 	\end{definition}
 
-	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global en cualquier punto tiende a $0$ cuando $n \rightarrow +\infty$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
+	Si el orden del método es $O(h^r)$ con $r > 0$, entonces es claro que el método es convergente ya que el error global está uniformemente acotado por un polinomio en función de $h$. Sin embargo, en la práctica el método puede no converger por culpa de los errores de redondeo. Se incidirá en ésto en la Sección \ref{sec:trapecio-explicito:redondeo}.
 
     Otro concepto importante es la consistencia:
     \begin{definition}
@@ -451,7 +451,7 @@
 			y(a) = y_0 \\
 		\end{cases}
 	\end{equation*}
-se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por:
+	se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \epsilon_0$ en lugar de $y_0$. Al problema de valores iniciales dado por:
     \begin{equation*}
 		\begin{cases}
 			y' = f(t, y) \\
@@ -459,7 +459,7 @@ se puede cometer un error al evaluar la condición inicial, utilizando $y_0 + \e
 		\end{cases}
 	\end{equation*}
 
-donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
+	donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando se aplica un método al problema perturbado, el error introducido inicialmente puede ir aumentando en cada iteración. Si se considera el error cometido en $t_n = b$, este puede incluso diverger cuando $n \rightarrow +\infty$. Por lo tanto, para poder utilizar cualquier valor de $h$ interesa que el método a utilizar sea estable ante perturbaciones. Esto es, si se perturba la condición inicial, las diferencias entre las aproximaciones obtenidas en ambos problemas están acotadas independientemente del número de puntos que se utilicen. Este concepto se formaliza en la siguiente definición.
 
 	\begin{definition}
 		Un método de un paso se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
@@ -769,6 +769,7 @@ Considérese el ejemplo de problema de valores iniciales dado en la motivación.
 				\centering
 				\includegraphics[width=10cm]{./Images/ej1.png}
 				\caption{Aproximación a la solución con los distintos métodos.}
+				 \label{fig:ej1}
 			\end{figure}
 
 \subsection{Ejemplo 2} \label{ejemplo2}
@@ -824,7 +825,7 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 
 	Teniendo en cuenta que $y(2)=-1.386294$, los errores relativos son $9.69 10^{-3}$ para el caso $h=0.25$ y $1.70 10^{-3}$ para el caso $h=0.10$. Como el método del trapecio es de orden 2 el error relativo es $O(h^2)$ y por tanto el cociente de los errores debería ser $\frac{C(0.25)^2}{C(0.10)^2}=6.25$ mientras que el valor real es 5.7. La razón de esta diferencia es que el orden es $O(h^2)$ asintóticamente, esto es, cuando $h \to 0$ y los valores de considerados para h no son suficientemente pequeños.
 
-\section{Ejercicios teórico-prácticos} \label{ejtp}
+\section{Ejercicios teórico-prácticos} \label{sec:ejtp}
 
 \subsection{Ejercicio 1} \label{ejtp1}
 
@@ -1121,9 +1122,20 @@ La evolución gramatical es una técnica que puede producir código en cualquier
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
 
+\section{Conclusión. Ventajas y desventajas del método} \label{sec:conclusion}
 
-\section{Conclusión} \label{sec:conclusion}
+	En este trabajo se han desarrollado las versiones explícitas e implícitas del método del trapecio. Estos métodos han permitido resolver de forma aproximada problemas de valores iniciales para los cuales el método de Euler no obtenía resultados satisfactorios (véase la Figura \ref{fig:ej1}). Tras los estudios realizados, se pueden destacar las siguientes ventajas:
+	
+	\begin{itemize}
+		\item El método del trapecio es secillo y puede deducirse como una aplicación de las fórmulas de integración numérica. Además, el método del trapecio explícito puede entenderse como una mejora del método de Euler como se puntualiza en la Figura \ref{fig:trapecio-vs-euler}.
+		\item El número de evaluaciones de la función $f$ que se requiere para ejecutar el método del trapecio explícito es $2n$. Por tanto, un método eficiente si la evaluación de la función $f$ es muy costosa. En el caso del método del trapecio implícito, este número de evaluaciones dependerá del método numérico utilizado para obtener puntos fijos. Sin embargo, se pueden controlar según se desee.
+		\item El orden del método es 2 y, por tanto, se pueden resolver problemas de valores iniciales con un error aceptable.
+		\item El método del trapecio es un ejemplo de método de discretización para el cuál surgen dos variantes, la explícita y la implícita. Por tanto, tiene una gran utilidad didáctica. Permite poner en práctica casi todo el temario de la asignatura en un único método.
+	\end{itemize}
 
+	Sin embargo, el método del trapecio no suele ser utilizado en la práctica \cite{Butcher} ya que existen métodos más complejos que presentan un mayor orden. Este es el caso del método de Runge-Kutta de cuarto orden. Hay que decir en este momento que el método del trapecio explícito puede verse como un caso particular de los métodos de Runge-Kutta por lo que también es útil para introducir éstos.
+
+	En definitiva, el método del trapecio es un método sencillo y permite introducir los conceptos presentes en la resolución de PVIs mediante métodos de discretización sin necesidad de recurrir a métodos más complejos.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: REFERENCIAS
