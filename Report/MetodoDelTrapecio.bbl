@@ -130,6 +130,21 @@
   \field{year}{1971}
 \endentry
 
+\entry{articulo}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Ioannis~Tsoulos}{I.~T.}%
+     {Euripidis~Glavas}{E.~G.}%
+     {}{}%
+     {Dimitris~Gavrilis}{D.~G.}}%
+  }
+  \strng{namehash}{ITDGEG1}
+  \strng{fullhash}{ITDGEG1}
+  \field{sortinit}{I}
+  \field{title}{The numerical stability in solution of differential equations}
+  \field{year}{2009}
+\endentry
+
 \entry{sauer}{book}{}
   \name{author}{1}{}{%
     {{}%

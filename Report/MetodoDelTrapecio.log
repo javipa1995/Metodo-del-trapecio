@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.2)  18 MAY 2016 12:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.2)  18 MAY 2016 12:14
 entering extended mode
 **MetodoDelTrapecio.tex
 
@@ -1375,7 +1375,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 File: ./Images/ej1.png Graphic file (type png)
 
 <use ./Images/ej1.png>
-Package pdftex.def Info: ./Images/ej1.png used on input line 775.
+Package pdftex.def Info: ./Images/ej1.png used on input line 776.
 (pdftex.def)             Requested size: 284.52756pt x 192.33618pt.
 
 Overfull \hbox (13.57385pt too wide) has occurred while \output is active
@@ -1402,7 +1402,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 File: ./Images/ejtp1-1.png Graphic file (type png)
 
 <use ./Images/ejtp1-1.png>
-Package pdftex.def Info: ./Images/ejtp1-1.png used on input line 878.
+Package pdftex.def Info: ./Images/ejtp1-1.png used on input line 879.
 (pdftex.def)             Requested size: 284.52756pt x 195.13441pt.
 
 Overfull \hbox (13.57385pt too wide) has occurred while \output is active
@@ -1420,10 +1420,10 @@ io/Report/Images/ejtp1-1.png>]
 File: ./Images/ejtp1-2.png Graphic file (type png)
 
 <use ./Images/ejtp1-2.png>
-Package pdftex.def Info: ./Images/ejtp1-2.png used on input line 912.
+Package pdftex.def Info: ./Images/ejtp1-2.png used on input line 913.
 (pdftex.def)             Requested size: 284.52756pt x 178.5694pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 916--917
+Underfull \hbox (badness 10000) in paragraph at lines 917--918
 
  []
 
@@ -1452,7 +1452,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 File: ./Images/ejemplo3-1.png Graphic file (type png)
 
 <use ./Images/ejemplo3-1.png>
-Package pdftex.def Info: ./Images/ejemplo3-1.png used on input line 1044.
+Package pdftex.def Info: ./Images/ejemplo3-1.png used on input line 1045.
 (pdftex.def)             Requested size: 284.52756pt x 206.61157pt.
 
 
@@ -1469,7 +1469,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 1079--1083
+Underfull \hbox (badness 10000) in paragraph at lines 1080--1084
 
  []
 
@@ -1485,7 +1485,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 
 [22 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
 io/Report/Images/ejemplo3-1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1109--1113
+Underfull \hbox (badness 10000) in paragraph at lines 1110--1114
 
  []
 
@@ -1500,7 +1500,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
  []
 
 [23]
-LaTeX Font Info:    Try loading font information for U+lasy on input line 1129.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 1130.
 
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -1524,10 +1524,10 @@ Package logreq Info: Writing requests to 'MetodoDelTrapecio.run.xml'.
  )
 (\end occurred when \iftrue on line 199 was incomplete) 
 Here is how much of TeX's memory you used:
- 21348 strings out of 493921
- 392533 string characters out of 3144874
- 567067 words of memory out of 3000000
- 24134 multiletter control sequences out of 15000+200000
+ 21349 strings out of 493921
+ 392552 string characters out of 3144874
+ 564067 words of memory out of 3000000
+ 24135 multiletter control sequences out of 15000+200000
  13875 words of font info for 92 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  62i,13n,56p,1194b,1735s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1552,7 +1552,7 @@ b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm
 10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplbi8a.pfb>
 
-Output written on MetodoDelTrapecio.pdf (25 pages, 403875 bytes).
+Output written on MetodoDelTrapecio.pdf (25 pages, 404147 bytes).
 PDF statistics:
  176 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
