@@ -1,6 +1,6 @@
-\section{Ejemplos} \label{ejemplos}
+\section{Ejemplos y ejercicios} \label{ejemplos-ejs}
 
-\subsection{Ejemplos} \label{ejemplo1}
+	\subsection{Ejemplos} \label{ejemplo1}
 		\begin{frame}{Ejemplo 1}
 			Considérese el ejemplo de problema de valores iniciales dado en la motivación.
 
@@ -261,6 +261,44 @@
 			\end{figure}	
 		\end{frame}										
 													
-		\begin{frame}{Ejercicio 4}
+		\begin{frame}{Ejercicio 4: Algoritmo de Kahan para errores de redondeo}	
+
+			\centering
+			\includegraphics[width=0.8\textwidth]{./Images/kahan.png}
 											
-		\end{frame}										
+		\end{frame}	
+		
+		\begin{frame}{Ejercicio 4: Algoritmo de Kahan para errores de redondeo}	
+			\fontsize{8}{10}\selectfont
+			\begin{exercise}
+				Supóngase que se utiliza aritmética decimal de seis dígitos, la suma actual es 10000.0 y los siguientes dos valores son 2.14159 y 2.71828. Comapre la suma usual con el algoritmo de Kahan.
+			\end{exercise}
+	
+			\textbf{Método usual}
+			\begin{itemize}
+				\item Primera suma con redondeo: 10003.1 \\
+				\item Segunda suma con redondeo: 10005.8 \\
+			\end{itemize}
+		
+			\textbf{Método de Kahan}
+			\begin{columns}
+				\column{0.5\textwidth}
+					\begin{itemize}
+						\item Primera suma \\
+						c = 0.0 \\
+						y = 3.14159  \\
+						t = 10000.0 + 3.14159 = 10003.14159 = 10003.1 \\
+						c = (10003.1 - 10000.0) - 3.14159  = -.0415900 \\
+						suma = 10003.1
+					\end{itemize}										
+				\column{0.5\textwidth}
+					\begin{itemize}
+						\item Segunda suma 	\\					
+						y = 2.71828 - -.0.415900 = 2.75987 \\
+						t = 10003.1 + 2.75987 = 10005.85987 = 10005.9 \\
+						c = (10005.9 - 10003.1) - 2.75987 = .040130 \\
+						suma = 10005.9 \\					
+					\end{itemize}										
+			\end{columns}
+						
+		\end{frame}									

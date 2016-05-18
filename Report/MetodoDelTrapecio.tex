@@ -489,7 +489,7 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
     \end{corollary}
 
     \begin{proof}
-        En el caso del método de Euler $\phi(t,y,h) = f(t,y)$. Por tanto, se cumplen las hipótesis del Teorema \ref{theorem:stability}. Además, el  del método de Euler es 1, luego es convergente y, por tanto, consistente.
+        En el caso del método de Euler $\phi(t,y,h) = f(t,y)$. Por tanto, se cumplen las hipótesis del Teorema \ref{theorem:stability}. Además, el orden del método de Euler es 1, luego es convergente y, por tanto, consistente.
     \end{proof}
 
 %-----------------------------------------------------------------------------------------------------
@@ -751,9 +751,6 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 
 \section{Artículo de investigación} \label{sec:paper}
 
-
-
-
 \section{Ejemplos} \label{ejemplos}
 
 \subsection{Ejemplo 1} \label{ejemplo1}
@@ -768,13 +765,25 @@ Considérese el ejemplo de problema de valores iniciales dado en la motivación.
 			\end{cases}
 		\end{equation*}
 
-cuando se resuelve mediante el método de Euler y con el método del Trapecio Explícito e Iterativo, con paso $10^{-3}$. se obtienen la siguiente gráfica. El método del Trapecio Iterativo usa una tolerancia de $10^{-4}$.
+cuando se resuelve mediante el método de Euler con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$ se obtienen las siguientes gráficas.
 
-			\begin{figure}[h]
-				\centering
-				\includegraphics[width=10cm]{./Images/ej1.png}
-				\caption{Aproximación a la solución con los distintos métodos.}
-			\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-1.png}
+			\caption{Método de Euler aplicado al problema anterior con paso $10^{-3}$, $10^{-4}$ y  $10^{-5}$}
+			\label{fig:ej1-1}
+		\end{figure}
+
+		Aplicando la regla del trapecio explícito con paso $10^{-3}$ se obtiene la siguiente gráfica:
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8cm]{./Images/ej1-2.png}
+			\caption{Método del trapecio explícito aplicado al problema anterior con paso $10^{-3}$}
+			\label{fig:ej1-2}
+		\end{figure}
+
+		de modo que queda patente que converge el doble de rápido que el método de Euler.
 
 \subsection{Ejemplo 2} \label{ejemplo2}
 
@@ -798,8 +807,6 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 			\hline 2 & 1.05 & -0.275000 & 1.50 & -0.600833 \\
 			\hline 3 & 1.10 & -0.600833 & 1.75 & -0.968829 \\
 			\hline 4 & 1.15 & -0.968829 & 2.00 & -1.372859 \\
-			\hline
-			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.25$}
 		\label{table:trapecio-ejemplo2.1}
@@ -820,8 +827,6 @@ calcular el valor de $y(2)$ para $h=0.25$ y $h=0.1$.
 			\hline 8 & 0.70 & -0.900326 & 0.80 & -1.056065 \\
 			\hline 9 & 0.80 & -1.056065 & 0.90 & -1.217366 \\
 			\hline 10 & 0.90 & -1.217366 & 1.00 & -1.383938 \\
-			\hline
-			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.1$}
 		\label{table:trapecio-ejemplo2.2}
@@ -842,7 +847,7 @@ Considérese el problema de valores iniciales
 			\end{cases}
 		\end{equation*}
 
-calcular una aproximación a la solución del problema de valores iniciales mediante el método de Euler y el método del Trapecio Explícito e Iterativo.
+calcular una aproximación a la solución del problema de valores iniciales mediante el método de Euler y el método del Trapecio Explícito.
 
 La función $f(t,y) = y - t^2$ es continua, su derivada parcial respecto de $y$, esto es la función $g(t,y) = 1$ también lo es y esta acotada por $L=1$ en [0,2], luego se tiene que existe solución y es única.
 
@@ -864,8 +869,6 @@ A continuación, se va a calcular la aproximación mediante el método de Euler.
 			\hline 8 & 1.6 & 11.399853 \\
 			\hline 9 & 1.8 & 13.167824 \\
 			\hline 10 & 2.0 & 15.153389 \\
-			\hline
-			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.2$}
 		\label{table:trapecio-ejtp1.1}
@@ -880,42 +883,74 @@ A continuación se dibuja la gráfica de la función para ver la aproximación o
 		\label{fig:aprox1}
 	\end{figure}
 
-Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito e Iterativo:
+Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito:
 
 	\begin{table}[H]
 		\centering
-			\begin{tabular}{|| c | c | c | c | c||}
-				\hline
-				\hline $j$ &  $t_j $ & $y_j Explicito$ & $y_j Implicito$ & $y_j Euler$ \\
-				\hline 0 & 0.0 & 3 & 3 & 3 \\
-				\hline 1 & 0.2 & 3.656 & 3.66216 & 3.6 \\
-				\hline 2 & 0.4 & 4.3952 & 4.453683 & 4.312 \\
-				\hline 3 & 0.6 & 5.361014 & 5.385540 & 5.1424 \\
-				\hline 4 & 0.8 & 6.433237 & 6.471135 & 6.09888 \\
-				\hline 5 & 1.0 & 7.671749 & 7.726853 & 7.190656 \\
-				\hline 6 & 1.2 & 9.095534 & 9.172720 & 8.428787 \\
-				\hline 7 & 1.4 & 10.727752 & 10.833211 & 9.826544 \\
-				\hline 8 & 1.6 & 12.596657 & 12.738239 & 11.399853 \\
-				\hline 9 & 1.8 & 14.736722 & 14.924363 & 13.167824 \\
-				\hline 10 & 2.0 & 17.190000 & 17.436269 & 15.153389 \\
-				\hline
-				\hline
-			\end{tabular}
-			\caption{Tabla comparativa con $h=0.2$}
-			\label{table:trapecio-ejtp1.2}
+		\begin{tabular}{|| c | c | c ||}
+			\hline
+			\hline $j$ &  $t_j $ & $y_j$\\
+			\hline 0 & 0.0 & 3 \\
+			\hline 1 & 0.2 & 3.656  \\
+			\hline 2 & 0.4 & 4.3952 \\
+			\hline 3 & 0.6 & 5.361014 \\
+			\hline 4 & 0.8 & 6.433237 \\
+			\hline 5 & 1.0 & 7.671749 \\
+			\hline 6 & 1.2 & 9.095534 \\
+			\hline 7 & 1.4 & 10.727752 \\
+			\hline 8 & 1.6 & 12.596657 \\
+			\hline 9 & 1.8 & 14.736722 \\
+			\hline 10 & 2.0 & 17.190000 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.2$}
+		\label{table:trapecio-ejtp1.2}
 	\end{table}
-	
-Se expone a continuación una gráfica comparativa de las tres aproximaciones:
 
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=10cm]{./Images/ejtp1-2.png}
-				\caption{Aproximación a la solución con los métodos.}
-			\end{figure}
-	
-Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito e Iterativo convergen más rápidamente a la solución que el método de Euler, lo cual se debe a que son de orden 2 mientras que el de Euler es un método de orden 1.\\
+Se dibuja de nuevo la gráfica de la solución junto con las aproximaciones que se han obtenido.La aproximación se observa en la Figura \ref{fig:aprox2}.
 
-Además, el error absoluto en el primer método es $2,235666$ obtenido mediante el valor absoluto de la diferencia de la solución calculada menos la solución evaluada en $2$, esto es, $|y_{10} - y(2)|$. De la misma forma, se obtiene el error al usar el método del Trapecio Explícito. En este caso, el error cometido es $0,199054$, por lo que se puede ver que este método es mejor que el de Euler y realizando un proceso análogo se obtiene que el error para el método del Trapecio Iterativo es 0.047213.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ejtp1-2.png}
+		\caption{Aproximación a la solución con el método del Trapecio Explícito.}
+		\label{fig:aprox2}
+	\end{figure}
+
+Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito converge más rápidamente a la solución que el método de Euler, lo cual se debe a que el primer método es de orden 2 mientras que el de Euler es un método de orden 1.\\
+
+Además, el error absoluto en el primer método es $2,235666$ obtenido mediante el valor absoluto de la diferencia de la solución calculada menos la solución evaluada en $2$, esto es, $|y_{10} - y(2)|$. De la misma forma, se obtiene el error al usar el método del Trapecio Explícito. En este caso, el error cometido es $0,199054$, por lo que se puede ver que este método es mejor que el de Euler.
+
+Por último, se va a calcular la aproximación usando el método del Trapecio Implícito. Para ello calculamos la sucesión de puntos conforme al método y se obtiene el siguiente resultado:
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|| c | c | c ||}
+			\hline
+			\hline $j$ &  $t_j $ & $y_j$\\
+			\hline 0 & 0.0 & 3 \\
+			\hline 1 & 0.2 & 3.66216  \\
+			\hline 2 & 0.4 & 4.453683 \\
+			\hline 3 & 0.6 & 5.385540 \\
+			\hline 4 & 0.8 & 6.471135 \\
+			\hline 5 & 1.0 & 7.726853 \\
+			\hline 6 & 1.2 & 9.172720 \\
+			\hline 7 & 1.4 & 10.833211 \\
+			\hline 8 & 1.6 & 12.738239 \\
+			\hline 9 & 1.8 & 14.924363 \\
+			\hline 10 & 2.0 & 17.436269 \\
+		\end{tabular}
+		\caption{Trapecio con $h=0.2$}
+		\label{table:trapecio-ejtp1.3}
+	\end{table}
+
+La aproximación se observa en la Figura \ref{fig:aprox3}. Al igual que se tenía con el método del trapecio explícito, que era de orden 2, se observa en \ref{fig:aprox3} que se ajusta bastante bien a la gráfica de $y(t)$. El error absoluto cometido es $|y_{10} - y(2)|$ al igual que ocurría antes y en este caso es 0.047213.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10cm]{./Images/ej1-3.png}
+		\caption{Aproximación a la solución con el método del Trapecio Implícito.}
+		\label{fig:aprox3}
+
+	\end{figure}
 
 \subsection{Ejercicio 2} \label{ejtp2}
 
@@ -930,8 +965,6 @@ Solución:
 			\hline $j$ &  $t_{j-1}$ & $y_{j-1}$ & $t_j$ & $y_j$ \\
 			\hline 1 & 1.00 & 2.000000 & 1.10 & 2.617500 \\
 			\hline 2 & 1.10 & 2.617500 & 1.20 & 3.657368 \\
-			\hline
-			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.1$}
 		\label{table:trapecio-ej2}
@@ -946,8 +979,6 @@ Solución:
 			\hline 2 & 1.05 & 2.277813 & 1.10 & 2.628941 \\
 			\hline 3 & 1.10 & 2.628941 & 1.15 & 3.087423 \\
 			\hline 4 & 1.15 & 3.087423 & 1.20 & 3.712364 \\
-			\hline
-			\hline
 		\end{tabular}
 		\caption{Trapecio con $h=0.05$}
 		\label{table:trapecio-ej2.1}
@@ -1030,8 +1061,6 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 			\hline 8 & 0.70 & 0.841949,1.392822 & 0.80 & 0.982733,1.401712 \\
 			\hline 9 & 0.80 & 0.982733,1.401712 & 0.90 & 1.123784,1.406900 \\
 			\hline 10 & 0.90 & 1.123784,1.406900 & 1.00 & 1.264990,1.409933 \\
-			\hline
-			\hline
 		\end{tabular}
 		\caption{Trapecio para sistemas con $h=0.1$}
 		\label{table:trapecio-ej3}
@@ -1047,7 +1076,6 @@ cuya expresión será deducida en el correspondiente trabajo. La tabla de valore
 	\end{figure}
 
 \subsection{Ejercicio 4} \label{ejtp4}
-
 
 En este caso ilustraremos con un ejemplo el algoritmo de la suma compensada de Kahan cuyo objetivo primordial es reducir el error de redondeo cuando se suma una sucesión de números en coma flotante con suma finita. Este enfoque ha sido aplicado en distintos escenarios, en particular, en el ámbito de las ecuaciones diferenciales puede consultarse en \cite{Vitasek}.
 
@@ -1112,15 +1140,14 @@ c = (10005.9 - 10003.1) - 2.75987 = 2.80000 - 2.75987 = .040130 \\
 suma = 10005.9 \\
 
 que era el resultado deseado.
+
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
 
+
 \section{Conclusión} \label{sec:conclusion}
 
-La resolución de numérica de problemas de valores iniciales puede ser una tarea compleja. Sin embargo, disponemos de métodos como el método de Euler que nos permite calcular una aproximación a la solución. Pese a ello, el coste computacional es muy grande y el método del Trapecio, ya se el explícito o el iterativo nos ayuda a conseguir dicha aproximación de forma más rápida y con un menor coste.
-
-Además, el método del trapecio tiene un error local de orden tres y, en consecuencia, el error global es de orden dos. Más ventajas de este método es que es didáctico, que además da una introducción tanto a métodos implícitos (como el método del Trapecio Implícito o Iterativo) y a métodos de mayor orden que no dependen de las derivadas.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: REFERENCIAS
