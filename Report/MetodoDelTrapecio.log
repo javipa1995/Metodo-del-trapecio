@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.2)  18 MAY 2016 12:14
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.2)  18 MAY 2016 12:28
 entering extended mode
 **MetodoDelTrapecio.tex
 
@@ -1371,12 +1371,18 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[15] <./Images/ej1.png, id=82, 459.96844pt x 310.91156pt>
-File: ./Images/ej1.png Graphic file (type png)
+[15] <./Images/ej1-1.png, id=82, 279.0425pt x 130.4875pt>
+File: ./Images/ej1-1.png Graphic file (type png)
 
-<use ./Images/ej1.png>
-Package pdftex.def Info: ./Images/ej1.png used on input line 776.
-(pdftex.def)             Requested size: 284.52756pt x 192.33618pt.
+<use ./Images/ej1-1.png>
+Package pdftex.def Info: ./Images/ej1-1.png used on input line 780.
+(pdftex.def)             Requested size: 227.62204pt x 106.44492pt.
+ <./Images/ej1-2.png, id=83, 285.065pt x 124.465pt>
+File: ./Images/ej1-2.png Graphic file (type png)
+
+<use ./Images/ej1-2.png>
+Package pdftex.def Info: ./Images/ej1-2.png used on input line 789.
+(pdftex.def)             Requested size: 227.62204pt x 99.38411pt.
 
 Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
@@ -1388,7 +1394,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
  []
 
 [16 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
-io/Report/Images/ej1.png>]
+io/Report/Images/ej1-1.png>]
 Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
@@ -1398,62 +1404,14 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[17] <./Images/ejtp1-1.png, id=89, 445.665pt x 305.64188pt>
+[17 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
+io/Report/Images/ej1-2.png>]
+<./Images/ejtp1-1.png, id=90, 445.665pt x 305.64188pt>
 File: ./Images/ejtp1-1.png Graphic file (type png)
 
 <use ./Images/ejtp1-1.png>
-Package pdftex.def Info: ./Images/ejtp1-1.png used on input line 879.
+Package pdftex.def Info: ./Images/ejtp1-1.png used on input line 889.
 (pdftex.def)             Requested size: 284.52756pt x 195.13441pt.
-
-Overfull \hbox (13.57385pt too wide) has occurred while \output is active
-[]
- []
-
-
-Overfull \hbox (13.57385pt too wide) has occurred while \output is active
-[]
- []
-
-[18 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
-io/Report/Images/ejtp1-1.png>]
-<./Images/ejtp1-2.png, id=94, 475.02469pt x 298.11375pt>
-File: ./Images/ejtp1-2.png Graphic file (type png)
-
-<use ./Images/ejtp1-2.png>
-Package pdftex.def Info: ./Images/ejtp1-2.png used on input line 913.
-(pdftex.def)             Requested size: 284.52756pt x 178.5694pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 917--918
-
- []
-
-
-Overfull \hbox (13.57385pt too wide) has occurred while \output is active
-[]
- []
-
-
-Overfull \hbox (13.57385pt too wide) has occurred while \output is active
-[]
- []
-
-[19 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
-io/Report/Images/ejtp1-2.png>]
-Overfull \hbox (13.57385pt too wide) has occurred while \output is active
-[]
- []
-
-
-Overfull \hbox (13.57385pt too wide) has occurred while \output is active
-[]
- []
-
-[20] <./Images/ejemplo3-1.png, id=101, 399.4925pt x 290.08376pt>
-File: ./Images/ejemplo3-1.png Graphic file (type png)
-
-<use ./Images/ejemplo3-1.png>
-Package pdftex.def Info: ./Images/ejemplo3-1.png used on input line 1045.
-(pdftex.def)             Requested size: 284.52756pt x 206.61157pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1468,8 +1426,18 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[21]
-Underfull \hbox (badness 10000) in paragraph at lines 1080--1084
+[18] <./Images/ejtp1-2.png, id=95, 475.02469pt x 298.11375pt>
+File: ./Images/ejtp1-2.png Graphic file (type png)
+
+<use ./Images/ejtp1-2.png>
+Package pdftex.def Info: ./Images/ejtp1-2.png used on input line 921.
+(pdftex.def)             Requested size: 284.52756pt x 178.5694pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 926--927
 
  []
 
@@ -1483,9 +1451,73 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[22 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
+[19 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
+io/Report/Images/ejtp1-1.png>]
+<./Images/ej1-3.png, id=99, 453.94594pt x 300.3722pt>
+File: ./Images/ej1-3.png Graphic file (type png)
+ <use ./Images/ej1-3.png>
+Package pdftex.def Info: ./Images/ej1-3.png used on input line 957.
+(pdftex.def)             Requested size: 284.52756pt x 188.26839pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+[20 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
+io/Report/Images/ejtp1-2.png>]
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+[21 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
+io/Report/Images/ej1-3.png>]
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+[22] <./Images/ejemplo3-1.png, id=109, 399.4925pt x 290.08376pt>
+File: ./Images/ejemplo3-1.png Graphic file (type png)
+
+<use ./Images/ejemplo3-1.png>
+Package pdftex.def Info: ./Images/ejemplo3-1.png used on input line 1081.
+(pdftex.def)             Requested size: 284.52756pt x 206.61157pt.
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+[23 <C:/Users/Javier/Desktop/ASIGNATURAS/Metodos numericos II/Metodo-del-trapec
 io/Report/Images/ejemplo3-1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1110--1114
+Underfull \hbox (badness 10000) in paragraph at lines 1115--1119
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1145--1149
 
  []
 
@@ -1499,8 +1531,8 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[23]
-LaTeX Font Info:    Try loading font information for U+lasy on input line 1130.
+[24]
+LaTeX Font Info:    Try loading font information for U+lasy on input line 1164.
 
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -1517,17 +1549,17 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[24]
+[25]
 ("C:\Users\Javier\Desktop\ASIGNATURAS\Metodos numericos II\Metodo-del-trapecio\
 Report\MetodoDelTrapecio.aux")
 Package logreq Info: Writing requests to 'MetodoDelTrapecio.run.xml'.
  )
 (\end occurred when \iftrue on line 199 was incomplete) 
 Here is how much of TeX's memory you used:
- 21349 strings out of 493921
- 392552 string characters out of 3144874
- 564067 words of memory out of 3000000
- 24135 multiletter control sequences out of 15000+200000
+ 21364 strings out of 493921
+ 392832 string characters out of 3144874
+ 565067 words of memory out of 3000000
+ 24148 multiletter control sequences out of 15000+200000
  13875 words of font info for 92 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  62i,13n,56p,1194b,1735s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1552,9 +1584,9 @@ b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm
 10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplbi8a.pfb>
 
-Output written on MetodoDelTrapecio.pdf (25 pages, 404147 bytes).
+Output written on MetodoDelTrapecio.pdf (26 pages, 410744 bytes).
 PDF statistics:
- 176 PDF objects out of 1000 (max. 8388607)
+ 181 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 13882 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 13892 words of extra memory for PDF output out of 14400 (max. 10000000)
 

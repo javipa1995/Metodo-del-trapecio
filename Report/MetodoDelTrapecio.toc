@@ -25,16 +25,16 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.1}Ejemplo 1}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Ejemplo 2}{16}
+\contentsline {subsection}{\numberline {7.2}Ejemplo 2}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8}Ejercicios te\IeC {\'o}rico-pr\IeC {\'a}cticos}{17}
+\contentsline {section}{\numberline {8}Ejercicios te\IeC {\'o}rico-pr\IeC {\'a}cticos}{18}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.1}Ejercicio 1}{17}
+\contentsline {subsection}{\numberline {8.1}Ejercicio 1}{18}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {8.2}Ejercicio 2}{20}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.3}Ejercicio 3}{20}
+\contentsline {subsection}{\numberline {8.3}Ejercicio 3}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.4}Ejercicio 4}{22}
+\contentsline {subsection}{\numberline {8.4}Ejercicio 4}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{23}
+\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n}{25}
