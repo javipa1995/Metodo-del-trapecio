@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.2)  18 MAY 2016 10:49
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.3.2)  18 MAY 2016 11:17
 entering extended mode
 **MetodoDelTrapecio.tex
 
@@ -1500,7 +1500,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
  []
 
 [23]
-LaTeX Font Info:    Try loading font information for U+lasy on input line 1131.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 1133.
 
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -1552,7 +1552,7 @@ b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm
 10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/palatino/uplbi8a.pfb>
 
-Output written on MetodoDelTrapecio.pdf (25 pages, 403261 bytes).
+Output written on MetodoDelTrapecio.pdf (25 pages, 402355 bytes).
 PDF statistics:
  176 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

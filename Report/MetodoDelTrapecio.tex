@@ -489,7 +489,7 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
     \end{corollary}
 
     \begin{proof}
-        En el caso del método de Euler $\phi(t,y,h) = f(t,y)$. Por tanto, se cumplen las hipótesis del Teorema \ref{theorem:stability}. Además, el orden del método de Euler es 1, luego es convergente y, por tanto, consistente.
+        En el caso del método de Euler $\phi(t,y,h) = f(t,y)$. Por tanto, se cumplen las hipótesis del Teorema \ref{theorem:stability}. Además, el  del método de Euler es 1, luego es convergente y, por tanto, consistente.
     \end{proof}
 
 %-----------------------------------------------------------------------------------------------------
@@ -1122,7 +1122,9 @@ que era el resultado deseado.
 
 \section{Conclusión} \label{sec:conclusion}
 
-La resolución de numérica de problemas de valores iniciales puede ser una tarea compleja. Sin embargo, disponemos de métodos como el método de Euler que nos permite calcular una aproximación a la solución. Pese a ello, el coste comptuacional es muy grande y el método del Trapecio, ya se el explícito o el iterativo nos ayuda a conseguir dicha aproximación de forma más rápida y con un menor coste.
+La resolución de numérica de problemas de valores iniciales puede ser una tarea compleja. Sin embargo, disponemos de métodos como el método de Euler que nos permite calcular una aproximación a la solución. Pese a ello, el coste computacional es muy grande y el método del Trapecio, ya se el explícito o el iterativo nos ayuda a conseguir dicha aproximación de forma más rápida y con un menor coste.
+
+Además, el método del trapecio tiene un error local de orden tres y, en consecuencia, el error global es de orden dos. Más ventajas de este método es que es didáctico, que además da una introducción tanto a métodos implícitos (como el método del Trapecio Implícito o Iterativo) y a métodos de mayor orden que no dependen de las derivadas.
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: REFERENCIAS
