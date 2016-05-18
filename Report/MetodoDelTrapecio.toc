@@ -13,17 +13,17 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.1}Error local y global. Convergencia}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}Error de redondeo}{11}
+\contentsline {subsection}{\numberline {4.2}Error de redondeo}{12}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.3}Estabilidad y convergencia}{12}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5}M\IeC {\'e}todo del trapecio impl\IeC {\'\i }cito}{13}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{15}
+\contentsline {section}{\numberline {6}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Ejemplos}{15}
+\contentsline {section}{\numberline {7}Ejemplos}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Ejemplo 1}{15}
+\contentsline {subsection}{\numberline {7.1}Ejemplo 1}{16}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.2}Ejemplo 2}{16}
 \defcounter {refsection}{0}\relax 

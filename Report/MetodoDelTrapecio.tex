@@ -582,7 +582,7 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 			Considérese el desarrollo de Taylor de orden 1 con respecto de la variable $y$ para $f(t_i, w'_i)$ en el punto $(t_i,z_i)$:
 			$$ f(t_i, w'_i) = f(t_i, z_i) + \frac{\partial f}{\partial y}(t_i, z_i) (w'_i - z_i) = f(t_i, z_i) + O(h^2) $$
 			donde se ha usado que $z_i - w'_i$ es el error local del método de Euler y, por tanto, es de orden 2. Basta juntar las dos expresiones obtenidas para conseguir
-			$$ e_i \le \frac{h}{2} \left|f(t_i, z_i) - f(t_i, w_{i-1} + hf(t_{i-1}, w_{i-1})\right| + 0(h^3) =  \frac{h}{2} O(h^2) + 0(h^3) = O(h^3) $$
+			$$ e_i \le \frac{h}{2} \left|f(t_i, z_i) - f(t_i, w_{i-1} + hf(t_{i-1}, w_{i-1}))\right| + 0(h^3) =  \frac{h}{2} O(h^2) + 0(h^3) = O(h^3) $$
 
 			Por último, el Teorema \ref{theorem:local-global-error} implica que el error global es de orden 2.
 
@@ -590,21 +590,18 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 
 		\begin{proof} \textit{Prueba alternativa.}
 
-			Podemos particularizar la expresión del método para $j-1 = 0$ y $j=1$ como
-			$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$ siendo $K_0=f(t_0,y_0)$.
-
+			Podemos particularizar la expresión del método para $j-1 \equiv 0$ y $j \equiv 1$ como
+			$$y_1=y_0+\frac{h}{2}(f(t_0,y_0)+f(t_0+h,y_0+h K_0)$$ siendo $K_0=f(t_0,y_0)$.
+			
 			Para obtener el error local suponemos que $y_0$ es exacto, $y_0=y(t_0)$. Claramente, $K_0 = y'(t_0)$. Considerando el desarrollo de Taylor en varias variables para $K_1=f(t_0+h,y_0+h K_0)$ en el punto $(t_0,y_0)$ se tiene:
+			$$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$$
 
+			ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$.
 
-			$K_1 = f(t_0,y_0) + h \frac{\partial f(t_0,y_0)}{\partial t}+h K_0\frac{\partial f(t_0,y_0)}{\partial y}+O(h^{2})=y'(t_0)+hy''(t_0)+O(h^{2})$
+			Por lo tanto $$y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$$
 
-			ya que $\frac{\partial f(t,y(t))}{\partial t} = \frac{\partial f}{\partial t} + y'(t)\frac{\partial f}{\partial y}$
-
-			Por lo tanto $y_1=y_0+\frac{h}{2}(2y'(t_0)+hy''(t_0)+O(h^2))=y_0+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^3)$
-
-			Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es
-			$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$.
-
+			Por otro lado el desarrollo de $y(t_1)=y(t_0 + h)$ en torno a $t_0$ es:
+			$$y(t_1)=y(t_0)+hy'(t_0)+\frac{1}{2}h^{2}y''(t_0)+O(h^{3})$$
 			De donde obtenemos $y(t_1)-y_1=O(h^{3})$ y aplicando el teorema 2.3 sabemos que el error global es $O(h^{2})$.
 		\end{proof}
 
@@ -622,16 +619,21 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 		\end{figure}
 
 		En el caso del método del trapecio, si se toma $h=\frac{b-a}{n}$, entonces en cada uno de los $n$ pasos se comete un error de redondeo acotado por $\epsilon$ además del error local de truncatura $Ch^{3}$. Globalmente, por lo tanto, se obtiene el siguiente error
-		$$ n(\epsilon+Ch{3})=\frac{\epsilon}{h}+Ch^{2} $$
+		$$ n(\epsilon+Ch^{3})=\frac{\epsilon}{h}+Ch^{2} $$
 		En una situación ideal la cota $\epsilon$ será del orden de la precisión de la máquina $\mu$ y la constante $C$ será del orden del cubo de la constante de Lipschitz $L^3$ de modo que el valor óptimo para el paso $h$ se obtendría (derivando e igualando a cero) para $h=\frac{\sqrt[3]\mu}{L}$.
 
 		Sin embargo, el análisis es bastante más complicado que esto y existen al menos dos vías para su estudio. El primero es un modelo más pesimista que se pondría en el peor de los casos. El segundo es un modelo probabilista que se puede encontrar en el libro de Henrici ``Discrete Variable Methods in Ordinary Differential Equations''. Otros autores como Butcher en su libro ``Numerical Methods for Ordinary Differential Equations'' en vez de llevar a cabo un análisis detallado de la situación mencionan el uso del llamado algoritmo de Gill-Moller o "suma compensada". Este algoritmo persigue reducir los efectos de los errores de redondeo.\cite{Butcher}
 
 \subsection{Estabilidad y convergencia} \label{sec:trapecio-explicito:estabilidad}
 
-	El estudio de la estabilidad y convergencia del método del trapecio explícito es un corolario del Teorema \ref{theorem:stability}. En este caso $\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$. Asumiendo que $f$ es lipschitziana respecto de la segunda variable en  $\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ con constante de Lipschitz $L$ entonces:
-
-	$|\phi(t,y,h)-\phi(t,y',h)|=|\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y'))| \leq \frac{1}{2}L|y-y'|+\frac{1}{2}L|y+hf(t,y)-y'-hf(t,y')| \leq L |y-y'|+\frac{1}{2}L|hf(t,y)-hf(t,y')|=(L+\frac{1}{2}hL^{2})|y-y'|$
+	El estudio de la estabilidad y convergencia del método del trapecio explícito es un corolario del Teorema \ref{theorem:stability}. En este caso 
+	$$\phi(t,y,h)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))$$
+	Asumiendo que $f$ es lipschitziana respecto de la segunda variable en  $\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$ con constante de Lipschitz $L$ entonces:
+	
+	$|\phi(t,y,h)-\phi(t,y',h)|=|\frac{1}{2}f(t,y)+\frac{1}{2}f(t+h,y+hf(t,y))-\frac{1}{2}f(t,y')-\frac{1}{2}f(t+h,y'+hf(t,y'))| 
+	\leq 
+	\frac{1}{2}L|y-y'|+\frac{1}{2}L|y+hf(t,y)-y'-hf(t,y')| \leq L |y-y'|+\frac{1}{2}L|hf(t,y)-hf(t,y')|=(L+\frac{1}{2}hL^{2})|y-y'|$
+	
 
 	Por tanto, $\phi$ satisface una condición de Lipschitz sobre el conjunto
 	$\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$
@@ -641,7 +643,7 @@ donde a $\epsilon_0$ se le denomina perturbación del problema inicial. Cuando s
 
     Finalmente, si f es continua en $\{(t,y):a \leq t \leq b, y \in \mathbb{R}\}$, entonces $\phi$ es continua en  $\{(t,y,h):a \leq t \leq b, y \in \mathbb{R}, h \in [0,h_0]\}$ directamente por la propia definición de $\phi$.
 
-	De este modo se puede aplicar el Toerema \ref{theorem:stability} y se tiene demostrado que el método del trapecio es estable.
+	De este modo se puede aplicar el Teorema \ref{theorem:stability} y se tiene demostrado que el método del trapecio es estable.
 
 	Considerando ahora $\phi(t,y,0)=\frac{1}{2}f(t,y)+\frac{1}{2}f(t,y)=f(t,y)$ tenemos la condición de consistencia expresada anteriormente lo que nos dice que el método es convergente.
 
