@@ -88,7 +88,11 @@
 			\end{theorem}	
 		\end{frame}
 			
-		\begin{frame}{Método de discretización}		
+		\begin{frame}{Convergencia y consistencia}		
+			\fontsize{8}{8}\selectfont
+			
+			\textbf{Métodos de un paso:} $y_{i+1}=y_i + h \phi(t_i,y_i,h)$ donde $\phi$ es una función de $t, y$ y $h$ que, además, está definida en función de $f$.
+			
 			\begin{definition}
 			Un método de un paso se dice convergente respecto a la ecuación diferencial que aproxima (con función $f$ lipschitziana con respecto a la segunda variable) si:
 			$$ \lim_{n \rightarrow +\infty} \max_{i = 0 \ldots n} g_i = 0 $$
@@ -101,13 +105,13 @@
 		    \end{definition}
 		\end{frame}	
 			
-		\begin{frame}{Método de discretización}
+		\begin{frame}{Estabilidad}
 			\begin{definition}
 				Un método de discretización se dice estable si para cualquier PVI verificando que $f$ es lipschitziana respecto de la segunda variable y para cualquier perturbación de este PVI existen constantes positivas $h_0$ y $K$ tales que la diferencia entre las aproximaciones obtenidas para ambos PVI están acotadas por $K |y_0 - y'_0|$ para todo $h \in [0,h_0]$. Esto es, si $w_i$ son las aproximaciones obtenidas para el problema sin perturbar y $w'_i$ son las aproximaciones obtenidas para el problema perturbado, utilizando en ambos casos el mismo $h < h_0$, entonces $\left|w_i - w'_i\right| \le K |y_0 - y'_0|$ para todo $i$.
 			\end{definition}
 		\end{frame}
 		
-		\begin{frame}{Estabilidad y convergencia}
+		\begin{frame}{Estabilidad, convergencia y consistencia}
 			\begin{theorem}
 				Si un método de un paso anterior verifica que $\phi$ es continua en cada una de sus variables y, además, es lipschitziana respecto de la segunda variable en el correspondiente dominio para $h \in [0, h_0]$, entonces:
 				

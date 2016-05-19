@@ -386,9 +386,6 @@
 			g_i \le \frac{C h^k}{L} (e^{L(t_i-a)}-1)
 		\end{equation}
 	\end{theorem}
-	\begin{proof}
-		En breve.
-	\end{proof}
 
 	La siguiente definición pone nombre a las acotaciones del Teorema \ref{theorem:local-global-error}.
 
@@ -763,7 +760,7 @@ Considérese el ejemplo de problema de valores iniciales dado en la motivación.
 			\end{cases}
 		\end{equation*}
 
-			cuando se resuelve mediante el método de Euler y con el método del Trapecio Explícito e Iterativo, con paso $10^{-3}$. se obtienen la siguiente gráfica. El método del Trapecio Iterativo usa una tolerancia de $10^{-4}$.
+			cuando se resuelve mediante el método de Euler y con el método del Trapecio Explícito e Iterativo, con paso $10^{-3}$. se obtienen la siguiente gráfica. El método del Trapecio Iterativo se ha ejecutado con una tolerancia de $h^4 = 10^{-12}$ para el método de iteración funcional y tomando como aproximación inicial el método de Euler.
 
 			\begin{figure}[H]
 				\centering
@@ -876,7 +873,7 @@ A continuación se dibuja la gráfica de la función para ver la aproximación o
 		\label{fig:aprox1}
 	\end{figure}
 
-Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito e Iterativo. Además, se comparan los resultados con el método de Euler:
+Se realiza ahora el mismo esquema anterior, pero ahora con el método del Trapecio Explícito e Iterativo, este último con la misma configuración que en el Ejemplo 1. Además, se comparan los resultados con el método de Euler:
 
 		\begin{table}[H]
 			\centering
@@ -907,6 +904,7 @@ Se dibuja de nuevo la gráfica de la solución junto con las aproximaciones que 
 				\centering
 				\includegraphics[width=10cm]{./Images/ejtp1-2.png}
 				\caption{Aproximación a la solución con los métodos.}
+				\label{fig:aprox2}
 	\end{figure}
 
 Como se puede observar en las dos gráficas anteriores, el método del Trapecio Explícito e Iterativo convergen más rápidamente a la solución que el método de Euler, lo cual se debe a que son de orden 2 mientras que el de Euler es un método de orden 1.\\
