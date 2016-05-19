@@ -9,32 +9,32 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Introducci\IeC {\'o}n al m\IeC {\'e}todo del trapecio}{9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}M\IeC {\'e}todo del trapecio expl\IeC {\'\i }cito}{9}
+\contentsline {section}{\numberline {4}M\IeC {\'e}todo del trapecio expl\IeC {\'\i }cito}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Error local y global. Convergencia}{10}
+\contentsline {subsection}{\numberline {4.1}Error local y global. Convergencia}{11}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.2}Error de redondeo}{12}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}Estabilidad y convergencia}{12}
+\contentsline {subsection}{\numberline {4.3}Estabilidad y convergencia}{13}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}M\IeC {\'e}todo del trapecio impl\IeC {\'\i }cito}{13}
+\contentsline {section}{\numberline {5}M\IeC {\'e}todo del trapecio impl\IeC {\'\i }cito}{14}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {6}Ejemplos}{16}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.1}Ejemplo 1}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {6.2}Ejemplo 2}{16}
+\contentsline {subsection}{\numberline {6.2}Ejemplo 2}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7}Ejercicios te\IeC {\'o}rico-pr\IeC {\'a}cticos}{17}
+\contentsline {section}{\numberline {7}Ejercicios te\IeC {\'o}rico-pr\IeC {\'a}cticos}{18}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1}Ejercicio 1}{17}
+\contentsline {subsection}{\numberline {7.1}Ejercicio 1}{18}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.2}Ejercicio 2}{20}
+\contentsline {subsection}{\numberline {7.2}Ejercicio 2}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.3}Ejercicio 3}{20}
+\contentsline {subsection}{\numberline {7.3}Ejercicio 3}{21}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.4}Ejercicio 4}{22}
+\contentsline {subsection}{\numberline {7.4}Ejercicio 4}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{23}
+\contentsline {section}{\numberline {8}Art\IeC {\'\i }culo de investigaci\IeC {\'o}n}{24}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n. Ventajas y desventajas del m\IeC {\'e}todo}{24}
+\contentsline {section}{\numberline {9}Conclusi\IeC {\'o}n. Ventajas y desventajas del m\IeC {\'e}todo}{25}
