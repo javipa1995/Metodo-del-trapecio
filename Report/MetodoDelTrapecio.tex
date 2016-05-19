@@ -312,7 +312,7 @@
 
 	El objetivo de este trabajo es introducir un método de discretización para aproximar soluciones de problemas de valores iniciales que presente menor error de aproximación que el método de Euler y consiga resolver el Ejemplo \ref{ej:motivacion}. El método en cuestión se conoce como método del trapecio y presenta dos variantes denominadas explícita e implícita.
 
-	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método del trapecio explícito. En la Sección \ref{ejemplos} se introducen dos ejemplos que muestran el comportamiento de los métodos desarrollados. En la Sección  \ref{sec:ejtp} se proponen 4 ejercicios de ámbito teórico - práctico que discuten diferentes facetas del trabajo. En la Sección \ref{sec:paper} se resume el artículo de investigación Solving Differential Equations with Constructed Neural Networks, que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
+	El trabajo se organiza como sigue. En la Sección \ref{sec:previo} se explican algunas definiciones y resultados sobre la existencia y unicidad de las soluciones así como propiedades del error y estabilidad de los métodos. Estas definiciones y resultados serán necesarios posteriormente. En la Sección \ref{sec:intro-trapecio} se muestra la idea a partir de la cual surgen las diferentes versiones del método del trapecio. Posteriormente, en las Secciones \ref{sec:trapecio-explicito} y \ref{sec:trapecio-iterativo} se desarrollan los métodos del trapecio explícito e implícito respectivamente. Además, se muestra cómo los errores de redondeo afectan al comportamiento del método del trapecio explícito. En la Sección \ref{ejemplos} se introducen dos ejemplos que muestran el comportamiento de los métodos desarrollados. En la Sección  \ref{sec:ejtp} se proponen 4 ejercicios de ámbito teórico - práctico que discuten diferentes facetas del trabajo. En la Sección \ref{sec:paper} se resume el artículo de investigación Solving Differential Equations with Constructed Neural Networks \cite{nn-de}, que pone de manifiesto que la resolución de problemas de valores iniciales sigue siendo un tema abierto en la actualidad. Por último, en la Sección \ref{sec:conclusion} se destacan las conclusiones obtenidas y las ventajas y desventajas del método del trapecio.
 
 \section{Definiciones y resultados previos} \label{sec:previo}
 
@@ -1142,9 +1142,57 @@ que era el resultado deseado.
 
 \section{Artículo de investigación} \label{sec:paper}
 
-	En esta sección se expone el artículo Solving Differential Equations with Constructed Neural Networks \cite{articulo}.
+	En esta sección se expone el artículo Solving Differential Equations with Constructed Neural Networks \cite{nn-de}. De esta forma se pone de manifiesto que el desarrollo de métodos numéricos para aproximar soluciones de ecuaciones diferenciales sigue siendo un tema abierto.
 	
-	En él se desarrolla un método innovador para la resolución de ecuaciones diferenciales y ecuaciones diferenciales en derivadas parciales. El método crea soluciones de prueba en una red neuronal. Las soluciones de prueba se van mejorando periódicamente usando un procedimiento de optimización local. El método propuesto se ha probado en una serie de ecuaciones diferenciales así como en ecuaciones diferenciales en derivadas parciales.
+	En este trabajo se combinan los métodos numéricos con la inteligencia artificial. En concreto, el artículo presenta un método innovador para la resolución de ecuaciones diferenciales ordinarias, sistemas de ecuaciones diferenciales y ecuaciones diferenciales en derivadas parciales mediante el uso de redes neuronales y algoritmos evolutivos. A continuación se explica el funcionamiento para ecuaciones diferenciales ordinarias de un orden arbitrario. 
+		
+	El objetivo del método es encontrar una red neuronal que aproxime a la solución del problema de valores iniciales. Una red neuronal es una función $N: \mathbb{R}^d \rightarrow \mathbb{R}^{d'}$ que se define a partir de un grafo dirigido y ponderado, que consta de $c+1$ capas de nodos, una función $\phi: \mathbb{R} \rightarrow \mathbb{R}$ y un valor asociado a  cada nodo. Los nodos de la i-ésima capa solamente tienen arcos que van a los nodos de la capa $i+1$. La primera capa de nodos se denomina input layer o capa de entrada y adquiere el índice $0$. El número de nodos en esta capa es $d$ y cada uno de estos nodos representa una variable de entrada de la función. La última capa se denomina output layer o capa de salida. Esta capa consta de $d'$ nodos, que se corresponden con cada una de las variables de salida de la función. El resto de capas se denominan hidden layers o capas ocultas. La Figura \ref{fig:nn} muestra un ejemplo de grafo asociado a una red neuronal donde solo hay una capa oculta. Nótese que el número de nodos en cada capa puede ser distinto. Este número se denota $n_i$ para la capa i-ésima.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{./Images/nn.png}
+		\label{fig:nn}
+		\caption{Red neuronal con una capa oculta.}
+	\end{figure}
+	
+	El peso del arco que une el nodo $j$ de la capa $i$ con el nodo $k$ de la capa $i+1$ se denota $w_{jk}^{(i)}$. En caso de que no exista un arco que una ambos nodos, el peso puede considerarse $0$. El valor asociado a cada uno de los nodos se denomina bias. El bias del k-ésimo nodo de la capa i-ésima se denota $b_k^{(i)}$. Para cada capa con índice $i > 0$, se define una función por cada nodo de índice $k$, denotada $N_k^{(i)}$, de forma recursiva:
+	\begin{equation}
+		\begin{cases}
+			N_k^{(1)}(x_1, x_2, \ldots, x_d) = x_k \\
+			N_k^{(i+1)}(x_1, x_2, \ldots, x_d) = \phi(b_k^{(i)} + \sum_{j = 1}^{n_i} w_{jk}^{(i)} N_j^{(i)}(x_1, x_2, \ldots, x_d))  \\
+		\end{cases}
+	\end{equation}
+	
+	La función $N$ se define como $(N_1^{(c)}, N_2^{(c)},\ldots, N_{d'}^{(c)})$. Los autores toman $\phi(x) = \frac{1}{1 + e^{-x}}$. Por tanto, la función $N$ es diferenciable por las reglas de derivación, independientemente del resto de parátmetros.
+	
+	La red neuronal buscada debe tener una sola neurona en la capa de entrada y en la capa de salida ya que se busca una función real de una variable.
+	
+	
+	La ecuación diferencial a resolver se puede escribir de la siguiente forma:
+	\begin{equation} \label{eq:ode}
+		f(t, y, y^{1)}, y^{2)}, \ldots, y^{r)}) = 0, t \in [a,b]
+	\end{equation}
+	
+	Puesto que el orden de la ecuación diferencial es $r$, se requieren $r$ condiciones iniciales. Estas se pueden escribir como sigue:
+	\begin{equation}
+		\Psi_i(t, y, y^{1)}, y^{2)}, \ldots, y^{r-1)}) = 0 \ \forall \ i = 1, 2, \ldots, r
+	\end{equation}
+	
+	La red neuronal se entrena minimizando el error cometido en las condiciones iniciales y el error cometido en la ecuación \ref{eq:ode}. La fórmula del error utilizada para las condiciones inicales es la siguiente
+	\begin{equation}
+		\sum_{i=1}^{r}\Psi_i(t_0, y(t_0), y^{1)}(t_0), \ldots, y^{r-1)}(t_0))^2
+	\end{equation}
+	
+	Para medir el error cometido en la ecuación \ref{eq:ode}, se consideran $n+1$ puntos equidistantes, $t_i = a + ih \ \forall i = 0, 1, \dots, n$ donde $h = \frac{b-a}{n}$. El error cometido por la red neuronal se define únicamente sobre estos $n+1$ puntos:
+	\begin{equation}
+		\sum_{i=0}^{n}f(t_i, y(t_i), y^{1)}(t_i), \ldots, y^{r)}(t_i))^2
+	\end{equation}
+	
+	El error cometido al tomar una red neuronal como aproximación se mide como una media ponderada del error cometido por la red neuronal en las condiciones iniciales y el error cometido en la ecuación  
+	
+	El algoritmo evolutivo subyacente se denomina \textit{grammatical evolution}, que se puede traducir al español como evolución gramatical. Esta técnica consiste 
+	
+	El método crea soluciones de prueba en una red neuronal. Las soluciones de prueba se van mejorando periódicamente usando un procedimiento de optimización local. El método propuesto se ha probado en una serie de ecuaciones diferenciales así como en ecuaciones diferenciales en derivadas parciales.
 	
 	La red neuronal que se usa en el método usa un esquema basado en la evolución de la gramática, es decir, se tiene que usar gramáticas libres de contexto o, equivalentemente, que sigan una sintaxis BNF, que es un metalenguaje para expresar gramática libres de contexto.
 	

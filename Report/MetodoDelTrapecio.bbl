@@ -130,21 +130,6 @@
   \field{year}{1971}
 \endentry
 
-\entry{articulo}{article}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Ioannis~Tsoulos}{I.~T.}%
-     {Euripidis~Glavas}{E.~G.}%
-     {}{}%
-     {Dimitris~Gavrilis}{D.~G.}}%
-  }
-  \strng{namehash}{ITDGEG1}
-  \strng{fullhash}{ITDGEG1}
-  \field{sortinit}{I}
-  \field{title}{The numerical stability in solution of differential equations}
-  \field{year}{2009}
-\endentry
-
 \entry{sauer}{book}{}
   \name{author}{1}{}{%
     {{}%
@@ -161,6 +146,34 @@
   \field{sortinit}{S}
   \field{title}{Numerical Analysis}
   \field{year}{2006}
+\endentry
+
+\entry{nn-de}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Tsoulos}{T.}%
+     {Ioannis}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gavrilis}{G.}%
+     {Dimitris}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Glavas}{G.}%
+     {Euripidis}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TIGDGE1}
+  \strng{fullhash}{TIGDGE1}
+  \field{sortinit}{T}
+  \field{pages}{2385\bibrangedash 2391}
+  \field{title}{Solving differential equations with constructed neural
+  networks.}
+  \field{journaltitle}{Neurocomputing}
+  \field{year}{2009}
 \endentry
 
 \entry{Vitasek}{article}{}
