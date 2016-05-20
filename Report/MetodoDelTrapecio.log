@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.7)  20 MAY 2016 00:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.7)  20 MAY 2016 14:03
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1497,8 +1497,14 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 [24] <./Images/nn.png, id=117, 517.935pt x 256.96pt>
 File: ./Images/nn.png Graphic file (type png)
  <use ./Images/nn.png>
-Package pdftex.def Info: ./Images/nn.png used on input line 1153.
+Package pdftex.def Info: ./Images/nn.png used on input line 1156.
 (pdftex.def)             Requested size: 266.14978pt x 132.04768pt.
+
+<./Images/red.png, id=118, 535.2497pt x 250.68657pt>
+File: ./Images/red.png Graphic file (type png)
+ <use ./Images/red.png>
+Package pdftex.def Info: ./Images/red.png used on input line 1176.
+(pdftex.def)             Requested size: 354.86412pt x 166.21101pt.
 
 Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
@@ -1519,10 +1525,38 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[26]
-LaTeX Font Info:    Try loading font information for U+lasy on input line 1224.
+[26 <./Images/red.png>]
+<./Images/nn-error.png, id=126, 617.30624pt x 449.68pt>
+File: ./Images/nn-error.png Graphic file (type png)
 
- (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+<use ./Images/nn-error.png>
+Package pdftex.def Info: ./Images/nn-error.png used on input line 1220.
+(pdftex.def)             Requested size: 266.14978pt x 193.8801pt.
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+[27]
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Overfull \hbox (13.57385pt too wide) has occurred while \output is active
+[]
+ []
+
+[28 <./Images/nn-error.png>]
+LaTeX Font Info:    Try loading font information for U+lasy on input line 1248.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 
@@ -1537,7 +1571,7 @@ Overfull \hbox (13.57385pt too wide) has occurred while \output is active
 []
  []
 
-[27] (./MetodoDelTrapecio.aux
+[29] (./MetodoDelTrapecio.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 LaTeX Info: Redefining \. on input line 13.
@@ -1548,11 +1582,11 @@ Package logreq Info: Writing requests to 'MetodoDelTrapecio.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21774 strings out of 493085
- 394905 string characters out of 6136918
- 585565 words of memory out of 5000000
- 24726 multiletter control sequences out of 15000+600000
- 13920 words of font info for 94 fonts, out of 8000000 for 9000
+ 21793 strings out of 493085
+ 395276 string characters out of 6136918
+ 586567 words of memory out of 5000000
+ 24741 multiletter control sequences out of 15000+600000
+ 14028 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,13n,56p,1443b,1811s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1575,10 +1609,10 @@ ic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/latxfont/lasy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatin
 o/uplbi8a.pfb>
-Output written on MetodoDelTrapecio.pdf (28 pages, 441616 bytes).
+Output written on MetodoDelTrapecio.pdf (30 pages, 478064 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
+ 203 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 13887 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 13897 words of extra memory for PDF output out of 14400 (max. 10000000)
 

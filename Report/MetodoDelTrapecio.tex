@@ -1142,67 +1142,91 @@ que era el resultado deseado.
 
 \section{Artículo de investigación} \label{sec:paper}
 
-	En esta sección se expone el artículo Solving Differential Equations with Constructed Neural Networks \cite{nn-de}. De esta forma se pone de manifiesto que el desarrollo de métodos numéricos para aproximar soluciones de ecuaciones diferenciales sigue siendo un tema abierto.
+	En esta sección se expone el artículo Solving Differential Equations with Constructed Neural Networks \cite{nn-de}. De esta forma se pone de manifiesto que el desarrollo de métodos numéricos para aproximar soluciones de ecuaciones diferenciales sigue siendo un tema abierto en la actualidad.
 	
-	En este trabajo se combinan los métodos numéricos con la inteligencia artificial. En concreto, el artículo presenta un método innovador para la resolución de ecuaciones diferenciales ordinarias, sistemas de ecuaciones diferenciales y ecuaciones diferenciales en derivadas parciales mediante el uso de redes neuronales y algoritmos evolutivos. A continuación se explica el funcionamiento para ecuaciones diferenciales ordinarias de un orden arbitrario. 
+	En este trabajo se combinan los métodos numéricos con la inteligencia artificial. En concreto, el artículo presenta un método innovador para la resolución de ecuaciones diferenciales ordinarias, sistemas de ecuaciones diferenciales y ecuaciones diferenciales en derivadas parciales. Este método combina redes neuronales y algoritmos evolutivos con el fin de obtener una red neuronal final que aproxime a la solución de la ecuación diferencial. A continuación se explica el funcionamiento del método para ecuaciones diferenciales ordinarias de un orden arbitrario. 
 		
-	El objetivo del método es encontrar una red neuronal que aproxime a la solución del problema de valores iniciales. Una red neuronal es una función $N: \mathbb{R}^d \rightarrow \mathbb{R}^{d'}$ que se define a partir de un grafo dirigido y ponderado, que consta de $c+1$ capas de nodos, una función $\phi: \mathbb{R} \rightarrow \mathbb{R}$ y un valor asociado a  cada nodo. Los nodos de la i-ésima capa solamente tienen arcos que van a los nodos de la capa $i+1$. La primera capa de nodos se denomina input layer o capa de entrada y adquiere el índice $0$. El número de nodos en esta capa es $d$ y cada uno de estos nodos representa una variable de entrada de la función. La última capa se denomina output layer o capa de salida. Esta capa consta de $d'$ nodos, que se corresponden con cada una de las variables de salida de la función. El resto de capas se denominan hidden layers o capas ocultas. La Figura \ref{fig:nn} muestra un ejemplo de grafo asociado a una red neuronal donde solo hay una capa oculta. Nótese que el número de nodos en cada capa puede ser distinto. Este número se denota $n_i$ para la capa i-ésima.
+	El objetivo del método es encontrar una red neuronal que aproxime a la solución del problema de valores iniciales. Una red neuronal es una función $N: \mathbb{R}^d \rightarrow \mathbb{R}^{d'}$ que se define a partir de los siguientes elementos:
 	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.6\textwidth]{./Images/nn.png}
-		\label{fig:nn}
-		\caption{Red neuronal con una capa oculta.}
-	\end{figure}
-	
-	El peso del arco que une el nodo $j$ de la capa $i$ con el nodo $k$ de la capa $i+1$ se denota $w_{jk}^{(i)}$. En caso de que no exista un arco que una ambos nodos, el peso puede considerarse $0$. El valor asociado a cada uno de los nodos se denomina bias. El bias del k-ésimo nodo de la capa i-ésima se denota $b_k^{(i)}$. Para cada capa con índice $i > 0$, se define una función por cada nodo de índice $k$, denotada $N_k^{(i)}$, de forma recursiva:
+	\begin{enumerate}
+		\item Un grafo dirigido y ponderado construido a partir de $c+1$ capas de nodos. Los arcos que salen de los nodos de la i-ésima capa solamente van a los nodos de la capa $i+1$. La primera capa de nodos se denomina input layer o capa de entrada y adquiere el índice $0$. El número de nodos en esta capa es $d$ y cada uno de estos nodos representa una variable de entrada de la función. La última capa se denomina output layer o capa de salida. Esta capa consta de $d'$ nodos, que se corresponden con cada una de las variables de salida de la función. El resto de capas se denominan hidden layers o capas ocultas. La Figura \ref{fig:nn} muestra un ejemplo de grafo asociado a una red neuronal donde solo hay una capa oculta. Nótese que el número de nodos en cada capa puede ser distinto. El número de nodos de la i-ésima capa se denota $n_i$. El peso del arco que une el nodo $j$ de la capa $i$ con el nodo $k$ de la capa $i+1$ se denota $w_{jk}^{(i)}$. En caso de que no exista un arco que una ambos nodos, el peso puede considerarse $0$.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth]{./Images/nn.png}
+			\label{fig:nn}
+			\caption{Red neuronal con una capa oculta.}
+		\end{figure}
+		\item Una función $\phi: \mathbb{R} \rightarrow \mathbb{R}$ denominada función de activación.
+		\item Un valor asociado a cada nodo, denominado bias. El bias del k-ésimo nodo de la capa i-ésima se denota $b_k^{(i)}$
+	\end{enumerate}
+
+	 Para cada nodo se define una función, denotada $N_k^{(i)}$ para el k-ésimo nodo de la i-ésima capa, de forma recursiva:
 	\begin{equation}
 		\begin{cases}
-			N_k^{(1)}(x_1, x_2, \ldots, x_d) = x_k \\
+			N_k^{(0)}(x_1, x_2, \ldots, x_d) = x_k \\
 			N_k^{(i+1)}(x_1, x_2, \ldots, x_d) = \phi(b_k^{(i)} + \sum_{j = 1}^{n_i} w_{jk}^{(i)} N_j^{(i)}(x_1, x_2, \ldots, x_d))  \\
 		\end{cases}
 	\end{equation}
 	
-	La función $N$ se define como $(N_1^{(c)}, N_2^{(c)},\ldots, N_{d'}^{(c)})$. Los autores toman $\phi(x) = \frac{1}{1 + e^{-x}}$. Por tanto, la función $N$ es diferenciable por las reglas de derivación, independientemente del resto de parátmetros.
+	La función $N$ se define como $(N_1^{(c)}, N_2^{(c)},\ldots, N_{d'}^{(c)})$, esto es, la salida de la última capa. La definición de esta función imita a la estructura del cerebro, de ahí su nombre. La Figura \ref{fig:neuron} muestra de forma visual la función $N_k^{(i)}$ definida para un nodo que no sea de la capa de entrada.
 	
-	La red neuronal buscada debe tener una sola neurona en la capa de entrada y en la capa de salida ya que se busca una función real de una variable.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{./Images/red.png}
+		\label{fig:neuron}
+		\caption{Función definida para un nodo de la red neuronal.}
+	\end{figure}
 	
+	Las redes neuronales se utilizan para aproximar funciones de las cuales no se conoce su expresión. Por ejemplo, una de las aplicaciones de las redes neuronales es la resolución de problemas de regresión o, en este caso, la aproximación de soluciones de ecuaciones diferenciales. Para poder conseguir aproximar una función mediante una red neuronal es necesario entrenarla, esto es, modificar los pesos y bias para que la salida de la red neuronal sea la que se quiere. Entrenar una red neuronal es un problema de optimización. Hay que encontrar los parámetros para los cuales se minimiza el error cometido por la red neuronal. La idea para resolver este problema de optimización es fijar una entrada para la red neuronal y ver el error cometido como una función de sus parámetros (pesos y bias). Si el error es diferenciable, entonces se puede utilizar el método del descenso del gradiente para minimizarlo. Para que el error sea diferenciable hay que tomar una función de activación que también lo sea. En la literatura especializada lo más habitual es utilizar la función sigmoide, $\phi(x) = \frac{1}{1 + e^{-x}}$.
 	
-	La ecuación diferencial a resolver se puede escribir de la siguiente forma:
+	Uno de los algoritmos que utilizan el descenso del gradiente para optimizar los parámetros de una red neuronal es backpropagation. Este suele ser el método estándar para entrenar redes neuronales.
+	
+	En el caso particular de las ecuaciones diferenciales ordinarias, la función a aproximar es una función real de una variable real. Por tanto, se busca una red con un único nodo en la capa de entrada y en la capa de salida. La ecuación diferencial ordinaria a resolver se puede escribir como sigue:
 	\begin{equation} \label{eq:ode}
 		f(t, y, y^{1)}, y^{2)}, \ldots, y^{r)}) = 0, t \in [a,b]
 	\end{equation}
 	
-	Puesto que el orden de la ecuación diferencial es $r$, se requieren $r$ condiciones iniciales. Estas se pueden escribir como sigue:
+	
+	Puesto que el orden de la ecuación diferencial es $r$, se requieren $r$ condiciones iniciales. Estas se pueden escribir de la siguiente forma:
 	\begin{equation}
 		\Psi_i(t, y, y^{1)}, y^{2)}, \ldots, y^{r-1)}) = 0 \ \forall \ i = 1, 2, \ldots, r
 	\end{equation}
 	
-	La red neuronal se entrena minimizando el error cometido en las condiciones iniciales y el error cometido en la ecuación \ref{eq:ode}. La fórmula del error utilizada para las condiciones inicales es la siguiente
-	\begin{equation}
+	La red neuronal se entrena minimizando el error cometido en las condiciones iniciales y el error cometido en la ecuación (\ref{eq:ode}). La fórmula del error utilizada para las condiciones iniciales es la siguiente:
+	\begin{equation} \label{eq:error:condiciones-iniciales}
 		\sum_{i=1}^{r}\Psi_i(t_0, y(t_0), y^{1)}(t_0), \ldots, y^{r-1)}(t_0))^2
 	\end{equation}
 	
-	Para medir el error cometido en la ecuación \ref{eq:ode}, se consideran $n+1$ puntos equidistantes, $t_i = a + ih \ \forall i = 0, 1, \dots, n$ donde $h = \frac{b-a}{n}$. El error cometido por la red neuronal se define únicamente sobre estos $n+1$ puntos:
-	\begin{equation}
-		\sum_{i=0}^{n}f(t_i, y(t_i), y^{1)}(t_i), \ldots, y^{r)}(t_i))^2
+	Para medir el error cometido en la ecuación (\ref{eq:ode}), se consideran $n+1$ puntos equidistantes, $t_i = a + ih \ \forall i = 0, 1, \dots, n$ donde $h = \frac{b-a}{n}$. El error cometido por la red neuronal en (\ref{eq:ode}) se define únicamente sobre estos $n+1$ puntos:
+	\begin{equation} \label{eq:error:ecuacion-diferencial}
+	\sum_{i=0}^{n}f(t_i, N(t_i), N^{1)}(t_i), \ldots, N^{r)}(t_i))^2
 	\end{equation}
 	
-	El error cometido al tomar una red neuronal como aproximación se mide como una media ponderada del error cometido por la red neuronal en las condiciones iniciales y el error cometido en la ecuación  
+	El error total de aproximación que se pretende minimizar se mide como una media ponderada de los errores (\ref{eq:error:condiciones-iniciales}) y (\ref{eq:error:ecuacion-diferencial}).
 	
-	El algoritmo evolutivo subyacente se denomina \textit{grammatical evolution}, que se puede traducir al español como evolución gramatical. Esta técnica consiste 
+	Habitualmente este tipo de problemas se resuelve definiendo de antemano el grafo dirigido asociado a la red neuronal y optimizando posteriormente el resto de los parámetros. Sin embargo, este procedimiento conlleva una serie de pruebas hasta dar con el grafo dirigido apropiado. Por tanto, los autores del artículo deciden utilizar un algoritmo evolutivo denominado grammatical evolution que optimiza la estructura del grafo dirigido utilizado en la red neuronal \cite{grammatical-evolution}. 
 	
-	El método crea soluciones de prueba en una red neuronal. Las soluciones de prueba se van mejorando periódicamente usando un procedimiento de optimización local. El método propuesto se ha probado en una serie de ecuaciones diferenciales así como en ecuaciones diferenciales en derivadas parciales.
+	Se denomina grammatical evolution a la aplicación de algoritmos genéticos \cite{ga} a problemas de optimización en los que las soluciones del problema son palabras generadas por una gramática libre de contexto \cite{cfg}. Una palabra generada por la gramática libre de contexto se representa por un vector de enteros. Este vector indica qué reglas hay que utilizar para derivar la palabra a partir del símbolo inicial. La primera componente del vector indica cuál de las reglas que substituye el símbolo inicial se debe aplicar. Tras su uso, se busca la variable más a la izquierda de la palabra obtenida y se aplica la regla indicada por la segunda componente del vector. Este proceso se repite hasta obtener la palabra.
 	
-	La red neuronal que se usa en el método usa un esquema basado en la evolución de la gramática, es decir, se tiene que usar gramáticas libres de contexto o, equivalentemente, que sigan una sintaxis BNF, que es un metalenguaje para expresar gramática libres de contexto.
+	Los autores consideran solamente redes neuronales con una única capa oculta con el fin de que la red neuronal se pueda representar mediante una gramática libre de contexto. De esta forma, la población del algoritmo genético se puede inicializar con representaciones de redes neuronales aleatorias obtenidas por la gramática libre de contexto escogida. El valor objetivo de un elemento de la población es el error que comete la red neuronal asociada como aproximación de la solución de la ecuación diferencial. La población del algoritmo genético evoluciona mediante el uso de los operadores de selección, cruce y mutación como es habitual en la literatura especializada. Cada cierto número de iteraciones del algoritmo genético, se escogen varias redes neuronales de la población y se mejoran mediante backpropagation u otro algoritmo de entrenamiento. El método finaliza cuando se verifica determinado criterio elegido por el usuario. Este criterio puede ser número de iteraciones del algoritmo genético o cuando se consiga una red neuronal cuyo error sea menor que determinado umbral. La mejor red neuronal obtenida durante el proceso es el resultado del método.
 	
-	La evolución gramatical es una técnica que puede producir código en cualquier lenguaje de programación solamente requiriendo que el lenguaje siga la sintaxis BNF. El algoritmo empieza desde el símbolo inicial de la gramática y va creando gradualmente cadenas de texto siguiendo las reglas de la gramática. Para ello  es esencial el uso de cromosomas, que funcionan como vectores de enteros. Entonces, el algoritmo lee un elemento del cromosoma y selecciona una regla de la gramática de acorde con el valor escogido del cromosoma.
+	La Figura \ref{fig:nn-error} muestra la aproximación obtenida por la red neuronal calculada por el método para el PVI dado por $y' = \frac{2x - y}{x}$ y $y(1) = 3$. Se puede observar que la red neuronal aproxima casi perfectamente a la solución del problema.
+	
+	Una de las ventajas de este método es que el resultado es una función, al contrario de lo que sucede con los métodos de discretización. Además, se pueden realizar tantas iteraciones del algoritmo genético como se quiera, mejorando todavía más la aproximación obtenida. Sin embargo, el problema subyacente en este tipo de métodos es la dificultad para obtener resultados teóricos que proporcionen cotas del error o aseguren la convergencia y la estabilidad del método.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{./Images/nn-error.png}
+		\label{fig:nn-error}
+		\caption{Solución del PVI $y' = \frac{2x - y}{x}$ con condición inicial $y(1) = 3$ y red neuronal obtenida por el método.}
+	\end{figure}
 
 %-----------------------------------------------------------------------------------------------------
 %	SECCIÓN X: CONCLUSIÓN
 %-----------------------------------------------------------------------------------------------------
 
-\section{Conclusión. Ventajas y desventajas del método} \label{sec:conclusion}
+\section{Conclusión. Ventajas y desventajas del método del trapecio} \label{sec:conclusion}
 
 	En este trabajo se han desarrollado las versiones explícitas e implícitas del método del trapecio. Estos métodos han permitido resolver de forma aproximada problemas de valores iniciales para los cuales el método de Euler no obtenía resultados satisfactorios (véase la Figura \ref{fig:ej1}). Tras los estudios realizados, se pueden destacar las siguientes ventajas:
 	

@@ -130,6 +130,48 @@
   \field{year}{1971}
 \endentry
 
+\entry{ga}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Goldberg}{G.}%
+     {D.~E.}{D.~E.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Addison-Wesley}%
+  }
+  \strng{namehash}{GDE1}
+  \strng{fullhash}{GDE1}
+  \field{sortinit}{G}
+  \field{title}{Genetic Algorithms in Search, Optimization, and Machine
+  Learning}
+  \field{year}{1989}
+\endentry
+
+\entry{cfg}{book}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Hopcroft}{H.}%
+     {J.E.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ullman}{U.}%
+     {Jeffrey~D.}{J.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Addison-Wesley series in computer science}%
+  }
+  \strng{namehash}{HJUJD1}
+  \strng{fullhash}{HJUJD1}
+  \field{sortinit}{H}
+  \field{title}{Introduction to Automata Theory, Languages and Computation}
+  \field{year}{1979}
+\endentry
+
 \entry{sauer}{book}{}
   \name{author}{1}{}{%
     {{}%
@@ -146,6 +188,34 @@
   \field{sortinit}{S}
   \field{title}{Numerical Analysis}
   \field{year}{2006}
+\endentry
+
+\entry{grammatical-evolution}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Tsoulos}{T.}%
+     {I.}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gavrilis}{G.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Glavas}{G.}%
+     {E.}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TIGDGE1}
+  \strng{fullhash}{TIGDGE1}
+  \field{sortinit}{T}
+  \field{pages}{269\bibrangedash 277}
+  \field{title}{Neural network construction and training using grammatical
+  evolution}
+  \field{journaltitle}{Neurocomputing}
+  \field{year}{2008}
 \endentry
 
 \entry{nn-de}{article}{}
@@ -166,8 +236,8 @@
      {}{}%
      {}{}}%
   }
-  \strng{namehash}{TIGDGE1}
-  \strng{fullhash}{TIGDGE1}
+  \strng{namehash}{TIGDGE2}
+  \strng{fullhash}{TIGDGE2}
   \field{sortinit}{T}
   \field{pages}{2385\bibrangedash 2391}
   \field{title}{Solving differential equations with constructed neural
